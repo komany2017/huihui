@@ -1,0 +1,116 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+  padding-bottom: 40rpx;
+}
+
+// 搜索栏
+.searchBar {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm $spacing-lg;
+  gap: $spacing-md;
+}
+
+.searchInputWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: $color-bg-card;
+  border-radius: $radius-round;
+  padding: 0 $spacing-md;
+  height: 72rpx;
+}
+
+.searchIcon {
+  font-size: 32rpx;
+  margin-right: $spacing-sm;
+}
+
+.searchInput {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.cartWrap {
+  position: relative;
+  width: 72rpx;
+  height: 72rpx;
+  background: $color-bg-card;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartIcon {
+  font-size: 36rpx;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  padding: 0 8rpx;
+  background: $color-primary;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartBadgeText {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+// 分类
+.categoriesScroll {
+  white-space: nowrap;
+  padding: 0 $spacing-lg $spacing-md;
+}
+
+.category {
+  display: inline-block;
+  padding: 12rpx 32rpx;
+  background: $color-bg-card;
+  border-radius: $radius-button;
+  margin-right: $spacing-sm;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.categoryActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.categoryText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.categoryTextActive {
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+// 商品列表
+.productList {
+  padding: 0 $spacing-lg;
+}
+
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.productItem {
+  width: calc(50% - #{$spacing-sm} / 2);
+}

@@ -1,0 +1,317 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+}
+
+.scroll {
+  flex: 1;
+  padding: $spacing-md $spacing-lg 40rpx;
+}
+
+// 用户档案卡片
+.profileCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  padding-bottom: $spacing-md;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarText {
+  font-size: 40rpx;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+.profileInfo {
+  flex: 1;
+  margin-left: $spacing-md;
+}
+
+.profileNameRow {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-sm;
+}
+
+.profileName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.profileGender {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  padding: 2rpx 12rpx;
+  background: $color-bg-warm;
+  border-radius: $radius-round;
+}
+
+.profileMeta {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.profileEdit {
+  padding: $spacing-xs $spacing-sm;
+}
+
+.profileEditText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+}
+
+.profileGrid {
+  display: flex;
+  gap: $spacing-md;
+  padding-top: $spacing-md;
+}
+
+.profileCell {
+  flex: 1;
+}
+
+.cellLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+}
+
+.cellValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+// Section
+.section {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+.sectionAction {
+  padding: $spacing-xs $spacing-sm;
+}
+
+.sectionActionText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+}
+
+// 体质卡片
+.constitutionCard {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  background: linear-gradient(135deg, rgba(200, 54, 47, 0.08) 0%, rgba(232, 93, 86, 0.08) 100%);
+  border-radius: $radius-md;
+  border: 2rpx solid rgba(200, 54, 47, 0.12);
+}
+
+.constitutionLeft {
+  flex: 1;
+}
+
+.constitutionLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+}
+
+.constitutionName {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.constitutionDate {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.constitutionRight {
+  padding: 0 $spacing-sm;
+}
+
+.constitutionArrow {
+  font-size: 40rpx;
+  color: $color-primary;
+}
+
+// 空体质
+.emptyConstitution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-lg 0;
+}
+
+.emptyIcon {
+  font-size: 56rpx;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-top: $spacing-sm;
+}
+
+.emptyAction {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  margin-top: $spacing-sm;
+  font-weight: $font-weight-medium;
+}
+
+// 记录 tabs
+.recordTabs {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.recordTab {
+  flex: 1;
+  padding: $spacing-sm 0;
+  background: $color-bg-warm;
+  border-radius: $radius-button;
+  text-align: center;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.recordTabActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-color: $color-primary-dark;
+}
+
+.recordTabText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.recordTabTextActive {
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+// 记录列表
+.recordList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.recordItem {
+  padding: $spacing-md;
+  background: $color-bg-warm;
+  border-radius: $radius-md;
+  border-left: 6rpx solid $color-secondary;
+}
+
+.recordTop {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.recordTypeTag {
+  padding: 2rpx 12rpx;
+  background: $color-tag-bg;
+  border-radius: $radius-xs;
+}
+
+.recordTypeText {
+  font-size: 20rpx;
+  color: $color-secondary;
+}
+
+.recordDate {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.recordDelete {
+  padding: 4rpx $spacing-sm;
+}
+
+.recordDeleteText {
+  font-size: $font-size-xs;
+  color: $color-error;
+}
+
+.recordTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin-top: $spacing-sm;
+  display: block;
+}
+
+.recordContent {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-top: 8rpx;
+  display: block;
+  line-height: $line-height-loose;
+}
+
+// footer
+.footer {
+  padding: $spacing-md 0;
+  text-align: center;
+}
+
+.footerText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}

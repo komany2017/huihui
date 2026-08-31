@@ -1,0 +1,20 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.icon {
+  font-size: 96rpx;
+  margin-bottom: $spacing-md;
+  filter: drop-shadow(0 4rpx 8rpx rgba(43, 37, 32, 0.1));
+}
+
+.text {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}

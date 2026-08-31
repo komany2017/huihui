@@ -1,0 +1,130 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  width: 100%;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  margin-bottom: $spacing-md;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 320rpx;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.duration {
+  position: absolute;
+  top: $spacing-sm;
+  right: $spacing-sm;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: $radius-xs;
+  padding: 4rpx 12rpx;
+}
+
+.durationText {
+  font-size: $font-size-xs;
+  color: #fff;
+}
+
+.hot {
+  position: absolute;
+  top: $spacing-sm;
+  left: $spacing-sm;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-xs;
+  padding: 4rpx 12rpx;
+}
+
+.hotText {
+  font-size: $font-size-xs;
+  color: #fff;
+  font-weight: $font-weight-semibold;
+}
+
+.content {
+  padding: $spacing-md;
+}
+
+.name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+  @include text-ellipsis;
+}
+
+.intro {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+  line-height: $line-height-normal;
+  @include text-ellipsis-multi(2);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: $spacing-sm;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-md;
+}
+
+.priceWrap {
+  display: flex;
+  align-items: baseline;
+}
+
+.priceSymbol {
+  font-size: $font-size-sm;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.price {
+  font-size: $font-size-xxl;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+  margin-right: $spacing-xs;
+}
+
+.originalPrice {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  text-decoration: line-through;
+}
+
+.bookBtn {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  height: 64rpx;
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookBtnText {
+  font-size: $font-size-sm;
+  color: #fff;
+  white-space: nowrap;
+}

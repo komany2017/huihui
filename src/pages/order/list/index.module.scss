@@ -1,0 +1,171 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+// tabs
+.tabs {
+  display: flex;
+  background: $color-bg-card;
+  padding: $spacing-sm 0;
+  box-shadow: $shadow-card;
+}
+
+.tab {
+  flex: 1;
+  padding: $spacing-sm 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.tabActive {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48rpx;
+    height: 6rpx;
+    background: $color-primary;
+    border-radius: $radius-round;
+  }
+}
+
+.tabText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.tabTextActive {
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+// 列表
+.list {
+  flex: 1;
+  padding: $spacing-md $spacing-lg;
+}
+
+.orderCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: $spacing-sm;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.orderNo {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.orderStatus {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+// body
+.orderBody {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0;
+}
+
+.serviceCover {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-sm;
+  flex-shrink: 0;
+}
+
+.serviceInfo {
+  flex: 1;
+  margin-left: $spacing-md;
+  min-width: 0;
+}
+
+.serviceName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  display: block;
+}
+
+.storeName {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: 6rpx;
+  display: block;
+  @include text-ellipsis;
+}
+
+.timeText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 6rpx;
+  display: block;
+}
+
+.priceCol {
+  display: flex;
+  align-items: baseline;
+}
+
+.priceSymbol {
+  font-size: $font-size-sm;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.priceValue {
+  font-size: $font-size-xl;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+// footer
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $spacing-sm;
+  border-top: 2rpx solid $color-divider;
+}
+
+.createTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.detailBtn {
+  padding: $spacing-xs $spacing-sm;
+  border: 2rpx solid $color-primary;
+  border-radius: $radius-button;
+}
+
+.detailText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+}

@@ -1,0 +1,98 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  width: 100%;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: $spacing-md;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.imageWrap {
+  width: 200rpx;
+  height: 200rpx;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+  padding: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.alias {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  @include text-ellipsis;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  margin-top: 4rpx;
+}
+
+.meridian,
+.part {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.dot {
+  margin: 0 8rpx;
+  color: $color-text-tertiary;
+  font-size: $font-size-xs;
+}
+
+.location {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+  line-height: $line-height-normal;
+  @include text-ellipsis-multi(2);
+}
+
+.effects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: $spacing-xs;
+}
+
+.effectItem {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  background: rgba(200, 54, 47, 0.08);
+  padding: 2rpx 12rpx;
+  border-radius: $radius-xs;
+  white-space: nowrap;
+}

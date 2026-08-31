@@ -1,0 +1,267 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  padding: 0 $spacing-lg $spacing-xl;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+}
+
+// Banner
+.bannerSection {
+  margin-bottom: $spacing-lg;
+}
+
+.bannerScroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.bannerItem {
+  display: inline-block;
+  width: 686rpx;
+  height: 360rpx;
+  margin-right: $spacing-sm;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  position: relative;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+}
+
+.bannerMask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.bannerContent {
+  position: absolute;
+  bottom: $spacing-md;
+  left: $spacing-lg;
+  right: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+}
+
+.bannerTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.bannerDesc {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 4rpx;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8rpx;
+  margin-top: $spacing-sm;
+}
+
+.dot {
+  width: 16rpx;
+  height: 8rpx;
+  background: $color-border;
+  border-radius: $radius-xs;
+  transition: all $transition-base;
+}
+
+.dotActive {
+  width: 32rpx;
+  background: $color-primary;
+}
+
+// 功能宫格
+.functions {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-md $spacing-sm;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.functionItem {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: $spacing-md;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+.functionIcon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-xs;
+}
+
+.functionEmoji {
+  font-size: 48rpx;
+}
+
+.functionName {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+// 体质测试卡片
+.constitutionCard {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4rpx 16rpx rgba(200, 54, 47, 0.2);
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.constitutionLeft {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.constitutionTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  margin-bottom: 4rpx;
+}
+
+.constitutionDesc {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: $spacing-md;
+}
+
+.constitutionBtn {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: $radius-button;
+  padding: 8rpx 24rpx;
+}
+
+.constitutionBtnText {
+  font-size: $font-size-sm;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+.constitutionIconWrap {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-round;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.constitutionIcon {
+  font-size: 64rpx;
+}
+
+// Section
+.section {
+  margin-bottom: $spacing-lg;
+}
+
+.serviceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.productItem {
+  width: calc(50% - #{$spacing-sm} / 2);
+}
+
+// 预约入口
+.bookingCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.bookingLeft {
+  display: flex;
+  align-items: center;
+}
+
+.bookingIcon {
+  font-size: 56rpx;
+  margin-right: $spacing-md;
+}
+
+.bookingTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.bookingDesc {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.bookingArrow {
+  font-size: $font-size-xl;
+  color: $color-text-tertiary;
+}
+
+// Footer
+.footer {
+  padding: $spacing-lg 0;
+  text-align: center;
+}
+
+.footerText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}

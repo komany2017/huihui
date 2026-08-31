@@ -1,0 +1,185 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: $spacing-lg;
+  background: $color-bg-card;
+  box-shadow: $shadow-card;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.progressText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.progressPercent {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.progressBar {
+  height: 12rpx;
+  background: $color-divider;
+  border-radius: $radius-round;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-round;
+  transition: width $transition-base;
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-top: $spacing-sm;
+}
+
+// 题目卡片
+.questionCard {
+  margin: $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  flex: 1;
+}
+
+.questionNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  padding: 8rpx 24rpx;
+  margin-bottom: $spacing-md;
+}
+
+.questionNumberText {
+  font-size: $font-size-xs;
+  color: #fff;
+  font-weight: $font-weight-semibold;
+}
+
+.questionText {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  display: block;
+  margin-bottom: $spacing-xl;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.optionItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  background: $color-bg-warm;
+  border-radius: $radius-lg;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.optionActive {
+  border-color: $color-primary;
+  background: rgba(200, 54, 47, 0.05);
+}
+
+.optionIndicator {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: $radius-round;
+  border: 4rpx solid $color-border;
+  margin-right: $spacing-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+}
+
+.optionIndicatorActive {
+  background: $color-primary;
+  border-color: $color-primary;
+}
+
+.checkMark {
+  font-size: $font-size-sm;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+.optionLabel {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  flex: 1;
+}
+
+// 底部
+.footer {
+  padding: $spacing-lg;
+  display: flex;
+  gap: $spacing-md;
+}
+
+.prevBtn {
+  padding: 0 $spacing-lg;
+  height: 80rpx;
+  background: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prevBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.skipBtn {
+  flex: 1;
+  height: 80rpx;
+  background: $color-bg-warm;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.skipBtnText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}

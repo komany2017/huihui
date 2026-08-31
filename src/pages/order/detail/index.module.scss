@@ -1,0 +1,223 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding-bottom: 180rpx;
+}
+
+.emptyWrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 状态头
+.statusHeader {
+  padding: $spacing-xl $spacing-lg $spacing-lg;
+  color: #fff;
+}
+
+.statusText {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  display: block;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+.statusDesc {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: $spacing-sm;
+  display: block;
+}
+
+// Section
+.section {
+  margin: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+// 服务信息
+.serviceRow {
+  display: flex;
+  align-items: center;
+}
+
+.serviceCover {
+  width: 144rpx;
+  height: 108rpx;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+}
+
+.serviceInfo {
+  flex: 1;
+  margin-left: $spacing-md;
+}
+
+.serviceName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  display: block;
+  @include text-ellipsis;
+}
+
+.servicePrice {
+  font-size: $font-size-xl;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+  margin-top: 8rpx;
+  display: block;
+}
+
+// 门店
+.storeBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.storeName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  display: block;
+}
+
+.storeAddrRow {
+  display: flex;
+  align-items: flex-start;
+  margin-top: $spacing-sm;
+}
+
+.addrIcon {
+  font-size: $font-size-sm;
+  margin-right: $spacing-xs;
+}
+
+.storeAddr {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 信息行
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  padding: $spacing-sm 0;
+  border-bottom: 2rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.infoLabel {
+  width: 160rpx;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  flex-shrink: 0;
+}
+
+.infoValue {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+}
+
+.priceValue {
+  flex: 1;
+  font-size: $font-size-lg;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+// 提示
+.tipCard {
+  margin: $spacing-sm $spacing-lg $spacing-lg;
+  padding: $spacing-md;
+  background: rgba(214, 138, 0, 0.06);
+  border-radius: $radius-sm;
+  border: 2rpx solid rgba(214, 138, 0, 0.12);
+}
+
+.tipTitle {
+  font-size: $font-size-sm;
+  color: $color-warning;
+  font-weight: $font-weight-medium;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.tipList {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.tipText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 底部栏
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: $color-bg-card;
+  box-shadow: 0 -2rpx 12rpx rgba(43, 37, 32, 0.08);
+  padding: 0 $spacing-lg;
+  display: flex;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.cancelBtn {
+  flex: 1;
+  height: $button-height-lg;
+  background: $color-bg-card;
+  border: 2rpx solid $color-primary;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.cancelText {
+  font-size: $font-size-lg;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}

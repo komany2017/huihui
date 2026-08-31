@@ -1,0 +1,215 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: 180rpx;
+}
+
+// 卡片
+.addressCard,
+.listCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.cardTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-sm;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.label {
+  width: 120rpx;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.input {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+// 购物车商品
+.cartItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.itemImage {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-sm;
+  margin-right: $spacing-md;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  display: block;
+  @include text-ellipsis;
+}
+
+.itemSpec {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.itemBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-sm;
+}
+
+.itemPrice {
+  font-size: $font-size-md;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+.quantityCtrl {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.qtyBtn {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: $radius-round;
+  background: $color-bg-warm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.qtyBtnText {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+}
+
+.qtyText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  min-width: 40rpx;
+  text-align: center;
+}
+
+.removeBtn {
+  padding: $spacing-xs $spacing-sm;
+}
+
+.removeText {
+  font-size: $font-size-xs;
+  color: $color-error;
+}
+
+.clearBtn {
+  display: flex;
+  justify-content: center;
+  padding-top: $spacing-md;
+}
+
+.clearText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+// 底部栏
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: $color-bg-card;
+  box-shadow: 0 -2rpx 12rpx rgba(43, 37, 32, 0.08);
+  padding: 0 $spacing-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.totalWrap {
+  display: flex;
+  align-items: baseline;
+}
+
+.totalLabel {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.totalSymbol {
+  font-size: $font-size-md;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.totalValue {
+  font-size: 44rpx;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+.checkoutBtn {
+  flex: 1;
+  margin-left: $spacing-lg;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.checkoutText {
+  font-size: $font-size-lg;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}

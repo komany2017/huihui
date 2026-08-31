@@ -1,0 +1,226 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding-bottom: 160rpx;
+}
+
+.emptyWrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}
+
+// 主图
+.mainImageWrap {
+  position: relative;
+  width: 100%;
+  height: 600rpx;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+}
+
+.cartIconBtn {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-lg;
+  width: 72rpx;
+  height: 72rpx;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartIconText {
+  font-size: 36rpx;
+}
+
+// 价格卡片
+.priceCard {
+  margin: -$spacing-lg $spacing-lg 0;
+  position: relative;
+  z-index: 1;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: $spacing-xs;
+}
+
+.priceSymbol {
+  font-size: $font-size-md;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.price {
+  font-size: 56rpx;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+  margin-right: $spacing-sm;
+}
+
+.originalPrice {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  text-decoration: line-through;
+}
+
+.sales {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.productName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+// Section
+.section {
+  margin: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+.sectionContent {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.detailImage {
+  width: 100%;
+  margin-top: $spacing-md;
+  border-radius: $radius-sm;
+}
+
+// 规格
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.specItem {
+  padding: 12rpx 32rpx;
+  background: $color-bg-warm;
+  border-radius: $radius-button;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.specActive {
+  border-color: $color-primary;
+  background: rgba(200, 54, 47, 0.05);
+}
+
+.specText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.specTextActive {
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+// 底部栏
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: $color-bg-card;
+  box-shadow: 0 -2rpx 12rpx rgba(43, 37, 32, 0.08);
+  padding: 0 $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.actionBtnSecondary,
+.actionBtnPrimary {
+  flex: 1;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.actionBtnSecondary {
+  background: $color-bg-warm;
+  border: 2rpx solid $color-primary;
+}
+
+.actionTextSecondary {
+  font-size: $font-size-md;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.actionBtnPrimary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.actionTextPrimary {
+  font-size: $font-size-lg;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}

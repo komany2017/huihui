@@ -1,0 +1,89 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  padding: $spacing-md $spacing-lg $spacing-xl;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+}
+
+// 顶部入口
+.topEntries {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.entryCard {
+  flex: 1;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  display: flex;
+  align-items: center;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.entryIcon {
+  font-size: 48rpx;
+  margin-right: $spacing-sm;
+}
+
+.entryTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+}
+
+.entryDesc {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+// 分类
+.categories {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  overflow-x: auto;
+}
+
+.category {
+  flex-shrink: 0;
+  padding: 12rpx 32rpx;
+  background: $color-bg-card;
+  border-radius: $radius-button;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.categoryActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-color: $color-primary;
+}
+
+.categoryText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  white-space: nowrap;
+}
+
+.categoryTextActive {
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+// 列表
+.list {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,316 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding-bottom: 160rpx;
+}
+
+.emptyWrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}
+
+// 封面
+.coverWrap {
+  position: relative;
+  width: 100%;
+  height: 480rpx;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+}
+
+.coverMask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.coverInfo {
+  position: absolute;
+  bottom: $spacing-lg;
+  left: $spacing-lg;
+  right: $spacing-lg;
+}
+
+.serviceName {
+  font-size: 44rpx;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  display: block;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+}
+
+.serviceIntro {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8rpx;
+  display: block;
+  @include text-ellipsis-multi(2);
+}
+
+// 价格卡片
+.priceCard {
+  margin: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: $spacing-md;
+}
+
+.priceSymbol {
+  font-size: $font-size-md;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.price {
+  font-size: 56rpx;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+  margin-right: $spacing-sm;
+}
+
+.originalPrice {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  text-decoration: line-through;
+}
+
+.metaRow {
+  display: flex;
+  gap: $spacing-lg;
+  padding-top: $spacing-sm;
+  border-top: 2rpx solid $color-divider;
+}
+
+.metaItem {
+  flex: 1;
+}
+
+.metaLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+}
+
+.metaValue {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  margin-top: 4rpx;
+  display: block;
+}
+
+// Section
+.section {
+  margin: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: $spacing-sm;
+}
+
+.bullet {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  margin-right: $spacing-sm;
+  font-weight: $font-weight-bold;
+}
+
+.listText {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 流程
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+}
+
+.stepNum {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-md;
+  flex-shrink: 0;
+}
+
+.stepNumText {
+  font-size: $font-size-sm;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  display: block;
+}
+
+.stepDesc {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+  line-height: $line-height-normal;
+}
+
+// 注意事项
+.cautionList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.cautionItem {
+  display: flex;
+  align-items: flex-start;
+  background: rgba(214, 138, 0, 0.08);
+  border-radius: $radius-sm;
+  padding: $spacing-sm $spacing-md;
+}
+
+.cautionIcon {
+  font-size: $font-size-md;
+  margin-right: $spacing-sm;
+}
+
+.cautionText {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 底部栏
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: $color-bg-card;
+  box-shadow: 0 -2rpx 12rpx rgba(43, 37, 32, 0.08);
+  padding: 0 $spacing-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottomPrice {
+  display: flex;
+  align-items: baseline;
+}
+
+.bottomPriceSymbol {
+  font-size: $font-size-md;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.bottomPriceValue {
+  font-size: 44rpx;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+.bottomPriceUnit {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-left: 4rpx;
+}
+
+.bookBtn {
+  flex: 1;
+  margin-left: $spacing-lg;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.bookBtnText {
+  font-size: $font-size-lg;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}

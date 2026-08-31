@@ -1,0 +1,196 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+  padding-bottom: 40rpx;
+}
+
+// 搜索栏
+.searchBar {
+  padding: $spacing-sm $spacing-lg;
+}
+
+.searchInputWrap {
+  display: flex;
+  align-items: center;
+  background: $color-bg-card;
+  border-radius: $radius-round;
+  padding: 0 $spacing-md;
+  height: 72rpx;
+  box-shadow: $shadow-card;
+}
+
+.searchIcon {
+  font-size: 28rpx;
+  margin-right: $spacing-sm;
+}
+
+.searchInput {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.clearIcon {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  padding: 0 $spacing-xs;
+}
+
+// 热门搜索
+.hotSection {
+  padding: $spacing-sm $spacing-lg;
+}
+
+.hotTitle {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.hotWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.hotItem {
+  padding: 12rpx 28rpx;
+  background: $color-bg-card;
+  border-radius: $radius-button;
+  border: 2rpx solid $color-divider;
+  transition: all $transition-base;
+
+  &:active {
+    background: $color-bg-hover;
+  }
+}
+
+.hotText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+// 分类
+.categoriesScroll {
+  white-space: nowrap;
+  padding: $spacing-sm $spacing-lg $spacing-md;
+}
+
+.category {
+  display: inline-block;
+  padding: 12rpx 32rpx;
+  background: $color-bg-card;
+  border-radius: $radius-button;
+  margin-right: $spacing-sm;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.categoryActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.categoryText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.categoryTextActive {
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+// 列表头
+.listHeader {
+  padding: $spacing-sm $spacing-lg 0;
+}
+
+.listCount {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+// 列表
+.list {
+  padding: $spacing-sm $spacing-lg 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.diseaseCard {
+  display: flex;
+  align-items: center;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.cover {
+  width: 160rpx;
+  height: 120rpx;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  margin-left: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120rpx;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+}
+
+.name {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.alias {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-left: 4rpx;
+}
+
+.categoryTag {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 4rpx 16rpx;
+  background: $color-tag-bg;
+  border-radius: $radius-xs;
+  margin-top: 8rpx;
+}
+
+.categoryTagText {
+  font-size: 20rpx;
+  color: $color-secondary;
+}
+
+.symptomText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 8rpx;
+  @include text-ellipsis-multi(2);
+}
+
+.arrow {
+  font-size: 40rpx;
+  color: $color-text-disabled;
+  margin-left: $spacing-sm;
+}

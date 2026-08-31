@@ -1,0 +1,270 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding-bottom: 160rpx;
+}
+
+.emptyWrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 封面
+.coverWrap {
+  position: relative;
+  width: 100%;
+  height: 420rpx;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+}
+
+.coverMask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.coverInfo {
+  position: absolute;
+  bottom: $spacing-lg;
+  left: $spacing-lg;
+  right: $spacing-lg;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+}
+
+.name {
+  font-size: 48rpx;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+}
+
+.alias {
+  font-size: $font-size-md;
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: $spacing-sm;
+}
+
+.tagRow {
+  margin-top: $spacing-sm;
+}
+
+// Section
+.section {
+  margin: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+// 症状标签
+.symptomTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.symptomTag {
+  padding: 8rpx 20rpx;
+  background: $color-tag-bg;
+  border-radius: $radius-button;
+}
+
+.symptomTagText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+// 中医辨证
+.diagnosisText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+  display: block;
+}
+
+// 列表
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: $spacing-sm;
+}
+
+.bullet {
+  font-size: $font-size-md;
+  color: $color-primary;
+  margin-right: $spacing-sm;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-normal;
+}
+
+.listText {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+// 食疗方剂
+.recipes {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.recipeCard {
+  background: rgba(184, 137, 58, 0.06);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  border: 2rpx solid rgba(184, 137, 58, 0.12);
+}
+
+.recipeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: $spacing-sm;
+}
+
+.recipeName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-secondary;
+}
+
+.recipeEffect {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.recipeRow {
+  display: flex;
+  margin-bottom: $spacing-sm;
+}
+
+.recipeLabel {
+  width: 80rpx;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  flex-shrink: 0;
+}
+
+.recipeValue {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 注意事项
+.cautionList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.cautionItem {
+  display: flex;
+  align-items: flex-start;
+  background: rgba(214, 138, 0, 0.08);
+  border-radius: $radius-sm;
+  padding: $spacing-sm $spacing-md;
+}
+
+.cautionIcon {
+  font-size: $font-size-md;
+  margin-right: $spacing-sm;
+}
+
+.cautionText {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.disclaimer {
+  margin: $spacing-sm $spacing-lg $spacing-lg;
+  padding: $spacing-md;
+  background: rgba(154, 142, 133, 0.08);
+  border-radius: $radius-sm;
+}
+
+.disclaimerText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-normal;
+}
+
+// 底部栏
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: $color-bg-card;
+  box-shadow: 0 -2rpx 12rpx rgba(43, 37, 32, 0.08);
+  padding: 0 $spacing-lg;
+  display: flex;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.backBtn {
+  flex: 1;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.backBtnText {
+  font-size: $font-size-lg;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}

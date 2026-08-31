@@ -1,0 +1,448 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding-bottom: 40rpx;
+}
+
+// 用户卡片
+.userCard {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  padding: $spacing-xl $spacing-lg $spacing-lg;
+  position: relative;
+}
+
+.userHeader {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: $radius-round;
+  background: rgba(255, 255, 255, 0.25);
+  border: 4rpx solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarText {
+  font-size: 48rpx;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+.userInfo {
+  flex: 1;
+  margin-left: $spacing-md;
+}
+
+.userName {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  display: block;
+}
+
+.userDesc {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 4rpx;
+  display: block;
+}
+
+.editBtn {
+  padding: $spacing-xs $spacing-md;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: $radius-button;
+  border: 2rpx solid rgba(255, 255, 255, 0.4);
+}
+
+.editText {
+  font-size: $font-size-xs;
+  color: #fff;
+}
+
+// 统计
+.statsRow {
+  display: flex;
+  margin-top: $spacing-lg;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: $radius-md;
+  padding: $spacing-md 0;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: opacity $transition-base;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.statValue {
+  font-size: $font-size-xl;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 4rpx;
+}
+
+.statBadge {
+  position: absolute;
+  top: -4rpx;
+  right: 40rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  padding: 0 8rpx;
+  background: $color-warning;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #fff;
+}
+
+.statBadgeText {
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+// 快捷入口
+.quickSection {
+  margin: -#{$spacing-md} $spacing-lg 0;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg 0;
+  box-shadow: $shadow-card;
+  position: relative;
+  z-index: 2;
+}
+
+.quickGrid {
+  display: flex;
+}
+
+.quickItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity $transition-base;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.quickIcon {
+  font-size: 48rpx;
+}
+
+.quickName {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: $spacing-xs;
+}
+
+// Section
+.section {
+  margin: $spacing-md $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+// 体质
+.constitutionBlock {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  background: linear-gradient(135deg, rgba(200, 54, 47, 0.08) 0%, rgba(232, 93, 86, 0.08) 100%);
+  border-radius: $radius-md;
+  border: 2rpx solid rgba(200, 54, 47, 0.12);
+  transition: opacity $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.constitutionLeft {
+  flex: 1;
+}
+
+.constitutionLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+}
+
+.constitutionName {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.constitutionDate {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.arrow {
+  font-size: 40rpx;
+  color: $color-text-disabled;
+  margin-left: $spacing-sm;
+}
+
+// 档案行
+.recordRow {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  transition: opacity $transition-base;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.recordIcon {
+  font-size: $font-size-lg;
+  margin-right: $spacing-md;
+}
+
+.recordName {
+  flex: 1;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+// 设置项
+.settingItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md 0;
+  border-bottom: 2rpx solid $color-divider;
+  transition: opacity $transition-base;
+
+  &:active {
+    opacity: 0.7;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.settingIcon {
+  font-size: $font-size-lg;
+  margin-right: $spacing-md;
+}
+
+.settingName {
+  flex: 1;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+// footer
+.footer {
+  padding: $spacing-xl 0 $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.footerText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.footerVersion {
+  font-size: 20rpx;
+  color: $color-text-disabled;
+}
+
+// 编辑资料弹层
+.modalMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.modalContent {
+  width: 100%;
+  background: $color-bg-card;
+  border-radius: $radius-xl $radius-xl 0 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-lg;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.modalTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.modalClose {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  padding: 0 $spacing-xs;
+}
+
+.modalScroll {
+  padding: $spacing-lg;
+  max-height: 60vh;
+}
+
+.formRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-sm;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.formLabel {
+  width: 160rpx;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  flex-shrink: 0;
+}
+
+.formInput {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.formTextarea {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  min-height: 80rpx;
+  background: $color-bg-warm;
+  border-radius: $radius-sm;
+  padding: $spacing-sm;
+}
+
+.genderRow {
+  flex: 1;
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.genderItem {
+  flex: 1;
+  padding: $spacing-sm 0;
+  background: $color-bg-warm;
+  border-radius: $radius-button;
+  text-align: center;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.genderItemActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-color: $color-primary-dark;
+}
+
+.genderText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.genderTextActive {
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+.modalFooter {
+  display: flex;
+  padding: $spacing-lg;
+  gap: $spacing-md;
+  border-top: 2rpx solid $color-divider;
+}
+
+.modalCancel {
+  flex: 1;
+  height: $button-height-md;
+  background: $color-bg-warm;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalCancelText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.modalConfirm {
+  flex: 1;
+  height: $button-height-md;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalConfirmText {
+  font-size: $font-size-md;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}

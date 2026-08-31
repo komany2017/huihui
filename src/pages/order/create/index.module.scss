@@ -1,0 +1,356 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-page;
+}
+
+.scroll {
+  flex: 1;
+  padding: $spacing-md $spacing-lg;
+  padding-bottom: 180rpx;
+}
+
+.emptyWrap {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 服务卡片
+.serviceCard {
+  display: flex;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.serviceCover {
+  width: 160rpx;
+  height: 120rpx;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+}
+
+.serviceInfo {
+  flex: 1;
+  margin-left: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.serviceName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.serviceMeta {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.servicePrice {
+  font-size: $font-size-xl;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+  margin-top: 4rpx;
+}
+
+// Section
+.section {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+// 门店
+.storeItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  border: 2rpx solid $color-divider;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+}
+
+.storeItemActive {
+  border-color: $color-primary;
+  background: rgba(200, 54, 47, 0.04);
+}
+
+.storeInfo {
+  flex: 1;
+}
+
+.storeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.storeName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.storeDistance {
+  font-size: $font-size-xs;
+  color: $color-primary;
+}
+
+.storeAddress {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: 8rpx;
+  display: block;
+  line-height: $line-height-normal;
+}
+
+.storeMeta {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.radioWrap {
+  margin-left: $spacing-md;
+}
+
+.radio {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: $radius-round;
+  border: 2rpx solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radioActive {
+  border-color: $color-primary;
+  background: $color-primary;
+}
+
+.radioDot {
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: $font-weight-bold;
+}
+
+// 日期
+.dateScroll {
+  white-space: nowrap;
+}
+
+.dateItem {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120rpx;
+  padding: $spacing-sm 0;
+  background: $color-bg-warm;
+  border-radius: $radius-md;
+  margin-right: $spacing-sm;
+  border: 2rpx solid transparent;
+  transition: all $transition-base;
+}
+
+.dateItemActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-color: $color-primary-dark;
+}
+
+.dateLabel {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.dateLabelActive {
+  color: #fff;
+}
+
+.dateWeekday {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.dateWeekdayActive {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+// 时段
+.timeGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.timeItem {
+  width: calc(33.33% - #{$spacing-sm} * 2 / 3);
+  padding: $spacing-sm 0;
+  background: $color-bg-warm;
+  border-radius: $radius-md;
+  border: 2rpx solid transparent;
+  text-align: center;
+  transition: all $transition-base;
+}
+
+.timeItemActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-color: $color-primary-dark;
+}
+
+.timeText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.timeTextActive {
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+// 输入
+.inputRow {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 2rpx solid $color-divider;
+}
+
+.label {
+  width: 120rpx;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.input {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.textareaRow {
+  display: flex;
+  padding-top: $spacing-sm;
+}
+
+.textarea {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  min-height: 120rpx;
+  padding: $spacing-sm;
+  background: $color-bg-warm;
+  border-radius: $radius-sm;
+}
+
+// 预约须知
+.noticeCard {
+  background: rgba(214, 138, 0, 0.06);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  border: 2rpx solid rgba(214, 138, 0, 0.12);
+}
+
+.noticeTitle {
+  font-size: $font-size-sm;
+  color: $color-warning;
+  font-weight: $font-weight-medium;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.noticeList {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.noticeText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 底部栏
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: $color-bg-card;
+  box-shadow: 0 -2rpx 12rpx rgba(43, 37, 32, 0.08);
+  padding: 0 $spacing-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.priceWrap {
+  display: flex;
+  align-items: baseline;
+}
+
+.priceSymbol {
+  font-size: $font-size-md;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.priceValue {
+  font-size: 44rpx;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+.submitBtn {
+  flex: 1;
+  margin-left: $spacing-lg;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.submitText {
+  font-size: $font-size-lg;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}

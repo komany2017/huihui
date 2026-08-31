@@ -1,0 +1,261 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+}
+
+.scroll {
+  padding: $spacing-md $spacing-lg $spacing-xl;
+}
+
+// 头部
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(200, 54, 47, 0.2);
+}
+
+.headerTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.headerDate {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.9);
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.primaryCard {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.primaryBadge {
+  display: inline-block;
+  background: #fff;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-xs;
+  margin-bottom: $spacing-sm;
+}
+
+.primaryBadgeText {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.primaryName {
+  font-size: 56rpx;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.primaryScore {
+  font-size: $font-size-md;
+  color: rgba(255, 255, 255, 0.95);
+  display: block;
+}
+
+.secondaryInfo {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.85);
+  display: block;
+  margin-top: $spacing-xs;
+}
+
+// Section
+.section {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-sm;
+  border-left: 8rpx solid $color-primary;
+}
+
+// 条形图
+.barChart {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.barItem {
+  display: flex;
+  align-items: center;
+}
+
+.barLabel {
+  width: 120rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  flex-shrink: 0;
+}
+
+.barTrack {
+  flex: 1;
+  height: 32rpx;
+  background: $color-divider;
+  border-radius: $radius-round;
+  position: relative;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: $radius-round;
+  transition: width $transition-slow;
+}
+
+.barScore {
+  position: absolute;
+  right: 12rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+// 描述块
+.descBlock {
+  margin-bottom: $spacing-lg;
+}
+
+.descLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  font-weight: $font-weight-semibold;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.descText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8rpx;
+}
+
+.bullet {
+  font-size: $font-size-md;
+  color: $color-primary;
+  margin-right: $spacing-sm;
+  font-weight: $font-weight-bold;
+}
+
+.listText {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+// 调养建议
+.adviceBlock {
+  margin-bottom: $spacing-lg;
+  padding: $spacing-md;
+  background: $color-bg-warm;
+  border-radius: $radius-md;
+}
+
+.adviceHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.adviceIcon {
+  font-size: 32rpx;
+  margin-right: $spacing-sm;
+}
+
+.adviceTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+// 操作按钮
+.actionRow {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.actionSecondary,
+.actionPrimary {
+  flex: 1;
+  height: $button-height-lg;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.actionSecondary {
+  background: $color-bg-card;
+  border: 2rpx solid $color-primary;
+}
+
+.actionSecondaryText {
+  font-size: $font-size-md;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.actionPrimary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+}
+
+.actionPrimaryText {
+  font-size: $font-size-lg;
+  color: #fff;
+  font-weight: $font-weight-medium;
+}
+
+// 免责声明
+.disclaimer {
+  background: $color-bg-warm;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  border-left: 6rpx solid $color-secondary;
+}
+
+.disclaimerText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-normal;
+}

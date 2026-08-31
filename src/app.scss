@@ -1,0 +1,49 @@
+@use '@/styles/compat.scss';
+@use '@/styles/variables.scss' as *;
+
+// 全局样式
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB',
+    sans-serif;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-page;
+}
+
+// 页面通用容器：左右安全边距
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fdf8f0 0%, $color-bg-page 100%);
+}
+
+// 卡片基础样式
+.card-base {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  box-shadow: 0 2rpx 12rpx rgba(43, 37, 32, 0.06);
+}
+
+// 主按钮
+.btn-primary {
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  color: $color-text-white;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+// 安全底部 padding
+.safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 120rpx);
+}

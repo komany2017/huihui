@@ -1,0 +1,103 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  width: 100%;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 240rpx;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.hot {
+  position: absolute;
+  top: $spacing-xs;
+  left: $spacing-xs;
+  background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-light 100%);
+  border-radius: $radius-xs;
+  padding: 4rpx 12rpx;
+}
+
+.hotText {
+  font-size: $font-size-xs;
+  color: #fff;
+  font-weight: $font-weight-semibold;
+}
+
+.content {
+  padding: $spacing-sm;
+}
+
+.name {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+  @include text-ellipsis;
+}
+
+.efficacy {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+  @include text-ellipsis;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: $spacing-xs;
+}
+
+.bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: $spacing-sm;
+}
+
+.priceWrap {
+  display: flex;
+  align-items: baseline;
+}
+
+.priceSymbol {
+  font-size: $font-size-xs;
+  color: $color-price;
+  font-weight: $font-weight-semibold;
+}
+
+.price {
+  font-size: $font-size-xl;
+  color: $color-price;
+  font-weight: $font-weight-bold;
+}
+
+.unit {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-left: 4rpx;
+}
+
+.sales {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
