@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>颐养堂 · 后台管理系统</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- 登录视图 -->
+  <div id="loginView" class="login-wrap hidden">
+    <div class="login-card">
+      <div class="login-logo">颐养堂</div>
+      <div class="login-sub">中医健康服务 · 后台管理系统</div>
+      <div class="field"><label>账号</label><input id="loginUser" placeholder="请输入账号" value="admin" /></div>
+      <div class="field"><label>密码</label><input id="loginPass" type="password" placeholder="请输入密码" /></div>
+      <button id="loginBtn" class="btn primary block">登 录</button>
+      <div id="loginErr" class="login-err"></div>
+    </div>
+  </div>
+
+  <!-- 主视图 -->
+  <div id="mainView" class="layout hidden">
+    <aside class="sidebar">
+      <div class="brand">颐养堂<span>管理后台</span></div>
+      <nav id="nav">
+        <a data-tab="overview" class="active">数据概览</a>
+        <a data-tab="services">服务管理</a>
+        <a data-tab="products">商品管理</a>
+        <a data-tab="booking">预约订单</a>
+        <a data-tab="porder">商品订单</a>
+        <a data-tab="users">用户与档案</a>
+        <a data-tab="diseases">疾病管理</a>
+        <a data-tab="acupoints">穴位管理</a>
+        <a data-tab="settings">基础配置</a>
+      </nav>
+      <div class="sidebar-foot">
+        <button id="logoutBtn" class="btn ghost small">退出登录</button>
+      </div>
+    </aside>
+    <main class="content">
+      <div class="topbar"><h2 id="pageTitle">数据概览</h2><span id="apiBase" class="api-base"></span></div>
+      <div id="pageBody" class="page-body"></div>
+    </main>
+  </div>
+
+  <!-- 通用弹窗 -->
+  <div id="modalMask" class="modal-mask hidden">
+    <div class="modal">
+      <div class="modal-head"><span id="modalTitle">编辑</span><a id="modalClose" class="modal-x">×</a></div>
+      <div id="modalBody" class="modal-body"></div>
+      <div class="modal-foot">
+        <button id="modalCancel" class="btn ghost">取消</button>
+        <button id="modalSave" class="btn primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

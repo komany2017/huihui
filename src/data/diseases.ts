@@ -1,6 +1,6 @@
 import type { Disease } from '@/types/disease'
 
-export const DISEASE_CATEGORIES = [
+export let DISEASE_CATEGORIES: { id: string; name: string }[] = [
   { id: 'all', name: '全部' },
   { id: 'internal', name: '内科' },
   { id: 'gynecology', name: '妇科' },
@@ -8,9 +8,9 @@ export const DISEASE_CATEGORIES = [
   { id: 'surgery', name: '外科' }
 ]
 
-export const HOT_DISEASES = ['感冒', '失眠', '便秘', '痛经', '胃痛', '咳嗽', '高血压', '糖尿病']
+export let HOT_DISEASES: string[] = ['感冒', '失眠', '便秘', '痛经', '胃痛', '咳嗽', '高血压', '糖尿病']
 
-export const DISEASES: Disease[] = [
+export let DISEASES: Disease[] = [
   {
     id: 'd001',
     name: '感冒',
@@ -493,4 +493,15 @@ export function searchDiseases(keyword: string, category?: string): Disease[] {
     }
     return true
   })
+}
+
+// ============ 服务器目录同步 setter ============
+export function setDiseaseCategories(list: { id: string; name: string }[]) {
+  DISEASE_CATEGORIES = list
+}
+export function setHotDiseases(list: string[]) {
+  HOT_DISEASES = list
+}
+export function setDiseases(list: Disease[]) {
+  DISEASES = list
 }

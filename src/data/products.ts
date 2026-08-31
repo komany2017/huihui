@@ -1,6 +1,6 @@
 import type { Product } from '@/types/product'
 
-export const PRODUCT_CATEGORIES = [
+export let PRODUCT_CATEGORIES: { id: string; name: string }[] = [
   { id: 'all', name: '全部' },
   { id: 'tea', name: '养生茶饮' },
   { id: 'moxa', name: '艾灸用品' },
@@ -9,7 +9,7 @@ export const PRODUCT_CATEGORIES = [
   { id: 'tool', name: '理疗器具' }
 ]
 
-export const PRODUCTS: Product[] = [
+export let PRODUCTS: Product[] = [
   {
     id: 'p001',
     name: '九蒸九晒黑芝麻丸',
@@ -211,4 +211,12 @@ export const PRODUCTS: Product[] = [
 
 export function getProductById(id: string): Product | undefined {
   return PRODUCTS.find((p) => p.id === id)
+}
+
+// ============ 服务器目录同步 setter ============
+export function setProductCategories(list: { id: string; name: string }[]) {
+  PRODUCT_CATEGORIES = list
+}
+export function setProducts(list: Product[]) {
+  PRODUCTS = list
 }

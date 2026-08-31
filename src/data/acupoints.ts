@@ -22,7 +22,7 @@ export const ACUPOINT_EFFECTS = [
   '疲劳'
 ]
 
-export const ACUPOINTS: Acupoint[] = [
+export let ACUPOINTS: Acupoint[] = [
   {
     id: 'a001',
     name: '百会',
@@ -264,4 +264,9 @@ export function filterAcupoints(opts: { part?: string; effect?: string; keyword?
     }
     return true
   })
+}
+
+// ============ 服务器目录同步 setter ============
+export function setAcupoints(list: Acupoint[]) {
+  ACUPOINTS = list
 }

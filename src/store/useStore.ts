@@ -5,6 +5,7 @@ import type { BookingOrder } from '@/types/service'
 import type { ConstitutionResult } from '@/types/constitution'
 import type { HealthRecord, UserProfile } from '@/types/record'
 import { getStorageSync, setStorageSync, generateId } from '@/utils/storage'
+import { api } from '@/utils/api'
 
 interface AppState {
   // 购物车
@@ -98,6 +99,8 @@ export const useStore = create<AppState>((set, get) => ({
     const orders = [newOrder, ...get().productOrders]
     set({ productOrders: orders })
     setStorageSync('productOrders', orders)
+    // 上行同步到服务器（失败静默，本地兜底）
+    api.postProductOrder(newOrder).catch(() => {})
     // 清空购物车
     set({ cart: [] })
     setStorageSync('cart', [])
@@ -115,12 +118,15 @@ export const useStore = create<AppState>((set, get) => ({
     const orders = [newOrder, ...get().bookingOrders]
     set({ bookingOrders: orders })
     setStorageSync('bookingOrders', orders)
+    // 上行同步到服务器（失败静默，本地兜底）
+    api.postBookingOrder(newOrder).catch(() => {})
     return id
   },
   updateBookingStatus: (id, status) => {
     const orders = get().bookingOrders.map((o) => (o.id === id ? { ...o, status } : o))
     set({ bookingOrders: orders })
     setStorageSync('bookingOrders', orders)
+    api.patchBookingOrder(id, { status }).catch(() => {})
   },
 
   constitutionResults: [],
@@ -128,6 +134,7 @@ export const useStore = create<AppState>((set, get) => ({
     const results = [result, ...get().constitutionResults]
     set({ constitutionResults: results })
     setStorageSync('constitutionResults', results)
+    api.postConstitutionResult(result).catch(() => {})
   },
 
   healthRecords: [],
@@ -136,11 +143,13 @@ export const useStore = create<AppState>((set, get) => ({
     const records = [newRecord, ...get().healthRecords]
     set({ healthRecords: records })
     setStorageSync('healthRecords', records)
+    api.postHealthRecord(newRecord).catch(() => {})
   },
   deleteHealthRecord: (id) => {
     const records = get().healthRecords.filter((r) => r.id !== id)
     set({ healthRecords: records })
     setStorageSync('healthRecords', records)
+    api.deleteHealthRecord(id).catch(() => {})
   },
 
   userProfile: DEFAULT_PROFILE,
@@ -148,6 +157,7 @@ export const useStore = create<AppState>((set, get) => ({
     const newProfile = { ...get().userProfile, ...profile, updatedAt: new Date().toISOString() }
     set({ userProfile: newProfile })
     setStorageSync('userProfile', newProfile)
+    api.putProfile(newProfile).catch(() => {})
   },
 
   initFromStorage: () => {

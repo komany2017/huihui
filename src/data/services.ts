@@ -1,6 +1,6 @@
 import type { ServiceItem, Store } from '@/types/service'
 
-export const SERVICE_CATEGORIES = [
+export let SERVICE_CATEGORIES: { id: string; name: string }[] = [
   { id: 'all', name: '全部' },
   { id: 'guasha', name: '刮痧' },
   { id: 'cupping', name: '拔罐' },
@@ -9,7 +9,7 @@ export const SERVICE_CATEGORIES = [
   { id: 'acupuncture', name: '针灸' }
 ]
 
-export const SERVICES: ServiceItem[] = [
+export let SERVICES: ServiceItem[] = [
   {
     id: 's001',
     name: '背部循经刮痧',
@@ -168,7 +168,7 @@ export const SERVICES: ServiceItem[] = [
   }
 ]
 
-export const STORES: Store[] = [
+export let STORES: Store[] = [
   {
     id: 'st001',
     name: '颐养堂·城西旗舰店',
@@ -216,7 +216,7 @@ export function getStoreById(id: string): Store | undefined {
 }
 
 // 预约时间槽
-export const BOOKING_TIME_SLOTS = [
+export let BOOKING_TIME_SLOTS: string[] = [
   '09:00-10:00',
   '10:00-11:00',
   '11:00-12:00',
@@ -227,3 +227,17 @@ export const BOOKING_TIME_SLOTS = [
   '19:00-20:00',
   '20:00-21:00'
 ]
+
+// ============ 服务器目录同步 setter（后台管理修改后覆盖本地默认值，ESM live binding） ============
+export function setServiceCategories(list: { id: string; name: string }[]) {
+  SERVICE_CATEGORIES = list
+}
+export function setServices(list: ServiceItem[]) {
+  SERVICES = list
+}
+export function setStores(list: Store[]) {
+  STORES = list
+}
+export function setTimeSlots(list: string[]) {
+  BOOKING_TIME_SLOTS = list
+}
