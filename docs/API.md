@@ -1,4 +1,4 @@
-# 颐养堂后台服务 · 接口文档
+# 润泉养元后台服务 · 接口文档
 
 - Base URL：`http://localhost:3000`（真机调试改为局域网 IP）
 - 响应格式：`{ "code": 0, "data": ... }`；`code !== 0` 或非 2xx 状态码表示失败，失败时含 `msg` 字段
@@ -244,7 +244,19 @@ PUT /api/admin/catalog/categories     Body: { "kind": "service|product|disease",
   "bloodType": "A", "allergy": "无", "chronicDisease": "无", "updatedAt": "ISO时间" }
 ```
 
-### 3.10 服务器存储文件（server/data/db.json）
+### 3.10 服务器数据存储（MySQL / JSON 双模式）
+
+数据层（`server/store.js`）为双驱动：配置 `MYSQL_HOST` 环境变量时使用 MySQL，否则使用 JSON 文件 `server/data/db.json`（连接失败亦自动回退）。两种模式下**接口与数据结构完全一致**。
+
+**MySQL 表结构**（首次启动自动建表）：
+
+| 表名 | 主键 | 说明 |
+|---|---|---|
+| `catalog_entities` | (`type`, `id`) | 服务/门店/商品/疾病/穴位，`data JSON` 存实体载荷 |
+| `catalog_config` | `name` | `timeSlots` / `hotDiseases` / `categories:service` 等，`data JSON` |
+| `users` | `device_id` | 用户数据分区（资料/订单/报告/档案），`data JSON` |
+
+**JSON 文件结构**（`server/data/db.json`，同为 MySQL 迁移源格式）：
 
 ```jsonc
 {
@@ -266,7 +278,7 @@ PUT /api/admin/catalog/categories     Body: { "kind": "service|product|disease",
 }
 ```
 
-> 首次启动服务时，`seed.js` 自动解析小程序静态数据（`src/data/*.ts`）生成初始库；之后一切以 `db.json` 为准。
+> 首次启动服务时，`seed.js` 解析小程序静态数据（`src/data/*.ts`）构建初始目录；空库且存在 `db.json` 时（切用 MySQL）会先自动迁移再播种。之后一切以数据库为准。
 
 ---
 

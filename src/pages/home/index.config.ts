@@ -1,5 +1,5 @@
 export default definePageConfig({
-  navigationBarTitleText: '颐养堂',
+  navigationBarTitleText: '润泉养元',
   enablePullDownRefresh: true,
   backgroundTextStyle: 'dark'
 })

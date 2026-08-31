@@ -171,8 +171,8 @@ export let SERVICES: ServiceItem[] = [
 export let STORES: Store[] = [
   {
     id: 'st001',
-    name: '颐养堂·城西旗舰店',
-    address: '杭州市西湖区文三路 88 号颐养堂大厦 3 楼',
+    name: '润泉养元·城西旗舰店',
+    address: '杭州市西湖区文三路 88 号润泉养元大厦 3 楼',
     phone: '0571-88888001',
     distance: 1.2,
     businessHours: '09:00 - 21:00',
@@ -180,7 +180,7 @@ export let STORES: Store[] = [
   },
   {
     id: 'st002',
-    name: '颐养堂·武林银泰店',
+    name: '润泉养元·武林银泰店',
     address: '杭州市下城区体育场路 333 号银泰百货 5 楼',
     phone: '0571-88888002',
     distance: 3.8,
@@ -189,7 +189,7 @@ export let STORES: Store[] = [
   },
   {
     id: 'st003',
-    name: '颐养堂·滨江星光店',
+    name: '润泉养元·滨江星光店',
     address: '杭州市滨江区江南大道 666 号星光时代广场 2 楼',
     phone: '0571-88888003',
     distance: 5.5,
@@ -198,7 +198,7 @@ export let STORES: Store[] = [
   },
   {
     id: 'st004',
-    name: '颐养堂·钱江新城店',
+    name: '润泉养元·钱江新城店',
     address: '杭州市江干区钱江新城丹桂街 1 号来福士广场 4 楼',
     phone: '0571-88888004',
     distance: 7.9,

@@ -184,7 +184,7 @@ const HomePage: React.FC = () => {
       </View>
 
       <View className={styles.footer}>
-        <Text className={styles.footerText}>颐养堂 · 守护您的健康</Text>
+        <Text className={styles.footerText}>润泉养元 · 守护您的健康</Text>
       </View>
     </View>
   );

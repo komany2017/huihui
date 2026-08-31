@@ -1,11 +1,12 @@
 // ============================================
 // 零依赖 JSON 文件数据库
-// 数据文件: server/data/db.json
+// 数据文件: <DATA_DIR>/db.json（DATA_DIR 可用环境变量配置，默认 server/data）
 // ============================================
 const fs = require('fs')
 const path = require('path')
 
-const DATA_DIR = path.join(__dirname, 'data')
+// 数据目录：支持绝对路径或相对项目根目录的路径
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.cwd(), process.env.DATA_DIR) : path.join(__dirname, 'data')
 const DB_FILE = path.join(DATA_DIR, 'db.json')
 
 let db = null

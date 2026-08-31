@@ -1,7 +1,7 @@
 // ============================================
-// 颐养堂后台服务（零依赖 Node.js，>=18）
+// 润泉养元后台服务（Node.js >= 18）
 // - REST API：小程序数据同步 + 后台管理
-// - 数据存储：server/data/db.json（JSON 文件库）
+// - 数据存储：MySQL（配置 MYSQL_* 环境变量时）或 JSON 文件库（默认/回退）
 // - 管理后台：http://localhost:3000/admin/（默认账号 admin / admin123）
 // ============================================
 const http = require('http')
@@ -9,13 +9,12 @@ const fs = require('fs')
 const path = require('path')
 const os = require('os')
 const crypto = require('crypto')
-const db = require('./db')
-const { seedIfEmpty } = require('./seed')
+const store = require('./store')
+const { ENTITY_TYPES } = require('./store')
 
 const PORT = Number(process.env.PORT || 3000)
 const ADMIN_USER = process.env.ADMIN_USER || 'admin'
 const ADMIN_PASS = process.env.ADMIN_PASS || 'admin123'
-
 // 会话 token（内存态，重启失效）
 const tokens = new Map()
 
@@ -55,13 +54,6 @@ function nowISO() {
   return new Date().toISOString()
 }
 
-// 通用：目录集合 CRUD（对象型数组，按 id）
-const ENTITY_TYPES = ['services', 'stores', 'products', 'diseases', 'acupoints']
-
-function getCollection(type) {
-  return db.get().catalog[type]
-}
-
 // ---------- 路由分发 ----------
 async function route(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`)
@@ -74,84 +66,92 @@ async function route(req, res) {
 
   // ============ 小程序公开 API ============
   if (p === '/api/catalog' && method === 'GET') {
-    return json(res, 200, { code: 0, data: db.get().catalog })
+    return json(res, 200, { code: 0, data: await store.getCatalog() })
   }
 
   let m = p.match(/^\/api\/user\/([^/]+)$/) // /api/user/:deviceId
   if (m && method === 'GET') {
-    const u = db.getUser(decodeURIComponent(m[1]))
-    return json(res, 200, { code: 0, data: u })
+    const deviceId = decodeURIComponent(m[1])
+    return json(res, 200, { code: 0, data: await store.getUserDoc(deviceId) })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/profile$/) // PUT profile
   if (m && method === 'PUT') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     u.profile = { ...(u.profile || {}), ...body, updatedAt: nowISO() }
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0, data: u.profile })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/booking-orders$/) // POST 预约订单
   if (m && method === 'POST') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     if (!body.id) return json(res, 400, { code: 1, msg: '缺少订单 id' })
     u.bookingOrders = [body, ...u.bookingOrders.filter((o) => o.id !== body.id)]
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/booking-orders\/([^/]+)$/) // PATCH 状态
   if (m && method === 'PATCH') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     const o = u.bookingOrders.find((x) => x.id === m[2])
     if (!o) return json(res, 404, { code: 1, msg: '订单不存在' })
     Object.assign(o, body)
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/product-orders$/) // POST 商品订单
   if (m && method === 'POST') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     if (!body.id) return json(res, 400, { code: 1, msg: '缺少订单 id' })
     u.productOrders = [body, ...u.productOrders.filter((o) => o.id !== body.id)]
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/product-orders\/([^/]+)$/) // PATCH 状态
   if (m && method === 'PATCH') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     const o = u.productOrders.find((x) => x.id === m[2])
     if (!o) return json(res, 404, { code: 1, msg: '订单不存在' })
     Object.assign(o, body)
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/constitution-results$/) // POST 体质报告（同 id 覆盖旧记录）
   if (m && method === 'POST') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     if (!body.id) return json(res, 400, { code: 1, msg: '缺少 id' })
     u.constitutionResults = [body, ...u.constitutionResults.filter((r) => r.id !== body.id)]
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/health-records$/) // POST 健康档案
   if (m && method === 'POST') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     if (!body.id) return json(res, 400, { code: 1, msg: '缺少 id' })
     u.healthRecords = [body, ...u.healthRecords]
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/health-records\/([^/]+)$/) // DELETE 档案
   if (m && method === 'DELETE') {
-    const u = db.getUser(decodeURIComponent(m[1]))
+    const deviceId = decodeURIComponent(m[1])
+    const u = await store.getUserDoc(deviceId)
     u.healthRecords = u.healthRecords.filter((r) => r.id !== m[2])
-    db.save()
+    await store.saveUserDoc(deviceId, u)
     return json(res, 200, { code: 0 })
   }
 
@@ -169,27 +169,26 @@ async function route(req, res) {
     if (!authOk(req)) return json(res, 401, { code: 1, msg: '未登录或登录已过期' })
 
     if (p === '/api/admin/overview' && method === 'GET') {
-      const d = db.get()
-      const users = Object.values(d.users)
+      const [catalog, userDocs] = await Promise.all([store.getCatalog(), store.listUserDocs()])
       return json(res, 200, {
         code: 0,
         data: {
-          userCount: users.length,
-          bookingOrders: users.reduce((s, u) => s + u.bookingOrders.length, 0),
-          productOrders: users.reduce((s, u) => s + u.productOrders.length, 0),
-          healthRecords: users.reduce((s, u) => s + u.healthRecords.length, 0),
-          constitutionResults: users.reduce((s, u) => s + u.constitutionResults.length, 0),
-          serviceCount: d.catalog.services.length,
-          productCount: d.catalog.products.length,
-          diseaseCount: d.catalog.diseases.length,
-          acupointCount: d.catalog.acupoints.length
+          userCount: userDocs.length,
+          bookingOrders: userDocs.reduce((s, x) => s + x.doc.bookingOrders.length, 0),
+          productOrders: userDocs.reduce((s, x) => s + x.doc.productOrders.length, 0),
+          healthRecords: userDocs.reduce((s, x) => s + x.doc.healthRecords.length, 0),
+          constitutionResults: userDocs.reduce((s, x) => s + x.doc.constitutionResults.length, 0),
+          serviceCount: catalog.services.length,
+          productCount: catalog.products.length,
+          diseaseCount: catalog.diseases.length,
+          acupointCount: catalog.acupoints.length
         }
       })
     }
 
     if (p === '/api/admin/users' && method === 'GET') {
-      const d = db.get()
-      const list = Object.entries(d.users).map(([deviceId, u]) => ({
+      const userDocs = await store.listUserDocs()
+      const list = userDocs.map(({ deviceId, doc: u }) => ({
         deviceId,
         profile: u.profile,
         counts: {
@@ -204,15 +203,15 @@ async function route(req, res) {
 
     m = p.match(/^\/api\/admin\/user\/([^/]+)$/) // 用户详情
     if (m && method === 'GET') {
-      return json(res, 200, { code: 0, data: db.getUser(decodeURIComponent(m[1])) })
+      return json(res, 200, { code: 0, data: await store.getUserDoc(decodeURIComponent(m[1])) })
     }
 
     if (p === '/api/admin/orders' && method === 'GET') {
       const type = url.searchParams.get('type') || 'booking'
-      const d = db.get()
       const key = type === 'product' ? 'productOrders' : 'bookingOrders'
+      const userDocs = await store.listUserDocs()
       const list = []
-      for (const [deviceId, u] of Object.entries(d.users)) {
+      for (const { deviceId, doc: u } of userDocs) {
         for (const o of u[key]) list.push({ ...o, deviceId })
       }
       list.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
@@ -221,12 +220,13 @@ async function route(req, res) {
 
     m = p.match(/^\/api\/admin\/order\/([^/]+)\/(booking|product)\/([^/]+)$/) // PATCH 订单状态
     if (m && method === 'PATCH') {
-      const u = db.getUser(decodeURIComponent(m[1]))
+      const deviceId = decodeURIComponent(m[1])
+      const u = await store.getUserDoc(deviceId)
       const arr = m[2] === 'product' ? u.productOrders : u.bookingOrders
       const o = arr.find((x) => x.id === m[3])
       if (!o) return json(res, 404, { code: 1, msg: '订单不存在' })
       if (body.status !== undefined) o.status = body.status
-      db.save()
+      await store.saveUserDoc(deviceId, u)
       return json(res, 200, { code: 0 })
     }
 
@@ -235,15 +235,11 @@ async function route(req, res) {
     if (m && (method === 'PUT' || method === 'DELETE')) {
       const type = m[1]
       if (!ENTITY_TYPES.includes(type)) return json(res, 404, { code: 1, msg: '未知集合' })
-      const arr = getCollection(type)
-      const idx = arr.findIndex((x) => x.id === m[2])
-      if (idx < 0) return json(res, 404, { code: 1, msg: '记录不存在' })
-      if (method === 'PUT') {
-        arr[idx] = { ...arr[idx], ...body, id: m[2] }
-      } else {
-        arr.splice(idx, 1)
-      }
-      db.save()
+      const r =
+        method === 'PUT'
+          ? await store.updateEntity(type, m[2], body)
+          : await store.deleteEntity(type, m[2])
+      if (!r.ok) return json(res, r.http || 500, { code: 1, msg: r.msg })
       return json(res, 200, { code: 0 })
     }
 
@@ -251,32 +247,27 @@ async function route(req, res) {
     if (m) {
       const type = m[1]
       if (type === 'timeSlots' && method === 'PUT') {
-        db.get().catalog.timeSlots = Array.isArray(body.items) ? body.items : []
-        db.save()
+        await store.saveConfig('timeSlots', Array.isArray(body.items) ? body.items : [])
         return json(res, 200, { code: 0 })
       }
       if (type === 'hotDiseases' && method === 'PUT') {
-        db.get().catalog.hotDiseases = Array.isArray(body.items) ? body.items : []
-        db.save()
+        await store.saveConfig('hotDiseases', Array.isArray(body.items) ? body.items : [])
         return json(res, 200, { code: 0 })
       }
       if (type === 'categories' && method === 'PUT') {
         const kind = body.kind
         if (!['service', 'product', 'disease'].includes(kind)) return json(res, 400, { code: 1, msg: 'kind 不合法' })
-        db.get().catalog.categories[kind] = Array.isArray(body.items) ? body.items : []
-        db.save()
+        await store.saveConfig(`categories:${kind}`, Array.isArray(body.items) ? body.items : [])
         return json(res, 200, { code: 0 })
       }
       if (!ENTITY_TYPES.includes(type)) return json(res, 404, { code: 1, msg: '未知集合' })
 
-      if (method === 'GET') return json(res, 200, { code: 0, data: getCollection(type) })
+      if (method === 'GET') return json(res, 200, { code: 0, data: await store.getCollection(type) })
 
       if (method === 'POST') {
         if (!body.id) return json(res, 400, { code: 1, msg: '缺少 id 字段' })
-        const arr = getCollection(type)
-        if (arr.some((x) => x.id === body.id)) return json(res, 400, { code: 1, msg: `id ${body.id} 已存在` })
-        arr.push(body)
-        db.save()
+        const r = await store.createEntity(type, body)
+        if (!r.ok) return json(res, r.http || 500, { code: 1, msg: r.msg })
         return json(res, 200, { code: 0 })
       }
     }
@@ -308,30 +299,39 @@ async function route(req, res) {
 }
 
 // ---------- 启动 ----------
-if (seedIfEmpty()) console.log('[seed] 已从小程序静态数据生成初始库')
+async function main() {
+  await store.init()
+  const dbInfo = require('./store').DB_INFO
 
-const server = http.createServer((req, res) => {
-  route(req, res).catch((e) => {
-    console.error('[server] 处理异常:', e)
-    try {
-      json(res, 500, { code: 1, msg: '服务器内部错误' })
-    } catch {}
+  const server = http.createServer((req, res) => {
+    route(req, res).catch((e) => {
+      console.error('[server] 处理异常:', e)
+      try {
+        json(res, 500, { code: 1, msg: '服务器内部错误' })
+      } catch {}
+    })
   })
-})
 
-server.listen(PORT, () => {
-  const nets = os.networkInterfaces()
-  let lan = ''
-  for (const list of Object.values(nets)) {
-    for (const n of list || []) {
-      if (n.family === 'IPv4' && !n.internal) lan = n.address
+  server.listen(PORT, () => {
+    const nets = os.networkInterfaces()
+    let lan = ''
+    for (const list of Object.values(nets)) {
+      for (const n of list || []) {
+        if (n.family === 'IPv4' && !n.internal) lan = n.address
+      }
     }
-  }
-  console.log('==========================================')
-  console.log('  颐养堂后台服务已启动')
-  console.log(`  管理后台:   http://localhost:${PORT}/admin/`)
-  if (lan) console.log(`  局域网访问: http://${lan}:${PORT}/admin/`)
-  console.log(`  小程序 API: http://localhost:${PORT}/api/`)
-  console.log(`  默认账号:   ${ADMIN_USER} / ${ADMIN_PASS}`)
-  console.log('==========================================')
+    console.log('==========================================')
+    console.log('  润泉养元后台服务已启动')
+    console.log(`  存储驱动:   ${store.driver === 'mysql' ? `MySQL @ ${dbInfo.MYSQL_HOST}:${dbInfo.MYSQL_PORT}/${dbInfo.MYSQL_DB}` : `JSON 文件（${dbInfo.DB_FILE}）`}`)
+    console.log(`  管理后台:   http://localhost:${PORT}/admin/`)
+    if (lan) console.log(`  局域网访问: http://${lan}:${PORT}/admin/`)
+    console.log(`  小程序 API: http://localhost:${PORT}/api/`)
+    console.log(`  默认账号:   ${ADMIN_USER} / ${ADMIN_PASS}`)
+    console.log('==========================================')
+  })
+}
+
+main().catch((e) => {
+  console.error('[server] 启动失败:', e)
+  process.exit(1)
 })

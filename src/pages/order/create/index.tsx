@@ -15,7 +15,7 @@ const OrderCreatePage: React.FC = () => {
   const [storeId, setStoreId] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
-  const [name, setName] = useState<string>(userProfile.name === '颐养用户' ? '' : userProfile.name);
+  const [name, setName] = useState<string>(userProfile.name === '润泉用户' ? '' : userProfile.name);
   const [phone, setPhone] = useState<string>('');
   const [remark, setRemark] = useState<string>('');
 

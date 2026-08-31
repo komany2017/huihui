@@ -1,12 +1,17 @@
 // ============================================
-// 首次启动种子：从小程序静态数据(src/data/*.ts)生成 db.json
+// 种子数据：从小程序静态数据(src/data/*.ts)构建初始目录
 // 纯文本转换：剥离 import type / 函数定义 / 类型注解，再 eval 提取常量
+// buildSeed() 为纯函数，不写库；由 store.js 在空库时调用
 // ============================================
 const fs = require('fs')
 const path = require('path')
-const db = require('./db')
 
-const SRC_DIR = path.join(__dirname, '..', 'src', 'data')
+// 数据源目录：本地开发读项目 src/data；服务器部署读随包携带的 src-data
+const SRC_DIR_CANDIDATES = [
+  path.join(__dirname, '..', 'src', 'data'),
+  path.join(__dirname, 'src-data')
+]
+const SRC_DIR = SRC_DIR_CANDIDATES.find((p) => fs.existsSync(path.join(p, 'services.ts'))) || SRC_DIR_CANDIDATES[0]
 
 // 剥离 export function 定义（按大括号配平逐行跳过）
 function stripFunctions(text) {
@@ -53,31 +58,26 @@ function extract(file) {
   return result
 }
 
-function seedIfEmpty() {
-  const d = db.get()
-  const c = d.catalog
-  if (c.services.length > 0 || c.products.length > 0 || c.diseases.length > 0 || c.acupoints.length > 0) {
-    return false // 已有数据，不重复播种
-  }
+function buildSeed() {
   const svc = extract('services.ts')
   const prod = extract('products.ts')
   const dis = extract('diseases.ts')
   const acu = extract('acupoints.ts')
 
-  c.services = svc.SERVICES || []
-  c.stores = svc.STORES || []
-  c.timeSlots = svc.BOOKING_TIME_SLOTS || []
-  c.products = prod.PRODUCTS || []
-  c.diseases = dis.DISEASES || []
-  c.acupoints = acu.ACUPOINTS || []
-  c.categories = {
-    service: svc.SERVICE_CATEGORIES || [{ id: 'all', name: '全部' }],
-    product: prod.PRODUCT_CATEGORIES || [{ id: 'all', name: '全部' }],
-    disease: dis.DISEASE_CATEGORIES || [{ id: 'all', name: '全部' }]
+  return {
+    services: svc.SERVICES || [],
+    stores: svc.STORES || [],
+    timeSlots: svc.BOOKING_TIME_SLOTS || [],
+    products: prod.PRODUCTS || [],
+    diseases: dis.DISEASES || [],
+    acupoints: acu.ACUPOINTS || [],
+    categories: {
+      service: svc.SERVICE_CATEGORIES || [{ id: 'all', name: '全部' }],
+      product: prod.PRODUCT_CATEGORIES || [{ id: 'all', name: '全部' }],
+      disease: dis.DISEASE_CATEGORIES || [{ id: 'all', name: '全部' }]
+    },
+    hotDiseases: dis.HOT_DISEASES || []
   }
-  c.hotDiseases = dis.HOT_DISEASES || []
-  db.save()
-  return true
 }
 
-module.exports = { seedIfEmpty }
+module.exports = { buildSeed }

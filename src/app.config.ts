@@ -22,7 +22,7 @@ export default defineAppConfig({
   window: {
     backgroundTextStyle: 'dark',
     navigationBarBackgroundColor: '#fdf8f0',
-    navigationBarTitleText: '颐养堂',
+    navigationBarTitleText: '润泉养元',
     navigationBarTextStyle: 'black'
   },
   tabBar: {

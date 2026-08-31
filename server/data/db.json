@@ -374,8 +374,8 @@
     "stores": [
       {
         "id": "st001",
-        "name": "颐养堂·城西旗舰店",
-        "address": "杭州市西湖区文三路 88 号颐养堂大厦 3 楼",
+        "name": "润泉养元·城西旗舰店",
+        "address": "杭州市西湖区文三路 88 号润泉养元大厦 3 楼",
         "phone": "0571-88888001",
         "distance": 1.2,
         "businessHours": "09:00 - 21:00",
@@ -383,7 +383,7 @@
       },
       {
         "id": "st002",
-        "name": "颐养堂·武林银泰店",
+        "name": "润泉养元·武林银泰店",
         "address": "杭州市下城区体育场路 333 号银泰百货 5 楼",
         "phone": "0571-88888002",
         "distance": 3.8,
@@ -392,7 +392,7 @@
       },
       {
         "id": "st003",
-        "name": "颐养堂·滨江星光店",
+        "name": "润泉养元·滨江星光店",
         "address": "杭州市滨江区江南大道 666 号星光时代广场 2 楼",
         "phone": "0571-88888003",
         "distance": 5.5,
@@ -401,7 +401,7 @@
       },
       {
         "id": "st004",
-        "name": "颐养堂·钱江新城店",
+        "name": "润泉养元·钱江新城店",
         "address": "杭州市江干区钱江新城丹桂街 1 号来福士广场 4 楼",
         "phone": "0571-88888004",
         "distance": 7.9,
@@ -1871,7 +1871,7 @@
   "users": {
     "u1788175766717838": {
       "profile": {
-        "name": "颐养用户",
+        "name": "润泉用户",
         "gender": "unknown",
         "age": 30,
         "height": 170,
@@ -1884,6 +1884,78 @@
       "bookingOrders": [],
       "productOrders": [],
       "constitutionResults": [],
+      "healthRecords": []
+    },
+    "verify-docs-001": {
+      "profile": {
+        "name": "接口验证用户",
+        "gender": "male",
+        "age": 33,
+        "allergy": "花粉",
+        "updatedAt": "2026-08-31T12:20:55.559Z"
+      },
+      "bookingOrders": [
+        {
+          "id": "bo_verify_1",
+          "serviceId": "s001",
+          "serviceName": "背部循经刮痧",
+          "serviceCover": "https://picsum.photos/id/128/750/500",
+          "storeId": "st001",
+          "storeName": "颐养堂·城西旗舰店",
+          "storeAddress": "杭州市西湖区文三路 100 号",
+          "date": "2026-09-03",
+          "time": "10:00-11:00",
+          "customerName": "验证客户",
+          "customerPhone": "13800000001",
+          "remark": "接口验证",
+          "price": 168,
+          "status": "completed",
+          "createdAt": "2026-08-31T12:20:55.568Z"
+        }
+      ],
+      "productOrders": [
+        {
+          "id": "po_verify_1",
+          "createdAt": "2026-08-31T12:20:55.601Z",
+          "items": [
+            {
+              "productId": "p001",
+              "productName": "艾草足浴包",
+              "productCover": "https://picsum.photos/id/292/400/400",
+              "specId": "p001_30",
+              "specName": "30 包/盒",
+              "price": 39.9,
+              "quantity": 2
+            }
+          ],
+          "totalAmount": 79.8,
+          "receiver": "验证收货人",
+          "phone": "13900000002",
+          "address": "杭州市西湖区测试路 1 号",
+          "remark": "",
+          "status": "shipped"
+        }
+      ],
+      "constitutionResults": [
+        {
+          "id": "cr_verify_1",
+          "date": "2026-08-31T12:20:55.632Z",
+          "primary": "平和质",
+          "secondary": "气虚质",
+          "scores": {
+            "pinghe": 80,
+            "qixu": 45,
+            "yangxu": 30,
+            "yinxu": 35,
+            "tanshi": 25,
+            "shire": 28,
+            "xueyu": 22,
+            "qiyu": 30,
+            "tebing": 15
+          },
+          "infos": []
+        }
+      ],
       "healthRecords": []
     }
   }

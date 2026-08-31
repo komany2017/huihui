@@ -42,7 +42,7 @@ interface AppState {
 }
 
 const DEFAULT_PROFILE: UserProfile = {
-  name: '颐养用户',
+  name: '润泉用户',
   gender: 'unknown',
   age: 30,
   height: 170,

@@ -90,9 +90,9 @@ const MinePage: React.FC = () => {
 
   const showAbout = () => {
     Taro.showModal({
-      title: '关于颐养堂',
+      title: '关于润泉养元',
       content:
-        '颐养堂致力于中医健康服务，提供体质辨识、理疗预约、养生商城、穴位图解、疾病调理等一站式中医养生方案。\n\n本应用数据仅保存在本机，不会上传。',
+        '润泉养元致力于中医健康服务，提供体质辨识、理疗预约、养生商城、穴位图解、疾病调理等一站式中医养生方案。\n\n数据保存于本机及服务器，仅用于向您提供健康服务。',
       showCancel: false,
       confirmColor: '#c8362f',
       confirmText: '我知道了'
@@ -242,7 +242,7 @@ const MinePage: React.FC = () => {
         </View>
 
         <View className={styles.footer}>
-          <Text className={styles.footerText}>颐养堂 · 守护您的健康</Text>
+          <Text className={styles.footerText}>润泉养元 · 守护您的健康</Text>
           <Text className={styles.footerVersion}>v1.0.0</Text>
         </View>
       </ScrollView>

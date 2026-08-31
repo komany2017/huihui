@@ -1,4 +1,4 @@
-# 颐养堂 · 中医健康服务小程序
+# 润泉养元 · 中医健康服务小程序
 
 集 **体质辨识、理疗服务、养生商城、在线预约、健康档案、疾病调理、穴位图解** 七大中医健康服务于一体的微信小程序，配套 **Web 后台管理系统** 与 **服务器数据存储**。
 
@@ -23,13 +23,15 @@
 
 ## 快速开始
 
-### 1. 启动后台服务（数据保存在服务器）
+### 1. 启动后台服务（数据保存在 MySQL）
 
 ```bash
-node server/index.js
-# 或
+npm run dev:mysql   # 一键启动：本地 MySQL（未运行时自动拉起）+ 后台服务（MySQL 存储）
+# 仅启动后端（未配置 MYSQL_* 环境变量时自动回退 JSON 文件存储）：
 npm run server
 ```
+
+> 本地开发 MySQL 8.0.45 位于 `e:\mysql8`（官方二进制 + 持久数据目录 `e:\mysql8\data`，root 空密码仅限本机）。停止 MySQL：`e:\mysql8\mysql\bin\mysqladmin.exe --no-defaults -u root shutdown`
 
 启动后：
 
@@ -40,7 +42,7 @@ npm run server
 数据文件:   server/data/db.json（首次启动自动从内置数据播种）
 ```
 
-环境变量可覆盖默认配置：`PORT`（端口）、`ADMIN_USER` / `ADMIN_PASS`（管理员账号密码）。
+环境变量可覆盖默认配置：`PORT`（端口）、`ADMIN_USER` / `ADMIN_PASS`（管理员账号密码）、`DATA_DIR`（数据库目录）。详见下文[服务器配置](#服务器配置环境变量)。
 
 ### 2. 预览小程序
 
@@ -55,6 +57,15 @@ export const API_BASE_URL = 'http://192.168.1.190:3000'
 ### 3. 使用管理后台
 
 浏览器打开 `http://localhost:3000/admin/`，默认账号 `admin` / `admin123`（可用环境变量修改）。详细操作见 [docs/ADMIN.md](docs/ADMIN.md)。
+
+### 4. 一键部署到云服务器
+
+```powershell
+npm run deploy -- -ServerHost <服务器IP> -User root
+# 预演（不实际执行）：加 -DryRun
+```
+
+自动完成：打包上传 → 远程安装/重启（自动检测 pm2，否则 nohup + PID 守护）→ 数据备份保留 → 健康检查。详见 [docs/DEPLOY.md](docs/DEPLOY.md)。
 
 ## 数据同步机制（离线优先）
 
@@ -85,13 +96,16 @@ e:\zytl
 ├── server/
 │   ├── index.js               # 后台服务（REST API + 管理后台静态托管）
 │   ├── db.js                  # JSON 文件数据库（原子写入）
-│   ├── seed.js                # 首次启动播种（从 src/data 生成初始库）
+│   ├── seed.js                # 首次启动播种（从 src/data 或随包 src-data 生成初始库）
+│   ├── deploy.ps1             # 一键部署脚本（scp/ssh，支持 DryRun 预演）
+│   ├── verify-api.mjs         # 接口回归验证脚本
 │   ├── data/db.json           # 业务数据（自动生成）
 │   └── admin/                 # 管理后台前端（原生 HTML/JS/CSS，零构建）
 ├── config/                    # Taro 构建配置
 └── docs/                      # 文档
     ├── API.md                 # 接口文档 + 数据结构
-    └── ADMIN.md               # 管理后台使用手册
+    ├── ADMIN.md               # 管理后台使用手册
+    └── DEPLOY.md              # 云服务器部署手册
 ```
 
 ## 页面清单
@@ -105,6 +119,44 @@ e:\zytl
 | 预约下单 / 预约订单列表 / 预约详情 | `pages/order/create` `pages/order/list` `pages/order/detail` |
 | 穴位主页 / 穴位详情 | `pages/acupoint/index` `pages/acupoint/detail` |
 | 疾病搜索 / 疾病详情 | `pages/disease/index` `pages/disease/detail` |
+
+## 服务器配置（环境变量）
+
+| 环境变量 | 默认值 | 说明 |
+|---|---|---|
+| `PORT` | `3000` | 服务监听端口 |
+| `ADMIN_USER` | `admin` | 管理后台登录账号 |
+| `ADMIN_PASS` | `admin123` | 管理后台登录密码 |
+| `DATA_DIR` | `server/data` | JSON 存储模式的数据库目录，支持绝对路径 |
+| `MYSQL_HOST` | 无 | 配置后启用 **MySQL 存储** |
+| `MYSQL_PORT` | `3306` | MySQL 端口 |
+| `MYSQL_USER` / `MYSQL_PASS` | `root` / 空 | MySQL 账号 |
+| `MYSQL_DB` | `ruanquan` | 数据库名（库需预先创建，表自动建） |
+| `DB_DRIVER` | 自动 | `mysql`=强制 MySQL；不设时按是否配置 `MYSQL_HOST` 自动选择 |
+
+**数据存储说明：**
+
+- **MySQL 模式**（推荐生产）：3 张表 `catalog_entities`（服务/门店/商品/疾病/穴位，id + JSON 载荷）、`catalog_config`（分类/时段/热搜）、`users`（按设备号分区的用户数据），首次启动自动建表；若库为空且本地存在 `db.json` 会**自动迁移**，否则播种内置数据；MySQL 连接失败自动回退 JSON 文件，服务不中断
+- **JSON 模式**（默认/兜底）：单文件 `server/data/db.json`，原子写入，备份/迁移只需拷贝该文件
+
+**配置示例（Windows PowerShell）：**
+
+```powershell
+$env:PORT = '8080'
+$env:ADMIN_PASS = '强密码这里'
+$env:MYSQL_HOST = '127.0.0.1'   # 配置后即使用 MySQL 存储
+$env:MYSQL_USER = 'root'
+$env:MYSQL_PASS = '密码'
+$env:MYSQL_DB = 'ruanquan'
+node server/index.js
+```
+
+**运维说明：**
+
+- JSON 模式写入采用**原子写**（先写 `.tmp` 再替换），进程意外退出不会损坏数据；**备份**：直接拷贝 `db.json`；**重置**：删除后重启自动重新播种
+- MySQL 模式备份/迁移用标准工具（`mysqldump`）；切换驱动时数据自动迁移（见上文）
+- ⚠️ **中文编码防坑**：在 PowerShell 中对 mysql/mysqldump 使用管道（`|`）或重定向（`>`/`<`）会把 UTF-8 数据按 GBK 重新编码，导致中文**不可逆**变成问号。备份请用 `cmd` 的 `<`/`>` 重定向，或直接用 node 脚本（mysql2）导出 JSON。万一已损坏：清空数据库后重启后端，会自动从 `db.json`（node 原生 UTF-8，始终完好）重新迁移
+- 登录 token 保存在服务端内存，重启后需重新登录
 
 ## 主题风格
 
