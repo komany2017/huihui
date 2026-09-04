@@ -1,4 +1,4 @@
-﻿# ============================================
+﻿﻿﻿# ============================================
 # 润泉养元后台服务 · 一键部署脚本
 # 用法示例：
 #   powershell -ExecutionPolicy Bypass -File server/deploy.ps1 -ServerHost 1.2.3.4 -User root
@@ -54,7 +54,7 @@ $stage = Join-Path $env:TEMP "ruanquan-deploy-$stamp"
 New-Item -ItemType Directory -Path $stage -Force | Out-Null
 New-Item -ItemType Directory -Path (Join-Path $stage 'src-data') -Force | Out-Null
 
-foreach ($f in @('index.js', 'db.js', 'seed.js', 'verify-api.mjs')) {
+foreach ($f in @('index.js', 'store.js', 'db.js', 'seed.js', 'verify-api.mjs')) {
   Copy-Item (Join-Path $serverDir $f) $stage -Force
 }
 Copy-Item (Join-Path $serverDir 'admin') (Join-Path $stage 'admin') -Recurse -Force

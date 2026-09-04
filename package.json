@@ -30,7 +30,9 @@
     "dev:quickapp": "npm run build:quickapp -- --watch",
     "server": "node server/index.js",
     "dev:mysql": "powershell -ExecutionPolicy Bypass -File server/start-dev.ps1",
-    "deploy": "powershell -ExecutionPolicy Bypass -File server/deploy.ps1"
+    "deploy": "powershell -ExecutionPolicy Bypass -File server/deploy.ps1",
+    "package:win": "powershell -ExecutionPolicy Bypass -File server/package.ps1",
+    "package:win:mysql": "powershell -ExecutionPolicy Bypass -File server/package.ps1 -WithMysql"
   },
   "browserslist": [
     "last 3 versions",

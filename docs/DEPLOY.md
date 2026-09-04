@@ -1,5 +1,97 @@
 # 润泉养元 · 云服务器部署手册
 
+一键将后台服务（REST API + 管理后台）部署到 Linux 或 Windows 云服务器。
+
+---
+
+# 一、Windows Server 部署（含 2012 R2 / 2016 / 2019 / 2022）
+
+离线友好的安装包方案：开发机打一个 zip，拷到服务器双击安装，自动完成 Node 运行时、防火墙、开机自启。
+
+## 快速使用
+
+**第 1 步：开发机打包**
+
+```powershell
+# JSON 文件存储（最简，零依赖）
+powershell -ExecutionPolicy Bypass -File server/package.ps1
+
+# 服务器用 MySQL 存储：打入 mysql2 依赖（服务器无需 npm）
+powershell -ExecutionPolicy Bypass -File server/package.ps1 -WithMysql
+
+# 连同本地数据一起打包（服务器首次启动自动迁移入库）
+powershell -ExecutionPolicy Bypass -File server/package.ps1 -WithMysql -PushData
+```
+
+产物：`server/dist/ruanquan-win-deploy.zip`
+
+**第 2 步：服务器安装**
+
+1. 把 zip 拷贝到服务器（远程桌面直接复制 / 共享文件夹 / 上传均可）
+2. 解压到任意目录，如 `C:\ruanquan`
+3. 双击 **install.bat**（自动请求管理员权限），按提示输入配置：
+   - 管理后台密码（回车默认 `admin123`）
+   - MySQL 主机（**直接回车 = JSON 文件存储**；输入 `127.0.0.1` 启用 MySQL）
+
+**第 3 步：完成** — 安装脚本自动：检测/下载 Node.js → 生成启动配置 → 防火墙放行端口 → 注册开机自启（任务计划程序，SYSTEM 账户）→ 启动并健康检查 → 打印访问地址。
+
+## 安装脚本做了什么
+
+| 步骤 | 说明 |
+|---|---|
+| Node 运行时 | 优先用系统已装 Node → 包内 `runtime\` 便携版 → 自动从镜像下载（默认 **v16.20.2**，兼容 2012 R2；可用 `-NodeVersion` 更换） |
+| 启动配置 | 生成 `run.bat`（环境变量 + 绝对路径启动 + 日志重定向 `logs\app.log`） |
+| 防火墙 | `netsh` 放行 TCP 端口（入站，全部配置文件） |
+| 开机自启 | `schtasks /SC ONSTART /RU SYSTEM` 注册任务 `RuanquanAPI`，无需 pm2/NSSM |
+| 健康检查 | 启动后轮询 `/api/health`，通过才提示成功 |
+
+## 日常管理（manage.bat）
+
+```bat
+manage.bat status      查看状态 + 健康检查
+manage.bat start|stop|restart
+manage.bat logs        查看最近 60 行日志
+manage.bat uninstall   停止服务、删除自启任务与防火墙规则（保留应用文件）
+```
+
+## 参数说明（install.ps1，install.bat 可透传）
+
+| 参数 | 默认值 | 说明 |
+|---|---|---|
+| `-Port` | `3000` | 服务监听端口 |
+| `-AdminUser` / `-AdminPass` | `admin` / 交互输入 | 管理后台账号密码 |
+| `-MysqlHost` 等 | 空 = JSON 存储 | MySQL 连接参数（`-MysqlPort/-MysqlUser/-MysqlPass/-MysqlDb`） |
+| `-NodeVersion` | `v16.20.2` | 自动下载的 Node 版本（2012 R2 最高支持 16.x） |
+| `-NodeExe` | 自动检测 | 指定 node.exe 路径 |
+| `-NoService` | 关 | 仅前台测试，不注册自启/防火墙 |
+| `-Action` | `install` | `start/stop/restart/status/uninstall` |
+
+## 2012 R2 兼容性说明
+
+- 全部脚本兼容 **PowerShell 4.0**（不依赖 `Compress-Archive`/`Expand-Archive`/PS5 特性，zip 操作走 .NET `System.IO.Compression`）
+- 服务端代码兼容 **Node 16**（已实测 v16.20.2 启动 + 健康检查通过；`structuredClone` 有 JSON 兜底）
+- 离线服务器：提前从 nodejs.org 下载 `node-v16.20.2-win-x64.zip` 放到解压目录，安装脚本会优先使用，不再联网下载
+
+## 升级 / 重装
+
+1. 开发机重新 `package.ps1` 打包（数据不受影响，除非加 `-PushData`）
+2. 服务器上先 `manage.bat stop`，用新 zip 覆盖 `app\` 目录（保留 `logs\`、`app\data\`），再 `manage.bat start`
+3. 或直接重跑 `install.bat`（会重新生成配置并重启服务，MySQL/JSON 存储数据保留在库/文件中）
+
+## 常见问题（Windows）
+
+| 现象 | 处理 |
+|---|---|
+| 双击 install.bat 闪退 | 右键"以管理员身份运行"；或用命令行 `powershell -ExecutionPolicy Bypass -File install.ps1` 查看报错 |
+| 端口被占用 | 安装脚本启动前会自动停掉旧的 node 实例；仍失败则换 `-Port` |
+| 手机/外网访问不了 | 防火墙规则已自动添加，还需检查云安全组入站放行 TCP 端口 |
+| 中文乱码 | 安装脚本带 UTF-8 BOM，请勿用会去 BOM 的编辑器保存；`logs\app.log` 用记事本/VS Code 打开 |
+| 数据在哪 | JSON 模式：`app\data\db.json`；MySQL 模式：`ruanquan` 库 3 张表（备份用 `mysqldump`） |
+
+---
+
+# 二、Linux 服务器部署
+
 一键将后台服务（REST API + 管理后台）部署到 Linux 云服务器。
 
 ## 前置条件
@@ -31,7 +123,7 @@ powershell -ExecutionPolicy Bypass -File server/deploy.ps1 -ServerHost 1.2.3.4 -
 
 **脚本做了什么：**
 
-1. **部署包**：`index.js` / `db.js` / `seed.js` / `verify-api.mjs` / `admin/` + `src-data/`（种子数据，供服务器首次启动自动建库）；**不包含本地 `data/db.json`**
+1. **部署包**：`index.js` / `store.js` / `db.js` / `seed.js` / `verify-api.mjs` / `admin/` + `src-data/`（种子数据，供服务器首次启动自动建库）；**不包含本地 `data/db.json`**
 2. **数据保护**：默认不覆盖服务器数据；如加 `-PushData` 才上传本地库，且上传前自动备份远端为 `data/db.json.bak-时间戳`
 3. **进程守护**：服务器装了 pm2 则用 `pm2 start/restart ruanquan-api`；否则 `nohup` 启动并写 `deploy.pid`（下次部署自动 kill 旧进程）
 4. **健康检查**：远程 `curl /api/health` 校验 `code: 0`，失败则中止并提示查看 `app.log`

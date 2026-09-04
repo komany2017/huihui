@@ -1,9 +1,11 @@
 // ============================================
 // 接口自动化验证脚本（对应 docs/API.md）
 // 用法: node server/verify-api.mjs   （服务需已启动）
-// 环境变量: BASE=http://localhost:3000
+// 环境变量: BASE=http://localhost:3000  ADMIN_USER=admin  ADMIN_PASS=admin123
 // ============================================
 const BASE = process.env.BASE || 'http://localhost:3000'
+const ADMIN_USER = process.env.ADMIN_USER || 'admin'
+const ADMIN_PASS = process.env.ADMIN_PASS || 'admin123'
 
 const results = []
 function record(name, pass, detail = '') {
@@ -94,9 +96,9 @@ async function testAdmin() {
   assert('未携带 token 返回 401', no.status === 401)
 
   // 登录：错误密码 / 正确密码
-  const bad = await req('POST', '/api/admin/login', { username: 'admin', password: 'wrong' })
+  const bad = await req('POST', '/api/admin/login', { username: ADMIN_USER, password: 'wrong' })
   assert('登录-错误密码 401', bad.status === 401)
-  const login = await req('POST', '/api/admin/login', { username: 'admin', password: 'admin123' })
+  const login = await req('POST', '/api/admin/login', { username: ADMIN_USER, password: ADMIN_PASS })
   const token = login.json?.data?.token
   assert('POST /api/admin/login', login.status === 200 && login.json.code === 0 && !!token)
   if (!token) return

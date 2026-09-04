@@ -1,0 +1,19 @@
+[store] JSON 库为空，已播种内置数据
+[store] 存储驱动: JSON 文件（E:\zytl\server\test-json\app\data\db.json）
+==========================================
+  润泉养元后台服务已启动
+  存储驱动:   JSON 文件（E:\zytl\server\test-json\app\data\db.json）
+  管理后台:   http://localhost:3999/admin/
+  局域网访问: http://192.168.1.190:3999/admin/
+  小程序 API: http://localhost:3999/api/
+  默认账号:   admin / admin123
+==========================================
+[store] 存储驱动: JSON 文件（E:\zytl\server\test-json\app\data\db.json）
+==========================================
+  润泉养元后台服务已启动
+  存储驱动:   JSON 文件（E:\zytl\server\test-json\app\data\db.json）
+  管理后台:   http://localhost:3999/admin/
+  局域网访问: http://192.168.1.190:3999/admin/
+  小程序 API: http://localhost:3999/api/
+  默认账号:   admin / admin123
+==========================================

@@ -346,3 +346,965 @@
 [19:42:40.677] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:42:40 PM\n\n","timestamp":1788176560502}
 [19:42:40.678] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176560503}]
 [19:42:40.701] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176560525}]
+[19:48:37.634] File change detected. Updating...
+[19:48:37.683] readProjectFiles, Found 122 files to read.
+[19:48:37.749] Files read. Count: 122
+[19:48:37.749] Calling pai.updateCloudDev...
+[19:48:37.750] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:48:37.826] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176917644}
+[19:48:37.826] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176917644}
+[19:48:37.827] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:48:37.828] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:48:37.829] Update success (pai.updateCloudDev returned)
+[19:48:39.926] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:48:39 PM]\n\n","timestamp":1788176919743}]
+[19:48:40.024] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788176919843}
+[19:48:40.719] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:48:40 PM\n\n","timestamp":1788176920538}
+[19:48:40.721] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176920539}]
+[19:48:40.736] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176920554}]
+[19:48:43.209] File change detected. Updating...
+[19:48:43.265] readProjectFiles, Found 122 files to read.
+[19:48:43.406] Files read. Count: 122
+[19:48:43.407] Calling pai.updateCloudDev...
+[19:48:43.409] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:48:43.513] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176923331}
+[19:48:43.514] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176923331}
+[19:48:43.514] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:48:43.515] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:48:43.515] Update success (pai.updateCloudDev returned)
+[19:48:44.879] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176924697}]
+[19:48:45.629] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:48:45 PM\n\n","timestamp":1788176925448}
+[19:48:45.630] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176925448}]
+[19:48:45.662] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176925476}]
+[19:48:52.491] File change detected. Updating...
+[19:48:52.541] readProjectFiles, Found 122 files to read.
+[19:48:52.680] Files read. Count: 122
+[19:48:52.680] Calling pai.updateCloudDev...
+[19:48:52.681] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:48:52.764] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176932577}
+[19:48:52.765] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176932577}
+[19:48:52.765] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:48:52.766] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:48:52.766] Update success (pai.updateCloudDev returned)
+[19:48:54.696] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176934512}]
+[19:48:55.475] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:48:55 PM\n\n","timestamp":1788176935293}
+[19:48:55.477] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176935294}]
+[19:48:55.513] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176935332}]
+[19:49:00.904] File change detected. Updating...
+[19:49:00.937] readProjectFiles, Found 122 files to read.
+[19:49:00.986] Files read. Count: 122
+[19:49:00.986] Calling pai.updateCloudDev...
+[19:49:00.987] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:49:01.053] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176940872}
+[19:49:01.054] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176940872}
+[19:49:01.054] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:49:01.054] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:49:01.054] Update success (pai.updateCloudDev returned)
+[19:49:02.474] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176942292}]
+[19:49:03.304] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:49:03 PM\n\n","timestamp":1788176943123}
+[19:49:03.306] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176943124}]
+[19:49:03.336] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176943154}]
+[19:49:06.097] File change detected. Updating...
+[19:49:06.130] readProjectFiles, Found 122 files to read.
+[19:49:06.197] Files read. Count: 122
+[19:49:06.198] Calling pai.updateCloudDev...
+[19:49:06.198] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:49:06.266] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176946085}
+[19:49:06.267] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176946085}
+[19:49:06.267] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:49:06.267] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:49:06.268] Update success (pai.updateCloudDev returned)
+[19:49:07.640] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:49:07 PM]\n\n","timestamp":1788176947458}]
+[19:49:07.742] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788176947558}
+[19:49:08.494] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:49:08 PM\n\n","timestamp":1788176948313}
+[19:49:08.496] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176948314}]
+[19:49:08.506] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176948323}]
+[19:49:26.117] File change detected. Updating...
+[19:49:26.150] readProjectFiles, Found 123 files to read.
+[19:49:26.214] Files read. Count: 123
+[19:49:26.214] Calling pai.updateCloudDev...
+[19:49:26.215] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:49:26.287] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176966104}
+[19:49:26.287] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176966104}
+[19:49:26.288] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:49:26.288] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:49:26.288] Update success (pai.updateCloudDev returned)
+[19:49:27.643] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:49:27 PM]\n\n","timestamp":1788176967459}]
+[19:49:27.741] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788176967559}
+[19:49:29.310] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:49:29 PM\n\n","timestamp":1788176969127}
+[19:49:29.311] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176969128}]
+[19:49:29.330] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176969146}]
+[19:49:52.046] File change detected. Updating...
+[19:49:52.072] readProjectFiles, Found 122 files to read.
+[19:49:52.113] Files read. Count: 122
+[19:49:52.113] Calling pai.updateCloudDev...
+[19:49:52.114] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:49:52.219] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176992036}
+[19:49:52.220] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788176992036}
+[19:49:52.220] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:49:52.221] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:49:52.221] Update success (pai.updateCloudDev returned)
+[19:49:53.575] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:49:53 PM]\n\n","timestamp":1788176993391}]
+[19:49:55.263] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:49:55 PM\n\n","timestamp":1788176995015}
+[19:49:55.263] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788176995016}]
+[19:49:55.264] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788176995035}]
+[19:50:03.504] File change detected. Updating...
+[19:50:03.537] readProjectFiles, Found 122 files to read.
+[19:50:03.598] Files read. Count: 122
+[19:50:03.599] Calling pai.updateCloudDev...
+[19:50:03.599] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:50:03.703] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177003520}
+[19:50:03.703] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177003520}
+[19:50:03.704] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:50:03.704] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:50:03.704] Update success (pai.updateCloudDev returned)
+[19:50:05.199] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177005006}]
+[19:50:06.074] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:50:05 PM\n\n","timestamp":1788177005892}
+[19:50:06.077] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177005894}]
+[19:50:06.092] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177005908}]
+[19:50:21.438] File change detected. Updating...
+[19:50:21.462] readProjectFiles, Found 122 files to read.
+[19:50:21.505] Files read. Count: 122
+[19:50:21.505] Calling pai.updateCloudDev...
+[19:50:21.506] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:50:21.586] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177021404}
+[19:50:21.587] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177021404}
+[19:50:21.587] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:50:21.587] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:50:21.587] Update success (pai.updateCloudDev returned)
+[19:50:22.813] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:50:22 PM]\n\n","timestamp":1788177022629}]
+[19:50:23.636] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:50:23 PM\n\n","timestamp":1788177023452}
+[19:50:23.637] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177023454}]
+[19:50:23.648] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177023464}]
+[19:53:28.458] Received update request via HTTP
+[19:53:30.472] File change detected. Updating...
+[19:53:30.505] readProjectFiles, Found 122 files to read.
+[19:53:30.567] Files read. Count: 122
+[19:53:30.567] Calling pai.updateCloudDev...
+[19:53:30.568] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:53:30.637] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177210451}
+[19:53:30.637] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177210451}
+[19:53:30.637] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:53:30.638] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:53:30.638] Update success (pai.updateCloudDev returned)
+[19:53:32.100] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177211910}]
+[19:53:33.524] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:53:33 PM\n\n","timestamp":1788177213334}
+[19:53:33.527] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177213334}]
+[19:53:33.550] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177213357}]
+[19:53:42.808] [Preview Server] Frontend connected, clients size = 1
+[19:53:42.809] Sending cached status to new connection, lastStatusMessage = {"event":"status_change","message":{"url":"https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457","schema":"aipa://preview?type=pai&aipa_id=pai-preview-trae-7047c457&uuid=0a60a1f6-3581-4cdd-8618-cf19de488738","status":"running","framework":"taro"}}
+[19:53:42.809] Sending cached status to new connection, lastErrorMessage = {"event":"compile_error","message":[{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177213357}]}
+[19:54:51.558] [AuthCredentials] read failed: ENOENT: no such file or directory, open 'E:\zytl\.auth\auth.json'
+[19:55:08.423] [AuthCredentials] read failed: ENOENT: no such file or directory, open 'E:\zytl\.auth\auth.json'
+[19:56:56.056] [Preview Server] Frontend disconnected, clients size = 1
+[19:57:48.329] [Preview Server] Frontend connected, clients size = 1
+[19:57:48.330] Sending cached status to new connection, lastStatusMessage = {"event":"status_change","message":{"url":"https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457","schema":"aipa://preview?type=pai&aipa_id=pai-preview-trae-7047c457&uuid=0a60a1f6-3581-4cdd-8618-cf19de488738","status":"running","framework":"taro"}}
+[19:57:48.330] Sending cached status to new connection, lastErrorMessage = {"event":"compile_error","message":[{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177213357}]}
+[19:58:48.890] File change detected. Updating...
+[19:58:48.940] readProjectFiles, Found 122 files to read.
+[19:58:49.137] Files read. Count: 122
+[19:58:49.138] Calling pai.updateCloudDev...
+[19:58:49.139] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:58:49.218] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177529026}
+[19:58:49.218] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177529026}
+[19:58:49.219] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:58:49.219] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:58:49.220] Update success (pai.updateCloudDev returned)
+[19:58:49.260] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177529068}
+[19:58:52.198] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:58:52 PM]\n\n","timestamp":1788177532004}]
+[19:58:52.354] File change detected. Updating...
+[19:58:52.389] readProjectFiles, Found 122 files to read.
+[19:58:52.456] Files read. Count: 122
+[19:58:52.456] Calling pai.updateCloudDev...
+[19:58:52.456] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:58:52.571] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177532378}
+[19:58:52.572] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177532378}
+[19:58:52.572] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:58:52.573] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:58:52.573] Update success (pai.updateCloudDev returned)
+[19:58:53.148] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:58:52 PM\n\n","timestamp":1788177532955}
+[19:58:53.149] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177532956}]
+[19:58:53.196] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177533003}]
+[19:58:53.213] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177533021}
+[19:58:54.740] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:58:54 PM]\n\n","timestamp":1788177534548}]
+[19:58:55.512] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:58:55 PM\n\n","timestamp":1788177535319}
+[19:58:55.518] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177535320}]
+[19:58:55.537] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177535345}]
+[19:59:04.330] File change detected. Updating...
+[19:59:04.362] readProjectFiles, Found 122 files to read.
+[19:59:04.431] Files read. Count: 122
+[19:59:04.431] Calling pai.updateCloudDev...
+[19:59:04.432] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:59:04.516] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177544324}
+[19:59:04.517] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177544324}
+[19:59:04.517] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:59:04.518] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:59:04.518] Update success (pai.updateCloudDev returned)
+[19:59:04.551] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177544359}
+[19:59:06.981] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:59:06 PM]\n\n","timestamp":1788177546787}]
+[19:59:07.785] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:59:07 PM\n\n","timestamp":1788177547593}
+[19:59:07.787] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177547593}]
+[19:59:07.832] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177547638}]
+[19:59:16.077] File change detected. Updating...
+[19:59:16.110] readProjectFiles, Found 122 files to read.
+[19:59:16.173] Files read. Count: 122
+[19:59:16.174] Calling pai.updateCloudDev...
+[19:59:16.174] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:59:16.238] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177556045}
+[19:59:16.238] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177556045}
+[19:59:16.238] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:59:16.239] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:59:16.239] Update success (pai.updateCloudDev returned)
+[19:59:16.270] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177556077}
+[19:59:17.652] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:59:17 PM]\n\n","timestamp":1788177557457}]
+[19:59:18.433] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:59:18 PM\n\n","timestamp":1788177558240}
+[19:59:18.434] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177558241}]
+[19:59:18.445] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177558252}]
+[19:59:34.179] File change detected. Updating...
+[19:59:34.202] readProjectFiles, Found 122 files to read.
+[19:59:34.250] Files read. Count: 122
+[19:59:34.250] Calling pai.updateCloudDev...
+[19:59:34.250] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:59:34.325] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177574131}
+[19:59:34.326] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177574131}
+[19:59:34.326] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:59:34.326] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:59:34.326] Update success (pai.updateCloudDev returned)
+[19:59:34.351] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177574159}
+[19:59:36.015] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177575819}]
+[19:59:36.875] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:59:36 PM\n\n","timestamp":1788177576682}
+[19:59:36.877] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177576684}]
+[19:59:36.898] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177576700}]
+[19:59:53.937] File change detected. Updating...
+[19:59:53.965] readProjectFiles, Found 122 files to read.
+[19:59:54.021] Files read. Count: 122
+[19:59:54.021] Calling pai.updateCloudDev...
+[19:59:54.022] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[19:59:54.094] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177593899}
+[19:59:54.094] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177593899}
+[19:59:54.094] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[19:59:54.095] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[19:59:54.095] Update success (pai.updateCloudDev returned)
+[19:59:54.123] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177593930}
+[19:59:55.357] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 7:59:55 PM]\n\n","timestamp":1788177595161}]
+[19:59:57.197] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 7:59:56 PM\n\n","timestamp":1788177596998}
+[19:59:57.199] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177596999}]
+[19:59:57.217] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177597018}]
+[20:00:12.835] Received update request via HTTP
+[20:00:14.847] File change detected. Updating...
+[20:00:14.878] readProjectFiles, Found 122 files to read.
+[20:00:14.942] Files read. Count: 122
+[20:00:14.943] Calling pai.updateCloudDev...
+[20:00:14.943] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:00:15.009] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177614815}
+[20:00:15.009] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177614815}
+[20:00:15.010] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:00:15.010] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:00:15.010] Update success (pai.updateCloudDev returned)
+[20:00:15.040] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177614847}
+[20:00:16.512] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:00:16 PM]\n\n","timestamp":1788177616316}]
+[20:00:16.609] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788177616416}
+[20:00:17.385] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:00:17 PM\n\n","timestamp":1788177617191}
+[20:00:17.386] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177617192}]
+[20:00:17.419] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177617210}]
+[20:00:34.880] [Preview Server] Frontend disconnected, clients size = 1
+[20:00:34.910] [Preview Server] Frontend connected, clients size = 1
+[20:00:34.911] Sending cached status to new connection, lastStatusMessage = {"event":"status_change","message":{"url":"https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457","schema":"aipa://preview?type=pai&aipa_id=pai-preview-trae-7047c457&uuid=0a60a1f6-3581-4cdd-8618-cf19de488738","status":"running","framework":"taro"}}
+[20:00:34.911] Sending cached status to new connection, lastErrorMessage = {"event":"compile_error","message":[{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177617210}]}
+[20:05:01.150] File change detected. Updating...
+[20:05:01.173] readProjectFiles, Found 123 files to read.
+[20:05:01.219] Files read. Count: 123
+[20:05:01.219] Calling pai.updateCloudDev...
+[20:05:01.220] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:05:01.295] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177901095}
+[20:05:01.295] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177901095}
+[20:05:01.295] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:05:01.295] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:05:01.296] Update success (pai.updateCloudDev returned)
+[20:05:01.354] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177901156}
+[20:05:03.138] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:05:02 PM]\n\n","timestamp":1788177902938}]
+[20:05:04.987] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:05:04 PM\n\n","timestamp":1788177904787}
+[20:05:04.987] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177904788}]
+[20:05:05.011] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177904812}]
+[20:05:17.705] File change detected. Updating...
+[20:05:17.728] readProjectFiles, Found 123 files to read.
+[20:05:17.772] Files read. Count: 123
+[20:05:17.772] Calling pai.updateCloudDev...
+[20:05:17.773] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:05:17.858] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177917659}
+[20:05:17.858] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177917659}
+[20:05:17.858] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:05:17.859] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:05:17.859] Update success (pai.updateCloudDev returned)
+[20:05:17.895] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177917696}
+[20:05:19.264] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177919064}]
+[20:05:20.089] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:05:19 PM\n\n","timestamp":1788177919890}
+[20:05:20.093] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177919891}]
+[20:05:20.125] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177919924}]
+[20:05:27.794] File change detected. Updating...
+[20:05:27.828] readProjectFiles, Found 123 files to read.
+[20:05:27.892] Files read. Count: 123
+[20:05:27.893] Calling pai.updateCloudDev...
+[20:05:27.893] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:05:27.966] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177927763}
+[20:05:27.966] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177927763}
+[20:05:27.966] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:05:27.967] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:05:27.967] Update success (pai.updateCloudDev returned)
+[20:05:27.997] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177927798}
+[20:05:29.306] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177929105}]
+[20:05:30.162] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:05:29 PM\n\n","timestamp":1788177929963}
+[20:05:30.163] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177929963}]
+[20:05:30.187] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177929987}]
+[20:05:41.226] File change detected. Updating...
+[20:05:41.252] readProjectFiles, Found 123 files to read.
+[20:05:41.297] Files read. Count: 123
+[20:05:41.297] Calling pai.updateCloudDev...
+[20:05:41.298] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:05:41.386] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177941184}
+[20:05:41.386] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177941184}
+[20:05:41.386] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:05:41.387] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:05:41.387] Update success (pai.updateCloudDev returned)
+[20:05:41.413] [PAI SDK] Received event: log {"content":"<i> [webpack-dev-middleware] wait until bundle finished: /\n","timestamp":1788177941214}
+[20:05:43.020] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:05:42 PM]\n\n","timestamp":1788177942817}]
+[20:05:43.859] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:05:43 PM\n\n","timestamp":1788177943654}
+[20:05:43.859] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177943656}]
+[20:05:43.885] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177943680}]
+[20:06:18.849] [Preview Server] Frontend disconnected, clients size = 1
+[20:06:24.112] File change detected. Updating...
+[20:06:24.136] readProjectFiles, Found 124 files to read.
+[20:06:24.182] Files read. Count: 124
+[20:06:24.182] Calling pai.updateCloudDev...
+[20:06:24.183] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:06:24.244] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177984043}
+[20:06:24.244] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177984043}
+[20:06:24.244] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:06:24.244] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:06:24.245] Update success (pai.updateCloudDev returned)
+[20:06:25.882] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:06:25 PM]\n\n","timestamp":1788177985681}]
+[20:06:27.564] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:06:27 PM\n\n","timestamp":1788177987364}
+[20:06:27.565] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177987365}]
+[20:06:27.596] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177987395}]
+[20:06:30.990] File change detected. Updating...
+[20:06:31.020] readProjectFiles, Found 124 files to read.
+[20:06:31.066] Files read. Count: 124
+[20:06:31.066] Calling pai.updateCloudDev...
+[20:06:31.066] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:06:31.153] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177990953}
+[20:06:31.154] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177990953}
+[20:06:31.154] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:06:31.154] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:06:31.154] Update success (pai.updateCloudDev returned)
+[20:06:32.574] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:06:32 PM]\n\n","timestamp":1788177992373}]
+[20:06:33.392] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:06:33 PM\n\n","timestamp":1788177993192}
+[20:06:33.393] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788177993193}]
+[20:06:33.423] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788177993222}]
+[20:06:39.756] File change detected. Updating...
+[20:06:39.782] readProjectFiles, Found 123 files to read.
+[20:06:39.822] Files read. Count: 123
+[20:06:39.822] Calling pai.updateCloudDev...
+[20:06:39.823] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:06:39.899] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177999698}
+[20:06:39.899] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788177999698}
+[20:06:39.899] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:06:39.899] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:06:39.899] Update success (pai.updateCloudDev returned)
+[20:06:41.275] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:06:41 PM]\n\n","timestamp":1788178001072}]
+[20:06:41.372] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178001171}
+[20:06:42.133] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:06:41 PM\n\n","timestamp":1788178001931}
+[20:06:42.133] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178001931}]
+[20:06:42.148] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178001947}]
+[20:06:57.910] File change detected. Updating...
+[20:06:57.933] readProjectFiles, Found 123 files to read.
+[20:06:57.976] Files read. Count: 123
+[20:06:57.976] Calling pai.updateCloudDev...
+[20:06:57.976] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:06:58.036] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178017836}
+[20:06:58.037] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178017836}
+[20:06:58.037] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:06:58.037] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:06:58.037] Update success (pai.updateCloudDev returned)
+[20:07:00.367] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:07:00 PM]\n\n","timestamp":1788178020164}]
+[20:07:00.465] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178020264}
+[20:07:01.216] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:07:01 PM\n\n","timestamp":1788178021014}
+[20:07:01.217] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178021014}]
+[20:07:01.358] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178021043}]
+[20:07:03.907] File change detected. Updating...
+[20:07:03.929] readProjectFiles, Found 123 files to read.
+[20:07:03.969] Files read. Count: 123
+[20:07:03.969] Calling pai.updateCloudDev...
+[20:07:03.969] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:07:04.067] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178023866}
+[20:07:04.067] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178023866}
+[20:07:04.068] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:07:04.068] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:07:04.068] Update success (pai.updateCloudDev returned)
+[20:07:05.350] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:07:05 PM]\n\n","timestamp":1788178025145}]
+[20:07:05.445] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178025244}
+[20:07:06.158] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:07:05 PM\n\n","timestamp":1788178025957}
+[20:07:06.160] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178025957}]
+[20:07:06.187] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178025984}]
+[20:07:43.468] File change detected. Updating...
+[20:07:43.490] readProjectFiles, Found 124 files to read.
+[20:07:43.539] Files read. Count: 124
+[20:07:43.540] Calling pai.updateCloudDev...
+[20:07:43.540] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:07:43.651] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178063449}
+[20:07:43.651] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178063449}
+[20:07:43.651] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daamano2o4ealasvlj70-sandbox&hash=pai-preview-trae-7047c457
+[20:07:43.651] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:07:43.651] Update success (pai.updateCloudDev returned)
+[20:07:45.418] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178065214}]
+[20:07:47.109] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:07:46 PM\n\n","timestamp":1788178066907}
+[20:07:47.110] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178066907}]
+[20:07:47.141] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/0432e9adac405f3a05e1ffc58a9ab755/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178066937}]
+[20:16:06.841] File change detected. Updating...
+[20:16:06.878] readProjectFiles, Found 125 files to read.
+[20:16:07.251] Files read. Count: 125
+[20:16:07.252] Calling pai.updateCloudDev...
+[20:16:07.252] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:16:07.430] [PAI SDK] Received event: server_exit_abnormal {"content":"Cloud Server exited with code -1","timestamp":1788178567219}
+[20:16:07.431] [PAI SDK] Server exited abnormally, cleaning up...
+[20:16:07.656] [PAI SDK] WebSocket closed, reconnecting (1/3)...
+[20:16:24.564] File change detected. Updating...
+[20:16:24.595] readProjectFiles, Found 125 files to read.
+[20:16:24.685] Files read. Count: 125
+[20:16:24.685] Calling pai.updateCloudDev...
+[20:16:24.686] [PAI SDK] Sandbox disconnected, recreating...
+[20:16:25.768] [PAI SDK] Sandbox recreated, sandboxId: vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox
+[20:16:25.769] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:16:25.828] [PAI SDK] cloudServer.update response: {
+  "status": "preparing",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:16:25.828] Update success (pai.updateCloudDev returned)
+[20:17:02.060] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178621843}
+[20:17:02.061] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178621843}
+[20:17:02.062] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:17:02.062] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": true,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:17:02.063] Update success (pai.updateCloudDev returned)
+[20:17:02.117] [PAI SDK] Received event: log {"content":"\nℹ️  Listening at http://9.97.67.126:10086/\n\n监听文件修改中...\n\n","timestamp":1788178621903}
+[20:17:02.148] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178621928}]
+[20:17:03.535] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178623320}]
+[20:17:04.153] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:17:03 PM\n\n","timestamp":1788178623941}
+[20:17:04.154] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178623942}]
+[20:17:04.179] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178623966}]
+[20:18:39.776] File change detected. Updating...
+[20:18:39.800] readProjectFiles, Found 126 files to read.
+[20:18:39.845] Files read. Count: 126
+[20:18:39.845] Calling pai.updateCloudDev...
+[20:18:39.846] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:18:39.911] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178719697}
+[20:18:39.911] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178719697}
+[20:18:39.911] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:18:39.911] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:18:39.911] Update success (pai.updateCloudDev returned)
+[20:18:41.762] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:18:41 PM]\n\n","timestamp":1788178721548}]
+[20:18:41.866] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178721649}
+[20:18:42.529] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:18:42 PM\n\n","timestamp":1788178722316}
+[20:18:42.530] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178722316}]
+[20:18:42.556] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178722341}]
+[20:18:51.645] File change detected. Updating...
+[20:18:51.693] readProjectFiles, Found 126 files to read.
+[20:18:51.853] Files read. Count: 126
+[20:18:51.853] Calling pai.updateCloudDev...
+[20:18:51.854] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:18:51.922] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178731708}
+[20:18:51.922] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178731708}
+[20:18:51.922] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:18:51.923] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:18:51.923] Update success (pai.updateCloudDev returned)
+[20:18:53.491] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178733276}]
+[20:18:54.174] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:18:53 PM\n\n","timestamp":1788178733961}
+[20:18:54.175] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178733961}]
+[20:18:54.207] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178733991}]
+[20:19:00.424] File change detected. Updating...
+[20:19:00.449] readProjectFiles, Found 126 files to read.
+[20:19:00.496] Files read. Count: 126
+[20:19:00.496] Calling pai.updateCloudDev...
+[20:19:00.497] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:19:00.563] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178740349}
+[20:19:00.563] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178740349}
+[20:19:00.563] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:19:00.563] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:19:00.564] Update success (pai.updateCloudDev returned)
+[20:19:02.208] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:19:01 PM]\n\n","timestamp":1788178741993}]
+[20:19:02.307] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178742093}
+[20:19:02.885] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:19:02 PM\n\n","timestamp":1788178742671}
+[20:19:02.887] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178742672}]
+[20:19:02.909] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178742694}]
+[20:20:05.892] File change detected. Updating...
+[20:20:05.919] readProjectFiles, Found 126 files to read.
+[20:20:05.968] Files read. Count: 126
+[20:20:05.968] Calling pai.updateCloudDev...
+[20:20:05.968] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:20:06.061] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178805846}
+[20:20:06.061] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178805846}
+[20:20:06.061] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:20:06.061] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:20:06.062] Update success (pai.updateCloudDev returned)
+[20:20:07.738] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:20:07 PM]\n\n","timestamp":1788178807522}]
+[20:20:07.835] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178807621}
+[20:20:08.485] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:20:08 PM\n\n","timestamp":1788178808271}
+[20:20:08.487] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178808271}]
+[20:20:08.498] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178808283}]
+[20:20:57.774] File change detected. Updating...
+[20:20:57.806] readProjectFiles, Found 126 files to read.
+[20:20:57.866] Files read. Count: 126
+[20:20:57.866] Calling pai.updateCloudDev...
+[20:20:57.867] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:20:57.930] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178857714}
+[20:20:57.930] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178857714}
+[20:20:57.931] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:20:57.931] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:20:57.931] Update success (pai.updateCloudDev returned)
+[20:20:59.452] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:20:59 PM]\n\n","timestamp":1788178859235}]
+[20:20:59.550] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178859335}
+[20:21:00.113] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:20:59 PM\n\n","timestamp":1788178859898}
+[20:21:00.114] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178859898}]
+[20:21:00.133] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178859916}]
+[20:21:42.315] File change detected. Updating...
+[20:21:42.351] readProjectFiles, Found 126 files to read.
+[20:21:42.410] Files read. Count: 126
+[20:21:42.410] Calling pai.updateCloudDev...
+[20:21:42.411] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:21:42.485] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178902268}
+[20:21:42.485] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178902268}
+[20:21:42.485] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:21:42.485] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:21:42.486] Update success (pai.updateCloudDev returned)
+[20:21:44.249] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:21:44 PM]\n\n","timestamp":1788178904031}]
+[20:21:44.349] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178904132}
+[20:21:45.046] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:21:44 PM\n\n","timestamp":1788178904830}
+[20:21:45.048] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178904832}]
+[20:21:45.062] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178904843}]
+[20:21:46.538] File change detected. Updating...
+[20:21:46.567] readProjectFiles, Found 126 files to read.
+[20:21:46.625] Files read. Count: 126
+[20:21:46.625] Calling pai.updateCloudDev...
+[20:21:46.626] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:21:46.789] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178906570}
+[20:21:46.790] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178906570}
+[20:21:46.790] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:21:46.790] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:21:46.790] Update success (pai.updateCloudDev returned)
+[20:21:48.080] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178907863}]
+[20:21:49.278] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:21:49 PM\n\n","timestamp":1788178909062}
+[20:21:49.280] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178909062}]
+[20:21:49.310] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178909092}]
+[20:21:51.046] File change detected. Updating...
+[20:21:51.074] readProjectFiles, Found 126 files to read.
+[20:21:51.141] Files read. Count: 126
+[20:21:51.141] Calling pai.updateCloudDev...
+[20:21:51.142] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:21:51.233] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178911016}
+[20:21:51.233] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178911016}
+[20:21:51.233] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:21:51.234] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:21:51.234] Update success (pai.updateCloudDev returned)
+[20:21:52.534] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:21:52 PM]\n\n","timestamp":1788178912316}]
+[20:21:52.632] [PAI SDK] Received event: log {"content":"✖ Errors: \n\n","timestamp":1788178912416}
+[20:21:53.275] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:21:53 PM\n\n","timestamp":1788178913058}
+[20:21:53.276] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178913058}]
+[20:21:53.299] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178913081}]
+[20:22:40.309] File change detected. Updating...
+[20:22:40.337] readProjectFiles, Found 126 files to read.
+[20:22:40.403] Files read. Count: 126
+[20:22:40.404] Calling pai.updateCloudDev...
+[20:22:40.404] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:22:40.482] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178960265}
+[20:22:40.482] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178960265}
+[20:22:40.483] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:22:40.483] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:22:40.483] Update success (pai.updateCloudDev returned)
+[20:22:42.375] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178962156}]
+[20:22:43.176] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:22:42 PM\n\n","timestamp":1788178962959}
+[20:22:43.177] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178962959}]
+[20:22:43.207] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178962983}]
+[20:22:55.474] File change detected. Updating...
+[20:22:55.507] readProjectFiles, Found 126 files to read.
+[20:22:55.566] Files read. Count: 126
+[20:22:55.566] Calling pai.updateCloudDev...
+[20:22:55.567] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:22:55.730] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178975420}
+[20:22:55.730] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178975420}
+[20:22:55.731] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:22:55.731] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:22:55.731] Update success (pai.updateCloudDev returned)
+[20:22:56.892] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178976673}]
+[20:22:57.980] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:22:57 PM\n\n","timestamp":1788178977762}
+[20:22:57.981] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178977764}]
+[20:22:58.002] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178977783}]
+[20:23:05.969] File change detected. Updating...
+[20:23:06.004] readProjectFiles, Found 126 files to read.
+[20:23:06.065] Files read. Count: 126
+[20:23:06.066] Calling pai.updateCloudDev...
+[20:23:06.066] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:23:06.145] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178985927}
+[20:23:06.146] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178985927}
+[20:23:06.146] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:23:06.146] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:23:06.146] Update success (pai.updateCloudDev returned)
+[20:23:07.390] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178987171}]
+[20:23:08.038] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:23:07 PM\n\n","timestamp":1788178987820}
+[20:23:08.038] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178987820}]
+[20:23:08.057] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178987839}]
+[20:23:17.176] File change detected. Updating...
+[20:23:17.199] readProjectFiles, Found 126 files to read.
+[20:23:17.245] Files read. Count: 126
+[20:23:17.245] Calling pai.updateCloudDev...
+[20:23:17.246] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:23:17.332] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178997114}
+[20:23:17.333] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788178997114}
+[20:23:17.333] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:23:17.333] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:23:17.333] Update success (pai.updateCloudDev returned)
+[20:23:18.535] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:23:18 PM]\n\n","timestamp":1788178998315}]
+[20:23:19.274] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:23:19 PM\n\n","timestamp":1788178999056}
+[20:23:19.274] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788178999056}]
+[20:23:19.299] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788178999079}]
+[20:24:05.097] File change detected. Updating...
+[20:24:05.121] readProjectFiles, Found 126 files to read.
+[20:24:05.165] Files read. Count: 126
+[20:24:05.165] Calling pai.updateCloudDev...
+[20:24:05.166] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:24:05.236] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179045017}
+[20:24:05.236] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179045017}
+[20:24:05.236] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:24:05.237] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:24:05.237] Update success (pai.updateCloudDev returned)
+[20:24:06.875] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179046655}]
+[20:24:07.624] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:24:07 PM\n\n","timestamp":1788179047396}
+[20:24:07.624] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179047396}]
+[20:24:07.633] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179047412}]
+[20:33:02.644] File change detected. Updating...
+[20:33:02.689] readProjectFiles, Found 126 files to read.
+[20:33:02.761] Files read. Count: 126
+[20:33:02.762] Calling pai.updateCloudDev...
+[20:33:02.762] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:33:02.868] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179582639}
+[20:33:02.868] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179582639}
+[20:33:02.868] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:33:02.868] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:33:02.869] Update success (pai.updateCloudDev returned)
+[20:33:04.609] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179584380}]
+[20:33:05.328] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:33:05 PM\n\n","timestamp":1788179585094}
+[20:33:05.329] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179585094}]
+[20:33:05.344] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179585110}]
+[20:33:42.889] File change detected. Updating...
+[20:33:42.924] readProjectFiles, Found 127 files to read.
+[20:33:42.985] Files read. Count: 127
+[20:33:42.985] Calling pai.updateCloudDev...
+[20:33:42.985] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:33:43.070] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179622842}
+[20:33:43.071] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179622842}
+[20:33:43.071] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:33:43.071] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:33:43.072] Update success (pai.updateCloudDev returned)
+[20:33:44.814] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179624584}]
+[20:33:45.521] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:33:45 PM\n\n","timestamp":1788179625292}
+[20:33:45.522] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179625293}]
+[20:33:45.548] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179625318}]
+[20:34:17.135] File change detected. Updating...
+[20:34:17.161] readProjectFiles, Found 127 files to read.
+[20:34:17.210] Files read. Count: 127
+[20:34:17.211] Calling pai.updateCloudDev...
+[20:34:17.211] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:34:17.398] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179657166}
+[20:34:17.398] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179657166}
+[20:34:17.398] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:34:17.398] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:34:17.398] Update success (pai.updateCloudDev returned)
+[20:34:19.787] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:34:19 PM]\n\n","timestamp":1788179659556}]
+[20:34:20.646] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:34:20 PM\n\n","timestamp":1788179660417}
+[20:34:20.648] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179660418}]
+[20:34:20.667] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179660437}]
+[20:34:41.891] File change detected. Updating...
+[20:34:41.923] readProjectFiles, Found 128 files to read.
+[20:34:41.982] Files read. Count: 128
+[20:34:41.983] Calling pai.updateCloudDev...
+[20:34:41.983] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:34:42.093] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179681847}
+[20:34:42.094] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179681847}
+[20:34:42.094] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:34:42.094] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:34:42.095] Update success (pai.updateCloudDev returned)
+[20:34:43.380] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179683149}]
+[20:34:44.145] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:34:43 PM\n\n","timestamp":1788179683915}
+[20:34:44.146] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179683915}]
+[20:34:44.160] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179683929}]
+[20:34:52.317] File change detected. Updating...
+[20:34:52.359] readProjectFiles, Found 127 files to read.
+[20:34:52.426] Files read. Count: 127
+[20:34:52.426] Calling pai.updateCloudDev...
+[20:34:52.426] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:34:52.495] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179692264}
+[20:34:52.495] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179692264}
+[20:34:52.496] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:34:52.496] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:34:52.496] Update success (pai.updateCloudDev returned)
+[20:34:53.772] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179693540}]
+[20:34:54.497] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:34:54 PM\n\n","timestamp":1788179694266}
+[20:34:54.498] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179694266}]
+[20:34:54.512] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179694280}]
+[20:39:17.132] File change detected. Updating...
+[20:39:17.161] readProjectFiles, Found 127 files to read.
+[20:39:17.218] Files read. Count: 127
+[20:39:17.219] Calling pai.updateCloudDev...
+[20:39:17.219] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:39:17.290] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179957055}
+[20:39:17.291] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788179957055}
+[20:39:17.291] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:39:17.292] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:39:17.292] Update success (pai.updateCloudDev returned)
+[20:39:18.892] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:39:18 PM]\n\n","timestamp":1788179958654}]
+[20:39:20.098] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:39:19 PM\n\n","timestamp":1788179959863}
+[20:39:20.099] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788179959864}]
+[20:39:20.130] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179959895}]
+[20:42:09.281] [Preview Server] Frontend connected, clients size = 1
+[20:42:09.282] Sending cached status to new connection, lastStatusMessage = {"event":"status_change","message":{"url":"https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457","schema":"aipa://preview?type=pai&aipa_id=pai-preview-trae-7047c457&uuid=0a60a1f6-3581-4cdd-8618-cf19de488738","status":"running","framework":"taro"}}
+[20:42:09.282] Sending cached status to new connection, lastErrorMessage = {"event":"compile_error","message":[{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788179959895}]}
+[20:42:36.018] [Preview Server] Frontend disconnected, clients size = 1
+[20:47:16.532] File change detected. Updating...
+[20:47:16.554] readProjectFiles, Found 127 files to read.
+[20:47:16.602] Files read. Count: 127
+[20:47:16.603] Calling pai.updateCloudDev...
+[20:47:16.603] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:47:16.674] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788180436430}
+[20:47:16.674] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788180436430}
+[20:47:16.674] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:47:16.674] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:47:16.674] Update success (pai.updateCloudDev returned)
+[20:47:18.095] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:47:17 PM]\n\n","timestamp":1788180437849}]
+[20:47:19.176] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:47:18 PM\n\n","timestamp":1788180438933}
+[20:47:19.177] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788180438933}]
+[20:47:19.193] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788180438949}]
+[20:51:33.934] File change detected. Updating...
+[20:51:33.961] readProjectFiles, Found 128 files to read.
+[20:51:34.022] Files read. Count: 128
+[20:51:34.023] Calling pai.updateCloudDev...
+[20:51:34.023] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:51:34.100] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788180693852}
+[20:51:34.100] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788180693852}
+[20:51:34.101] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:51:34.101] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:51:34.101] Update success (pai.updateCloudDev returned)
+[20:51:35.408] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:51:35 PM]\n\n","timestamp":1788180695159}]
+[20:51:36.616] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:51:36 PM\n\n","timestamp":1788180696366}
+[20:51:36.619] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788180696367}]
+[20:51:36.645] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788180696393}]
+[20:51:49.577] File change detected. Updating...
+[20:51:49.605] readProjectFiles, Found 127 files to read.
+[20:51:49.650] Files read. Count: 127
+[20:51:49.650] Calling pai.updateCloudDev...
+[20:51:49.651] [PAI SDK] cloudServer.update called, appId: pai-preview-trae-7047c457
+[20:51:49.724] [PAI SDK] Received event: reload {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788180709476}
+[20:51:49.724] [PAI SDK] CloudServer received reload event: {"url":"aipa://pai-preview-trae-7047c457.aipa-cloud.bytedance.net?type=pai","timestamp":1788180709476}
+[20:51:49.724] [PAI SDK] reload, url = https://sd62opo6oqou1ckhsuo00.apigateway-cn-beijing.volceapi.com/?faasInstanceName=vefaas-f0vkicge-zwx1wbt5u0-daan16023c00u3jogfpg-sandbox&hash=pai-preview-trae-7047c457
+[20:51:49.724] [PAI SDK] cloudServer.update response: {
+  "status": "running",
+  "reload": false,
+  "hash": "pai-preview-trae-7047c457"
+}
+[20:51:49.724] Update success (pai.updateCloudDev returned)
+[20:51:51.035] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n→ Watching... [8/31/2026, 8:51:50 PM]\n\n","timestamp":1788180710784}]
+[20:51:51.746] [PAI SDK] Received event: log {"content":"🙅   编译失败. 8/31/2026, 8:51:51 PM\n\n","timestamp":1788180711497}
+[20:51:51.747] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"SyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>\n\n","timestamp":1788180711497}]
+[20:51:51.763] [PAI SDK] Received event: compile_error [{"filename":"","lineNumber":0,"description":"ERROR in ./src/pages/home/index.tsx\nModule build failed (from ../../../var/cache/pai-dev-server/prewarm/taro/21692d691c221863e1b4dbb41101d561/node_modules/.pnpm/babel-loader@8.2.1_@babel+core@7.29.7_webpack@5.78.0_@swc+core@1.3.96_postcss@8.5.16_/node_modules/babel-loader/lib/index.js):\nSyntaxError: /src/pages/home/index.tsx: Unterminated string constant. (179:49)\n\n  177 |             <View>\n  178 |               <Text className={styles.bookingTitle}>预约订单管理</Text>\n> 179 |               <Text className={styles.bookingDesc\">查看历史预约 · 取消订单</Text>\n      |                                                  ^\n  180 |             </View>\n  181 |           </View>\n  182 |           <Text className={styles.bookingArrow}>›</Text>","timestamp":1788180711515}]
