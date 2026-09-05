@@ -108,13 +108,42 @@ async function renderOverview() {
 }
 
 // ---------- 通用实体管理（服务/商品/疾病/穴位） ----------
+let currentEntityType = '' // 当前编辑的实体类型，用于媒体上传关联
 const FIELD_LABELS = {
-  id: 'ID', name: '名称', alias: '别名', category: '分类', cover: '封面图URL', price: '价格(元)', originalPrice: '原价(元)',
+  id: 'ID', name: '名称', alias: '别名', category: '分类', cover: '封面图', price: '价格(元)', originalPrice: '原价(元)',
   duration: '时长(分钟)', intro: '简介', efficacy: '功效列表', suitable: '适用人群', caution: '注意事项', steps: '服务流程',
-  popular: '热门', unit: '单位', sales: '销量', tags: '标签', description: '详情描述', specs: '规格列表', detailImages: '详情图URLs',
+  popular: '热门', unit: '单位', sales: '销量', tags: '标签', description: '详情描述', specs: '规格列表', detailImages: '详情图',
   usage: '使用方法', hot: '热销', symptoms: '症状', tcmDiagnosis: '中医辨证', tcmTreatment: '中医调理', diet: '食疗方案',
   dietRecipes: '食疗方剂', lifestyle: '生活指导', precautions: '注意事项', meridian: '所属经络', location: '定位', massage: '按摩方法',
-  indication: '主治', address: '地址', phone: '电话', distance: '距离(km)', businessHours: '营业时间', part: '身体部位(key)', effect: '功效标签'
+  indication: '主治', address: '地址', phone: '电话', distance: '距离(km)', businessHours: '营业时间', part: '身体部位(key)', effect: '功效标签', video: '教学视频', image: '穴位图片'
+}
+
+// 根据实体类型前缀 + 现有列表最大序号，生成唯一 id（如 s004、p002）
+const ID_PREFIX = { services: 's', products: 'p', diseases: 'd', acupoints: 'a' }
+function genId(type, list) {
+  const prefix = ID_PREFIX[type] || ''
+  const nums = list
+    .map((it) => parseInt(String(it.id || '').replace(/^\D+/, ''), 10))
+    .filter((n) => !isNaN(n))
+  const max = nums.length ? Math.max(...nums) : 0
+  return prefix + String(max + 1).padStart(3, '0')
+}
+
+// 媒体上传辅助（视频/图片）：上传到 /api/admin/media，返回 { url, id }
+async function uploadMedia(file, entityType, entityId) {
+  const fd = new FormData()
+  fd.append('file', file)
+  fd.append('entityType', entityType || 'acupoints')
+  fd.append('entityId', entityId || '')
+  const token = localStorage.getItem('yyt_admin_token') || ''
+  const resp = await fetch('/api/admin/media', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + token },
+    body: fd
+  })
+  const r = await resp.json()
+  if (r.code !== 0) throw new Error(r.msg || '上传失败')
+  return r.data
 }
 
 function fieldRow(k, v) {
@@ -124,12 +153,69 @@ function fieldRow(k, v) {
     return `<div class="form-item" data-k="${k}"><label>${label}</label>
       <select data-k="${k}"><option value="true" ${v ? 'selected' : ''}>是 (true)</option><option value="false" ${!v ? 'selected' : ''}>否 (false)</option></select></div>`
   }
+  // 单图 URL 字段（封面图 cover / 穴位图片 image）
+  if (k === 'cover' || k === 'image') {
+    const val = String(v || '')
+    const preview = val ? `<img src="${esc(val)}" style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;"/>` : ''
+    return `<div class="form-item" data-k="${k}"><label>${label}</label>
+      <input type="hidden" data-k-val value="${esc(val)}"/>
+      ${preview}
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="file" accept="image/*" data-media-upload style="font-size:13px;"/>
+        ${val ? `<button type="button" class="btn small ghost" data-media-clear>清除图片</button>` : ''}
+        <span class="media-status muted" style="font-size:12px;"></span>
+      </div>
+      <div class="form-hint">支持 jpg/png/webp，上传后存服务器磁盘，URL 自动填入</div>
+    </div>`
+  }
+  // 多图 URL 数组字段（详情图 detailImages）
+  if (k === 'detailImages') {
+    const arr = Array.isArray(v) ? v.filter(Boolean) : []
+    const thumbs = arr.map((url, idx) => `
+      <div class="thumb-item" data-idx="${idx}" style="position:relative;display:inline-block;margin:4px;">
+        <img src="${esc(url)}" style="width:80px;height:80px;object-fit:cover;border-radius:4px;"/>
+        <button type="button" class="btn small danger" data-thumb-del style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;padding:0;line-height:1;border-radius:50%;font-size:12px;">×</button>
+      </div>`).join('')
+    return `<div class="form-item" data-k="${k}"><label>${label}</label>
+      <input type="hidden" data-k-val data-json="true" value="${esc(JSON.stringify(arr))}"/>
+      <div class="thumb-grid" style="margin-bottom:8px;">${thumbs}</div>
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="file" accept="image/*" data-media-upload-multi style="font-size:13px;"/>
+        <span class="media-status muted" style="font-size:12px;"></span>
+      </div>
+      <div class="form-hint">支持多张 jpg/png/webp，逐张上传，可点 × 删除</div>
+    </div>`
+  }
+  // 视频字段
+  if (k === 'video') {
+    const val = String(v || '')
+    const preview = val ? `<video src="${esc(val)}" controls style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;"></video>` : ''
+    return `<div class="form-item" data-k="${k}"><label>${label}</label>
+      <input type="hidden" data-k-val value="${esc(val)}"/>
+      ${preview}
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="file" accept="video/*" data-media-upload style="font-size:13px;"/>
+        ${val ? `<button type="button" class="btn small ghost" data-media-clear>清除视频</button>` : ''}
+        <span class="media-status muted" style="font-size:12px;"></span>
+      </div>
+      <div class="form-hint">支持 mp4/webm 等小视频，文件存服务器磁盘，小程序端可播放</div>
+    </div>`
+  }
+  // 价格字段：number 输入 + 两位小数
+  if (k === 'price' || k === 'originalPrice') {
+    const num = Number(v)
+    const val = isNaN(num) ? '' : num.toFixed(2)
+    return `<div class="form-item" data-k="${k}"><label>${label}</label>
+      <input type="number" step="0.01" min="0" data-k="${k}" value="${esc(val)}" ${k === 'id' ? 'readonly' : ''}/>
+      <div class="form-hint">保留两位小数（如 99.00）</div>
+    </div>`
+  }
   const isJson = Array.isArray(v) || (typeof v === 'object' && v !== null)
   const val = isJson ? JSON.stringify(v, null, 2) : v
   return `<div class="form-item" data-k="${k}"><label>${label}</label>
     ${isJson || String(val).length > 60 || k === 'intro' || k === 'description' || k === 'tcmDiagnosis' || k === 'location' || k === 'massage' || k === 'usage'
       ? `<textarea data-k="${k}">${esc(val)}</textarea><div class="form-hint">${isJson ? 'JSON 格式' : ''}</div>` 
-      : `<input data-k="${k}" value="${esc(val)}" ${k === 'id' && v ? 'readonly' : ''}/>`}
+      : `<input data-k="${k}" value="${esc(val)}" ${k === 'id' ? 'readonly' : ''}/>`}
     ${hint}</div>`
 }
 
@@ -138,17 +224,114 @@ function openForm(title, record, onSave) {
   const rows = Object.entries(record).map(([k, v]) => fieldRow(k, v)).join('')
   $('#modalBody').innerHTML = rows
   $('#modalMask').classList.remove('hidden')
+
+  // 绑定单图/视频上传控件（cover / image / video）
+  $('#modalBody').querySelectorAll('[data-k="video"], [data-k="image"], [data-k="cover"]').forEach((row) => {
+    const hidden = row.querySelector('[data-k-val]')
+    const fileInput = row.querySelector('[data-media-upload]')
+    const clearBtn = row.querySelector('[data-media-clear]')
+    const status = row.querySelector('.media-status')
+    const entityId = record.id || ''
+    const isVideo = row.dataset.k === 'video'
+    if (fileInput) {
+      fileInput.onchange = async () => {
+        const f = fileInput.files[0]
+        if (!f) return
+        status.textContent = '上传中…'
+        try {
+          const r = await uploadMedia(f, currentEntityType, entityId)
+          hidden.value = r.url
+          let preview = row.querySelector(isVideo ? 'video' : 'img')
+          if (!preview) {
+            preview = document.createElement(isVideo ? 'video' : 'img')
+            if (isVideo) preview.controls = true
+            preview.style.cssText = 'max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;'
+            row.insertBefore(preview, row.querySelector('.media-upload-area'))
+          }
+          preview.src = r.url
+          status.textContent = `已上传：${r.filename}（${(r.size/1024).toFixed(1)} KB）`
+        } catch (e) {
+          status.textContent = '上传失败：' + e.message
+        }
+      }
+    }
+    if (clearBtn) {
+      clearBtn.onclick = () => {
+        hidden.value = ''
+        const preview = row.querySelector(isVideo ? 'video' : 'img')
+        if (preview) preview.remove()
+        status.textContent = '已清除'
+      }
+    }
+  })
+
+  // 绑定多图数组上传控件（detailImages）
+  $('#modalBody').querySelectorAll('[data-k="detailImages"]').forEach((row) => {
+    const hidden = row.querySelector('[data-k-val]')
+    const fileInput = row.querySelector('[data-media-upload-multi]')
+    const status = row.querySelector('.media-status')
+    const grid = row.querySelector('.thumb-grid')
+    const entityId = record.id || ''
+    function getArr() { try { return JSON.parse(hidden.value || '[]') } catch { return [] } }
+    function setArr(arr) { hidden.value = JSON.stringify(arr); renderThumbs(arr) }
+    function renderThumbs(arr) {
+      grid.innerHTML = arr.map((url, idx) => `
+        <div class="thumb-item" data-idx="${idx}" style="position:relative;display:inline-block;margin:4px;">
+          <img src="${esc(url)}" style="width:80px;height:80px;object-fit:cover;border-radius:4px;"/>
+          <button type="button" class="btn small danger" data-thumb-del style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;padding:0;line-height:1;border-radius:50%;font-size:12px;">×</button>
+        </div>`).join('')
+      grid.querySelectorAll('[data-thumb-del]').forEach((btn) => {
+        btn.onclick = () => {
+          const i = Number(btn.parentElement.dataset.idx)
+          const a = getArr()
+          a.splice(i, 1)
+          setArr(a)
+        }
+      })
+    }
+    if (fileInput) {
+      fileInput.onchange = async () => {
+        const f = fileInput.files[0]
+        if (!f) return
+        status.textContent = '上传中…'
+        try {
+          const r = await uploadMedia(f, currentEntityType, entityId)
+          const a = getArr()
+          a.push(r.url)
+          setArr(a)
+          status.textContent = `已上传：${r.filename}（共 ${a.length} 张）`
+        } catch (e) {
+          status.textContent = '上传失败：' + e.message
+        }
+        fileInput.value = ''
+      }
+    }
+  })
+
   $('#modalSave').onclick = async () => {
     const obj = {}
     $('#modalBody').querySelectorAll('[data-k]').forEach((el) => {
       const k = el.dataset.k
+      // 带 data-k-val 的字段从隐藏输入取值；data-json 则解析为数组/对象
+      const valEl = el.querySelector('[data-k-val]')
+      if (valEl) {
+        if (valEl.dataset.json === 'true') { try { obj[k] = JSON.parse(valEl.value) } catch { obj[k] = [] } }
+        else { obj[k] = valEl.value }
+        return
+      }
       if (el.tagName === 'TEXTAREA') {
         try { obj[k] = JSON.parse(el.value) } catch { obj[k] = el.value }
       } else if (el.tagName === 'SELECT') {
         obj[k] = el.value === 'true'
       } else {
         const orig = record[k]
-        obj[k] = typeof orig === 'number' && el.value !== '' && !isNaN(Number(el.value)) ? Number(el.value) : el.value
+        if (k === 'price' || k === 'originalPrice') {
+          // 价格强制保留两位小数
+          const n = Number(el.value)
+          obj[k] = el.value === '' || isNaN(n) ? 0 : Number(n.toFixed(2))
+        } else {
+          obj[k] = typeof orig === 'number' && el.value !== '' && !isNaN(Number(el.value)) ? Number(el.value) : el.value
+        }
       }
     })
     try {
@@ -171,10 +354,23 @@ const ENTITY_COLS = {
 }
 
 async function renderEntity(type, label) {
+  currentEntityType = type
   $('#pageBody').innerHTML = '<div class="muted">加载中…</div>'
   const list = await api('/api/admin/catalog/' + type)
+  // 确保所有实体有 cover 字段；穴位有 video/image；商品有 detailImages
+  list.forEach((it) => { if (!('cover' in it)) it.cover = '' })
+  if (type === 'acupoints') list.forEach((it) => { if (!('video' in it)) it.video = ''; if (!('image' in it)) it.image = '' })
+  if (type === 'products') list.forEach((it) => { if (!('detailImages' in it)) it.detailImages = [] })
   const cols = ENTITY_COLS[type]
-  const rows = list.map((it) => '<tr>' + cols.map((c) => `<td>${esc(it[c])}</td>`).join('') +
+  // 价格列格式化为两位小数
+  const fmtCell = (it, c) => {
+    if (c === 'price' || c === 'originalPrice') {
+      const n = Number(it[c])
+      return isNaN(n) ? esc(it[c]) : n.toFixed(2)
+    }
+    return esc(it[c])
+  }
+  const rows = list.map((it) => '<tr>' + cols.map((c) => `<td>${fmtCell(it, c)}</td>`).join('') +
     `<td><button class="btn small ghost" data-edit="${esc(it.id)}">编辑</button>
      <button class="btn small danger" data-del="${esc(it.id)}">删除</button></td></tr>`).join('')
   $('#pageBody').innerHTML = `
@@ -201,7 +397,10 @@ async function renderEntity(type, label) {
       const v = template[k]
       blank[k] = typeof v === 'boolean' ? false : typeof v === 'number' ? 0 : Array.isArray(v) ? [] : typeof v === 'object' && v ? [] : ''
     })
-    blank.id = ''
+    blank.id = genId(type, list)
+    if (!('cover' in blank)) blank.cover = ''
+    if (type === 'acupoints') { blank.video = ''; blank.image = '' }
+    if (type === 'products') { blank.detailImages = [] }
     openForm(`新增${label}`, blank, async (obj) => { await api('/api/admin/catalog/' + type, 'POST', obj) }).then(() => {})
     $('#modalSave').addEventListener('click', () => setTimeout(switchTabReload, 50), { once: true })
     function switchTabReload() { switchTab(type) }
