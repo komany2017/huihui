@@ -50,7 +50,7 @@ export let DISEASES: Disease[] = [
     ],
     lifestyle: ['注意保暖', '保证充足睡眠', '多饮温水', '保持室内空气流通', '清淡饮食', '避免过度劳累'],
     precautions: ['高热不退及时就医', '老人孕妇慎用药', '反复感冒需调理体质', '感冒流行季节少去公共场所'],
-    cover: 'https://picsum.photos/id/292/750/500'
+    cover: ''
   },
   {
     id: 'd002',
@@ -98,7 +98,7 @@ export let DISEASES: Disease[] = [
       '避免午睡过长（<30 分钟）'
     ],
     precautions: ['失眠超过 1 个月需就医', '避免长期依赖安眠药', '排查抑郁焦虑等心理问题', '睡前避免剧烈运动'],
-    cover: 'https://picsum.photos/id/312/750/500'
+    cover: ''
   },
   {
     id: 'd003',
@@ -145,7 +145,7 @@ export let DISEASES: Disease[] = [
       '保持心情舒畅，避免情志不畅'
     ],
     precautions: ['长期便秘需排查肠道肿瘤', '老人便秘勿过度用力', '便血需立即就医', '避免长期使用泻药'],
-    cover: 'https://picsum.photos/id/326/750/500'
+    cover: ''
   },
   {
     id: 'd004',
@@ -191,7 +191,7 @@ export let DISEASES: Disease[] = [
       '规律作息，避免熬夜'
     ],
     precautions: ['痛经严重需排查子宫内膜异位', '继发性痛经需治原发病', '经期避免性生活', '避免过度劳累'],
-    cover: 'https://picsum.photos/id/431/750/500'
+    cover: ''
   },
   {
     id: 'd005',
@@ -239,7 +239,7 @@ export let DISEASES: Disease[] = [
       '戒烟限酒'
     ],
     precautions: ['胃痛反复需胃镜排查', '黑便呕血立即就医', '老人胃痛需排查心脏问题', '避免长期服用 NSAIDs'],
-    cover: 'https://picsum.photos/id/401/750/500'
+    cover: ''
   },
   {
     id: 'd006',
@@ -286,7 +286,7 @@ export let DISEASES: Disease[] = [
       '避免辛辣刺激食物'
     ],
     precautions: ['咳嗽超过 2 周需排查肺结核', '咯血需立即就医', '老人小孩咳嗽需重视', '过敏咳嗽需避开过敏原'],
-    cover: 'https://picsum.photos/id/570/750/500'
+    cover: ''
   },
   {
     id: 'd007',
@@ -334,7 +334,7 @@ export let DISEASES: Disease[] = [
       '定期监测血压'
     ],
     precautions: ['血压持续升高需规律服药', '不可擅自停药', '突发剧烈头痛需排查中风', '老人降压宜缓'],
-    cover: 'https://picsum.photos/id/580/750/500'
+    cover: ''
   },
   {
     id: 'd008',
@@ -383,7 +383,7 @@ export let DISEASES: Disease[] = [
       '注意足部护理'
     ],
     precautions: ['规律用药，不可擅自停药', '低血糖时及时补充糖分', '出现并发症需就医', '避免足部破损'],
-    cover: 'https://picsum.photos/id/625/750/500'
+    cover: ''
   },
   {
     id: 'd009',
@@ -430,7 +430,7 @@ export let DISEASES: Disease[] = [
       '避免使用油腻化妆品'
     ],
     precautions: ['严重结节囊肿需就医', '避免自行挤压', '顽固痤疮需排查内分泌', '注意防晒防痘印'],
-    cover: 'https://picsum.photos/id/835/750/500'
+    cover: ''
   },
   {
     id: 'd010',
@@ -474,7 +474,7 @@ export let DISEASES: Disease[] = [
       '减少零食甜食'
     ],
     precautions: ['积食伴发热需就医', '长期消瘦需排查', '避免强迫进食', '推拿需专业操作'],
-    cover: 'https://picsum.photos/id/1080/750/500'
+    cover: ''
   }
 ]
 

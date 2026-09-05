@@ -3,6 +3,7 @@ import { View, Text, Image, ScrollView, Button } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import { getServiceById } from '@/data/services';
 import Tag from '@/components/Tag';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const ServiceDetailPage: React.FC = () => {
@@ -28,7 +29,7 @@ const ServiceDetailPage: React.FC = () => {
       <ScrollView scrollY className={styles.scroll}>
         {/* 封面图 */}
         <View className={styles.coverWrap}>
-          <Image className={styles.cover} src={service.cover} mode="aspectFill" />
+          <Image className={styles.cover} src={resolveImageUrl(service.cover)} mode="aspectFill" />
           <View className={styles.coverMask} />
           <View className={styles.coverInfo}>
             <Text className={styles.serviceName}>{service.name}</Text>

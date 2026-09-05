@@ -1957,6 +1957,28 @@
         }
       ],
       "healthRecords": []
+    },
+    "test-device-001": {
+      "profile": null,
+      "bookingOrders": [
+        {
+          "id": "bo001",
+          "serviceId": "s001",
+          "status": "confirmed",
+          "createdAt": "2026-09-05T04:04:36.060Z"
+        }
+      ],
+      "productOrders": [
+        {
+          "id": "po001",
+          "items": [],
+          "totalAmount": 99,
+          "status": "shipped",
+          "createdAt": "2026-09-05T04:04:36.073Z"
+        }
+      ],
+      "constitutionResults": [],
+      "healthRecords": []
     }
   }
 }

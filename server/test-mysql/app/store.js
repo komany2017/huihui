@@ -116,6 +116,31 @@ const jsonDriver = {
   },
   async listUserDocs() {
     return Object.entries(db.get().users).map(([deviceId, doc]) => ({ deviceId, doc: clone(doc) }))
+  },
+  async saveMedia(id, entityType, entityId, filename, mime, size, filePath) {
+    // 文件已由调用方落盘到 MEDIA_DIR，此处仅记录元数据
+    const d = db.get()
+    if (!d._media) d._media = {}
+    d._media[id] = { entityType, entityId, filename, mime, size, filePath }
+    db.save()
+    return { ok: true, id }
+  },
+  async getMedia(id) {
+    const d = db.get()
+    const meta = d._media && d._media[id]
+    if (!meta) return null
+    return { mime: meta.mime, filePath: meta.filePath, filename: meta.filename }
+  },
+  async deleteMedia(id) {
+    const fs = require('fs')
+    const d = db.get()
+    const meta = d._media && d._media[id]
+    if (meta && fs.existsSync(meta.filePath)) {
+      try { fs.unlinkSync(meta.filePath) } catch {}
+    }
+    if (d._media) delete d._media[id]
+    db.save()
+    return { ok: true }
   }
 }
 
@@ -135,7 +160,21 @@ CREATE TABLE IF NOT EXISTS users (
   device_id VARCHAR(64) NOT NULL PRIMARY KEY,
   data JSON NOT NULL,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS media (
+  id VARCHAR(64) NOT NULL PRIMARY KEY,
+  entity_type VARCHAR(32) NOT NULL,
+  entity_id VARCHAR(64) NOT NULL,
+  filename VARCHAR(255) NOT NULL,
+  mime VARCHAR(128) NOT NULL,
+  size BIGINT NOT NULL,
+  file_path VARCHAR(512) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_entity (entity_type, entity_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`
+
+// 媒体文件落盘目录（服务器磁盘，MySQL 仅存路径）
+const MEDIA_DIR = path.join(__dirname, 'uploads', 'media')
 
 const mysqlDriver = {
   async init() {
@@ -278,6 +317,29 @@ const mysqlDriver = {
       deviceId: r.device_id,
       doc: { ...emptyUserDoc(), ...(typeof r.data === 'string' ? JSON.parse(r.data) : r.data) }
     }))
+  },
+  async saveMedia(id, entityType, entityId, filename, mime, size, filePath) {
+    // 文件已由调用方落盘到 MEDIA_DIR，MySQL 仅存路径与关联关系
+    await pool.query(
+      'INSERT INTO media (id, entity_type, entity_id, filename, mime, size, file_path) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE filename=VALUES(filename), mime=VALUES(mime), size=VALUES(size), file_path=VALUES(file_path)',
+      [id, entityType, entityId, filename, mime, size, filePath]
+    )
+    return { ok: true, id }
+  },
+  async getMedia(id) {
+    const [rows] = await pool.query('SELECT mime, file_path, filename FROM media WHERE id = ?', [id])
+    if (!rows.length) return null
+    return { mime: rows[0].mime, filePath: rows[0].file_path, filename: rows[0].filename }
+  },
+  async deleteMedia(id) {
+    // 先查路径删磁盘文件，再删库记录
+    const [rows] = await pool.query('SELECT file_path FROM media WHERE id = ?', [id])
+    if (rows.length && rows[0].file_path) {
+      const fs = require('fs')
+      try { if (fs.existsSync(rows[0].file_path)) fs.unlinkSync(rows[0].file_path) } catch {}
+    }
+    await pool.query('DELETE FROM media WHERE id = ?', [id])
+    return { ok: true }
   }
 }
 
@@ -285,6 +347,18 @@ const mysqlDriver = {
 const store = {
   get driver() {
     return driver
+  },
+
+  // 实际存储状态（供 /api/health 与运维检查使用，防止配置错误静默回退）
+  get storage() {
+    return {
+      driver, // 实际驱动: 'mysql' | 'json'
+      wanted: wantMysql ? 'mysql' : 'json', // 配置期望的驱动
+      fallback: wantMysql && driver === 'json', // 是否发生了 MySQL → JSON 回退
+      detail: driver === 'mysql'
+        ? `MySQL @ ${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}`
+        : `JSON 文件（${db.DB_FILE}）`
+    }
   },
 
   async init() {
@@ -333,10 +407,22 @@ const store = {
   },
   async listUserDocs() {
     return driver === 'mysql' ? mysqlDriver.listUserDocs() : jsonDriver.listUserDocs()
+  },
+  async saveMedia(id, entityType, entityId, filename, mime, size, filePath) {
+    return driver === 'mysql'
+      ? mysqlDriver.saveMedia(id, entityType, entityId, filename, mime, size, filePath)
+      : jsonDriver.saveMedia(id, entityType, entityId, filename, mime, size, filePath)
+  },
+  async getMedia(id) {
+    return driver === 'mysql' ? mysqlDriver.getMedia(id) : jsonDriver.getMedia(id)
+  },
+  async deleteMedia(id) {
+    return driver === 'mysql' ? mysqlDriver.deleteMedia(id) : jsonDriver.deleteMedia(id)
   }
 }
 
 module.exports = store
 module.exports.ENTITY_TYPES = ENTITY_TYPES
 module.exports.CONFIG_KEYS = CONFIG_KEYS
+module.exports.MEDIA_DIR = MEDIA_DIR
 module.exports.DB_INFO = { wantMysql, MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_DB, DB_FILE: db.DB_FILE }

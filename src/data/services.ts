@@ -14,7 +14,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's001',
     name: '背部循经刮痧',
     category: '刮痧',
-    cover: 'https://picsum.photos/id/326/750/500',
+    cover: '',
     price: 168,
     originalPrice: 218,
     duration: 60,
@@ -34,7 +34,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's002',
     name: '肩颈舒压刮痧',
     category: '刮痧',
-    cover: 'https://picsum.photos/id/312/750/500',
+    cover: '',
     price: 138,
     duration: 45,
     intro: '针对肩颈部位进行刮痧调理，缓解颈肩僵硬、头痛头晕，改善上肢酸麻。',
@@ -53,7 +53,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's003',
     name: '传统走罐拔罐',
     category: '拔罐',
-    cover: 'https://picsum.photos/id/431/750/500',
+    cover: '',
     price: 128,
     originalPrice: 168,
     duration: 45,
@@ -73,7 +73,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's004',
     name: '温灸艾灸调理',
     category: '艾灸',
-    cover: 'https://picsum.photos/id/570/750/500',
+    cover: '',
     price: 188,
     originalPrice: 258,
     duration: 60,
@@ -93,7 +93,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's005',
     name: '古法推拿舒压',
     category: '推拿',
-    cover: 'https://picsum.photos/id/401/750/500',
+    cover: '',
     price: 158,
     duration: 60,
     intro: '融合中医经络推拿与脏腑调理手法，缓解全身疲劳、舒展筋骨。',
@@ -112,7 +112,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's006',
     name: '针刺调理',
     category: '针灸',
-    cover: 'https://picsum.photos/id/625/750/500',
+    cover: '',
     price: 198,
     originalPrice: 268,
     duration: 50,
@@ -132,7 +132,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's007',
     name: '面部美容刮痧',
     category: '刮痧',
-    cover: 'https://picsum.photos/id/580/750/500',
+    cover: '',
     price: 168,
     duration: 45,
     intro: '运用玉石刮痧板沿面部经络刮拭，提亮肤色、淡化细纹、改善气色。',
@@ -151,7 +151,7 @@ export let SERVICES: ServiceItem[] = [
     id: 's008',
     name: '节气三伏贴',
     category: '艾灸',
-    cover: 'https://picsum.photos/id/835/750/500',
+    cover: '',
     price: 88,
     duration: 30,
     intro: '夏季三伏时节贴敷特定穴位，冬病夏治，调理阳虚易感人群。',
@@ -176,7 +176,7 @@ export let STORES: Store[] = [
     phone: '0571-88888001',
     distance: 1.2,
     businessHours: '09:00 - 21:00',
-    cover: 'https://picsum.photos/id/1082/750/400'
+    cover: ''
   },
   {
     id: 'st002',
@@ -185,7 +185,7 @@ export let STORES: Store[] = [
     phone: '0571-88888002',
     distance: 3.8,
     businessHours: '10:00 - 22:00',
-    cover: 'https://picsum.photos/id/1039/750/400'
+    cover: ''
   },
   {
     id: 'st003',
@@ -194,7 +194,7 @@ export let STORES: Store[] = [
     phone: '0571-88888003',
     distance: 5.5,
     businessHours: '09:30 - 21:30',
-    cover: 'https://picsum.photos/id/1044/750/400'
+    cover: ''
   },
   {
     id: 'st004',
@@ -203,7 +203,7 @@ export let STORES: Store[] = [
     phone: '0571-88888004',
     distance: 7.9,
     businessHours: '10:00 - 22:00',
-    cover: 'https://picsum.photos/id/1036/750/400'
+    cover: ''
   }
 ]
 

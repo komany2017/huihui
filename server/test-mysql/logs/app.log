@@ -1,19 +1,8 @@
-[store] MySQL 初始化失败（connect ECONNREFUSED 127.0.0.1:3306），自动回退 JSON 文件存储
-[store] JSON 库为空，已播种内置数据
-[store] 存储驱动: JSON 文件（E:\zytl\server\test-mysql\app\data\db.json）
-==========================================
-  润泉养元后台服务已启动
-  存储驱动:   JSON 文件（E:\zytl\server\test-mysql\app\data\db.json）
-  管理后台:   http://localhost:3998/admin/
-  局域网访问: http://192.168.1.190:3998/admin/
-  小程序 API: http://localhost:3998/api/
-  默认账号:   admin / admin123
-==========================================
 [store] MySQL 空库，已播种内置数据
-[store] 存储驱动: MySQL @ 127.0.0.1:3306/ruanquan_e2e
+[store] 存储驱动: MySQL @ 127.0.0.1:3307/ruanquan_img
 ==========================================
   润泉养元后台服务已启动
-  存储驱动:   MySQL @ 127.0.0.1:3306/ruanquan_e2e
+  存储驱动:   MySQL @ 127.0.0.1:3307/ruanquan_img
   管理后台:   http://localhost:3998/admin/
   局域网访问: http://192.168.1.190:3998/admin/
   小程序 API: http://localhost:3998/api/

@@ -22,7 +22,7 @@ switch ($Action) {
     $log = Join-Path $root 'logs\app.log'
     if (-not (Test-Path $log)) { Write-Host '暂无日志文件' -ForegroundColor Yellow; exit 0 }
     Write-Host "===== $log（最近 60 行）=====" -ForegroundColor Cyan
-    Get-Content $log -Tail 60
+    Get-Content $log -Tail 60 -Encoding UTF8
     exit 0
   }
   'start'   { & $install -Action start -Port $port -NoService:$noService }

@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { getServiceById, STORES, BOOKING_TIME_SLOTS } from '@/data/services';
 import { useStore } from '@/store/useStore';
 import Empty from '@/components/Empty';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const OrderCreatePage: React.FC = () => {
@@ -97,7 +98,7 @@ const OrderCreatePage: React.FC = () => {
       <ScrollView scrollY className={styles.scroll}>
         {/* 服务信息 */}
         <View className={styles.serviceCard}>
-          <Image className={styles.serviceCover} src={service.cover} mode="aspectFill" />
+          <Image className={styles.serviceCover} src={resolveImageUrl(service.cover)} mode="aspectFill" />
           <View className={styles.serviceInfo}>
             <Text className={styles.serviceName}>{service.name}</Text>
             <Text className={styles.serviceMeta}>{service.duration}分钟 · {service.category}</Text>

@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro';
 import classnames from 'classnames';
 import { useStore } from '@/store/useStore';
 import Empty from '@/components/Empty';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const CartPage: React.FC = () => {
@@ -85,7 +86,7 @@ const CartPage: React.FC = () => {
               <Text className={styles.cardTitle}>商品清单</Text>
               {cart.map((item) => (
                 <View key={item.specId} className={styles.cartItem}>
-                  <Image className={styles.itemImage} src={item.productCover} mode="aspectFill" />
+                  <Image className={styles.itemImage} src={resolveImageUrl(item.productCover)} mode="aspectFill" />
                   <View className={styles.itemInfo}>
                     <Text className={styles.itemName}>{item.productName}</Text>
                     <Text className={styles.itemSpec}>{item.specName}</Text>

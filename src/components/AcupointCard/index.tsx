@@ -3,6 +3,7 @@ import { View, Text, Image } from '@tarojs/components'
 import classnames from 'classnames'
 import type { Acupoint } from '@/types/acupoint'
 import { BODY_PARTS } from '@/data/acupoints'
+import { resolveImageUrl } from '@/utils/image'
 import styles from './index.module.scss'
 
 interface AcupointCardProps {
@@ -16,7 +17,7 @@ const AcupointCard: React.FC<AcupointCardProps> = ({ data, onClick }) => {
   return (
     <View className={styles.container} onClick={onClick}>
       <View className={styles.imageWrap}>
-        <Image className={styles.image} src={data.cover} mode="aspectFill" />
+        <Image className={styles.image} src={resolveImageUrl(data.cover)} mode="aspectFill" />
       </View>
       <View className={styles.content}>
         <View className={styles.titleRow}>

@@ -1875,7 +1875,7 @@
         "gender": "male",
         "age": 33,
         "allergy": "花粉",
-        "updatedAt": "2026-09-04T12:31:34.724Z"
+        "updatedAt": "2026-09-05T00:23:15.591Z"
       },
       "bookingOrders": [
         {
@@ -1893,13 +1893,13 @@
           "remark": "接口验证",
           "price": 168,
           "status": "completed",
-          "createdAt": "2026-09-04T12:31:34.737Z"
+          "createdAt": "2026-09-05T00:23:15.600Z"
         }
       ],
       "productOrders": [
         {
           "id": "po_verify_1",
-          "createdAt": "2026-09-04T12:31:34.764Z",
+          "createdAt": "2026-09-05T00:23:15.631Z",
           "items": [
             {
               "productId": "p001",
@@ -1922,7 +1922,7 @@
       "constitutionResults": [
         {
           "id": "cr_verify_1",
-          "date": "2026-09-04T12:31:34.788Z",
+          "date": "2026-09-05T00:23:15.659Z",
           "primary": "平和质",
           "secondary": "气虚质",
           "scores": {

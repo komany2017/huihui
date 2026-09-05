@@ -114,7 +114,24 @@ const FIELD_LABELS = {
   popular: '热门', unit: '单位', sales: '销量', tags: '标签', description: '详情描述', specs: '规格列表', detailImages: '详情图URLs',
   usage: '使用方法', hot: '热销', symptoms: '症状', tcmDiagnosis: '中医辨证', tcmTreatment: '中医调理', diet: '食疗方案',
   dietRecipes: '食疗方剂', lifestyle: '生活指导', precautions: '注意事项', meridian: '所属经络', location: '定位', massage: '按摩方法',
-  indication: '主治', address: '地址', phone: '电话', distance: '距离(km)', businessHours: '营业时间', part: '身体部位(key)', effect: '功效标签'
+  indication: '主治', address: '地址', phone: '电话', distance: '距离(km)', businessHours: '营业时间', part: '身体部位(key)', effect: '功效标签', video: '教学视频', image: '穴位图片'
+}
+
+// 媒体上传辅助（视频/图片）：上传到 /api/admin/media，返回 { url, id }
+async function uploadMedia(file, entityId) {
+  const fd = new FormData()
+  fd.append('file', file)
+  fd.append('entityType', 'acupoints')
+  fd.append('entityId', entityId || '')
+  const token = localStorage.getItem('yyt_admin_token') || ''
+  const resp = await fetch('/api/admin/media', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + token },
+    body: fd
+  })
+  const r = await resp.json()
+  if (r.code !== 0) throw new Error(r.msg || '上传失败')
+  return r.data
 }
 
 function fieldRow(k, v) {
@@ -123,6 +140,31 @@ function fieldRow(k, v) {
   if (typeof v === 'boolean') {
     return `<div class="form-item" data-k="${k}"><label>${label}</label>
       <select data-k="${k}"><option value="true" ${v ? 'selected' : ''}>是 (true)</option><option value="false" ${!v ? 'selected' : ''}>否 (false)</option></select></div>`
+  }
+  // 媒体字段（视频/图片）：上传控件 + 预览
+  if (k === 'video' || k === 'image') {
+    const val = String(v || '')
+    const isVideo = k === 'video'
+    const accept = isVideo ? 'video/*' : 'image/*'
+    const preview = val
+      ? isVideo
+        ? `<video src="${esc(val)}" controls style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;"></video>`
+        : `<img src="${esc(val)}" style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;"/>`
+      : ''
+    const clearLabel = isVideo ? '清除视频' : '清除图片'
+    const hint = isVideo
+      ? '支持 mp4/webm 等小视频，文件存服务器磁盘，MySQL 记录路径，小程序端可播放'
+      : '支持 jpg/png/webp 等图片，文件存服务器磁盘，MySQL 记录路径'
+    return `<div class="form-item" data-k="${k}"><label>${label}</label>
+      <input type="hidden" data-k-val value="${esc(val)}"/>
+      ${preview}
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="file" accept="${accept}" data-media-upload style="font-size:13px;"/>
+        ${val ? `<button type="button" class="btn small ghost" data-media-clear>${clearLabel}</button>` : ''}
+        <span class="media-status muted" style="font-size:12px;"></span>
+      </div>
+      <div class="form-hint">${hint}</div>
+    </div>`
   }
   const isJson = Array.isArray(v) || (typeof v === 'object' && v !== null)
   const val = isJson ? JSON.stringify(v, null, 2) : v
@@ -138,10 +180,55 @@ function openForm(title, record, onSave) {
   const rows = Object.entries(record).map(([k, v]) => fieldRow(k, v)).join('')
   $('#modalBody').innerHTML = rows
   $('#modalMask').classList.remove('hidden')
+
+  // 绑定媒体（视频/图片）上传/清除控件
+  $('#modalBody').querySelectorAll('[data-k="video"], [data-k="image"]').forEach((row) => {
+    const hidden = row.querySelector('[data-k-val]')
+    const fileInput = row.querySelector('[data-media-upload]')
+    const clearBtn = row.querySelector('[data-media-clear]')
+    const status = row.querySelector('.media-status')
+    const entityId = record.id || ''
+    const isVideo = row.dataset.k === 'video'
+    if (fileInput) {
+      fileInput.onchange = async () => {
+        const f = fileInput.files[0]
+        if (!f) return
+        status.textContent = '上传中…'
+        try {
+          const r = await uploadMedia(f, entityId)
+          hidden.value = r.url
+          // 刷新预览
+          let preview = row.querySelector(isVideo ? 'video' : 'img')
+          if (!preview) {
+            preview = document.createElement(isVideo ? 'video' : 'img')
+            if (isVideo) preview.controls = true
+            preview.style.cssText = 'max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;'
+            row.insertBefore(preview, row.querySelector('.media-upload-area'))
+          }
+          preview.src = r.url
+          status.textContent = `已上传：${r.filename}（${(r.size/1024).toFixed(1)} KB）`
+        } catch (e) {
+          status.textContent = '上传失败：' + e.message
+        }
+      }
+    }
+    if (clearBtn) {
+      clearBtn.onclick = () => {
+        hidden.value = ''
+        const preview = row.querySelector(isVideo ? 'video' : 'img')
+        if (preview) preview.remove()
+        status.textContent = '已清除'
+      }
+    }
+  })
+
   $('#modalSave').onclick = async () => {
     const obj = {}
     $('#modalBody').querySelectorAll('[data-k]').forEach((el) => {
       const k = el.dataset.k
+      // 带 data-k-val 的字段（如 video）从隐藏输入取值
+      const valEl = el.querySelector('[data-k-val]')
+      if (valEl) { obj[k] = valEl.value; return }
       if (el.tagName === 'TEXTAREA') {
         try { obj[k] = JSON.parse(el.value) } catch { obj[k] = el.value }
       } else if (el.tagName === 'SELECT') {
@@ -173,6 +260,8 @@ const ENTITY_COLS = {
 async function renderEntity(type, label) {
   $('#pageBody').innerHTML = '<div class="muted">加载中…</div>'
   const list = await api('/api/admin/catalog/' + type)
+  // 穴位确保有 video/image 字段（老数据可能没有），以便显示上传控件
+  if (type === 'acupoints') list.forEach((it) => { if (!('video' in it)) it.video = ''; if (!('image' in it)) it.image = '' })
   const cols = ENTITY_COLS[type]
   const rows = list.map((it) => '<tr>' + cols.map((c) => `<td>${esc(it[c])}</td>`).join('') +
     `<td><button class="btn small ghost" data-edit="${esc(it.id)}">编辑</button>
@@ -202,6 +291,7 @@ async function renderEntity(type, label) {
       blank[k] = typeof v === 'boolean' ? false : typeof v === 'number' ? 0 : Array.isArray(v) ? [] : typeof v === 'object' && v ? [] : ''
     })
     blank.id = ''
+    if (type === 'acupoints') { blank.video = ''; blank.image = '' }
     openForm(`新增${label}`, blank, async (obj) => { await api('/api/admin/catalog/' + type, 'POST', obj) }).then(() => {})
     $('#modalSave').addEventListener('click', () => setTimeout(switchTabReload, 50), { once: true })
     function switchTabReload() { switchTab(type) }

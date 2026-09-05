@@ -3,6 +3,7 @@ import { View, Text, Image } from '@tarojs/components'
 import classnames from 'classnames'
 import type { ServiceItem } from '@/types/service'
 import Tag from '@/components/Tag'
+import { resolveImageUrl } from '@/utils/image'
 import styles from './index.module.scss'
 
 interface ServiceCardProps {
@@ -14,7 +15,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ data, onClick }) => {
   return (
     <View className={styles.container} onClick={onClick}>
       <View className={styles.imageWrap}>
-        <Image className={styles.image} src={data.cover} mode="aspectFill" />
+        <Image className={styles.image} src={resolveImageUrl(data.cover)} mode="aspectFill" />
         <View className={styles.duration}>
           <Text className={styles.durationText}>{data.duration}分钟</Text>
         </View>

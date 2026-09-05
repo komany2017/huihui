@@ -22,7 +22,7 @@ async function request<T>(url: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH' 
     url: API_BASE_URL + url,
     method,
     data: data as Record<string, unknown>,
-    timeout: 4000,
+    timeout: 15000,
     header: { 'Content-Type': 'application/json' }
   })
   if (res.statusCode >= 200 && res.statusCode < 300) {
@@ -39,6 +39,12 @@ export interface CatalogData {
   products: unknown[]
   diseases: unknown[]
   acupoints: unknown[]
+  hotDiseases: string[]
+  categories?: {
+    service?: { id: string; name: string }[]
+    product?: { id: string; name: string }[]
+    disease?: { id: string; name: string }[]
+  }
 }
 
 export interface UserData {

@@ -105,7 +105,7 @@ DELETE /api/user/:deviceId/health-records/:recordId
 ### 1.3 健康检查
 
 ```
-GET /api/health   →  { "code": 0, "data": { "ok": true, "time": "..." } }
+GET /api/health   →  { "code": 0, "data": { "ok": true, "time": "...", "storage": { "driver": "mysql|json", "wanted": "mysql|json", "fallback": false, "detail": "MySQL @ host:port/db 或 JSON 文件（路径）" } } }
 ```
 
 ---

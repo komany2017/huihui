@@ -287,6 +287,18 @@ const store = {
     return driver
   },
 
+  // 实际存储状态（供 /api/health 与运维检查使用，防止配置错误静默回退）
+  get storage() {
+    return {
+      driver, // 实际驱动: 'mysql' | 'json'
+      wanted: wantMysql ? 'mysql' : 'json', // 配置期望的驱动
+      fallback: wantMysql && driver === 'json', // 是否发生了 MySQL → JSON 回退
+      detail: driver === 'mysql'
+        ? `MySQL @ ${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}`
+        : `JSON 文件（${db.DB_FILE}）`
+    }
+  },
+
   async init() {
     if (wantMysql) {
       try {

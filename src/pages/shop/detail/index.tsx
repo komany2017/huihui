@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { getProductById } from '@/data/products';
 import { useStore } from '@/store/useStore';
 import Tag from '@/components/Tag';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const ProductDetailPage: React.FC = () => {
@@ -49,7 +50,7 @@ const ProductDetailPage: React.FC = () => {
       <ScrollView scrollY className={styles.scroll}>
         {/* 主图 */}
         <View className={styles.mainImageWrap}>
-          <Image className={styles.mainImage} src={product.cover} mode="aspectFill" />
+          <Image className={styles.mainImage} src={resolveImageUrl(product.cover)} mode="aspectFill" />
           <View className={styles.cartIconBtn} onClick={goCart}>
             <Text className={styles.cartIconText}>🛒</Text>
           </View>
@@ -107,7 +108,7 @@ const ProductDetailPage: React.FC = () => {
           <Text className={styles.sectionTitle}>商品介绍</Text>
           <Text className={styles.sectionContent}>{product.description}</Text>
           {product.detailImages.map((img, idx) => (
-            <Image key={idx} className={styles.detailImage} src={img} mode="widthFix" />
+            <Image key={idx} className={styles.detailImage} src={resolveImageUrl(img)} mode="widthFix" />
           ))}
         </View>
 

@@ -34,32 +34,32 @@ export default defineAppConfig({
       {
         pagePath: 'pages/home/index',
         text: '首页',
-        iconPath: 'assets/tabbar/home.svg',
-        selectedIconPath: 'assets/tabbar/home-selected.svg'
+        iconPath: 'assets/tabbar/home.png',
+        selectedIconPath: 'assets/tabbar/home-selected.png'
       },
       {
         pagePath: 'pages/service/index',
         text: '服务',
-        iconPath: 'assets/tabbar/service.svg',
-        selectedIconPath: 'assets/tabbar/service-selected.svg'
+        iconPath: 'assets/tabbar/service.png',
+        selectedIconPath: 'assets/tabbar/service-selected.png'
       },
       {
         pagePath: 'pages/shop/index',
         text: '商城',
-        iconPath: 'assets/tabbar/shop.svg',
-        selectedIconPath: 'assets/tabbar/shop-selected.svg'
+        iconPath: 'assets/tabbar/shop.png',
+        selectedIconPath: 'assets/tabbar/shop-selected.png'
       },
       {
         pagePath: 'pages/record/index',
         text: '档案',
-        iconPath: 'assets/tabbar/record.svg',
-        selectedIconPath: 'assets/tabbar/record-selected.svg'
+        iconPath: 'assets/tabbar/record.png',
+        selectedIconPath: 'assets/tabbar/record-selected.png'
       },
       {
         pagePath: 'pages/mine/index',
         text: '我的',
-        iconPath: 'assets/tabbar/mine.svg',
-        selectedIconPath: 'assets/tabbar/mine-selected.svg'
+        iconPath: 'assets/tabbar/mine.png',
+        selectedIconPath: 'assets/tabbar/mine-selected.png'
       }
     ]
   }

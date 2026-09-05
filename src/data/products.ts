@@ -14,7 +14,7 @@ export let PRODUCTS: Product[] = [
     id: 'p001',
     name: '九蒸九晒黑芝麻丸',
     category: '滋补膏方',
-    cover: 'https://picsum.photos/id/431/300/300',
+    cover: '',
     price: 88,
     originalPrice: 128,
     unit: '盒',
@@ -26,7 +26,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp2', name: '60粒装', price: 158, stock: 80 },
       { id: 'sp3', name: '90粒装', price: 228, stock: 50 }
     ],
-    detailImages: ['https://picsum.photos/id/431/750/500', 'https://picsum.photos/id/401/750/500'],
+    detailImages: [],
     efficacy: '补益肝肾、养血润燥、润肠通便',
     usage: '每日 1-2 粒，温开水送服',
     hot: true
@@ -35,7 +35,7 @@ export let PRODUCTS: Product[] = [
     id: 'p002',
     name: '陈年艾草条三年陈',
     category: '艾灸用品',
-    cover: 'https://picsum.photos/id/570/300/300',
+    cover: '',
     price: 38,
     originalPrice: 58,
     unit: '盒',
@@ -47,7 +47,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp2', name: '20支装', price: 68, stock: 150 },
       { id: 'sp3', name: '50支装', price: 158, stock: 80 }
     ],
-    detailImages: ['https://picsum.photos/id/570/750/500', 'https://picsum.photos/id/580/750/500'],
+    detailImages: [],
     efficacy: '温通经络、散寒除湿、培补元气',
     usage: '点燃后距皮肤 2-3cm 温和灸，每穴 5-10 分钟',
     hot: true
@@ -56,7 +56,7 @@ export let PRODUCTS: Product[] = [
     id: 'p003',
     name: '红枣枸杞桂圆茶',
     category: '养生茶饮',
-    cover: 'https://picsum.photos/id/326/300/300',
+    cover: '',
     price: 49,
     originalPrice: 68,
     unit: '盒',
@@ -67,7 +67,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp1', name: '20包/盒', price: 49, stock: 300 },
       { id: 'sp2', name: '40包/盒', price: 88, stock: 200 }
     ],
-    detailImages: ['https://picsum.photos/id/326/750/500', 'https://picsum.photos/id/312/750/500'],
+    detailImages: [],
     efficacy: '补气养血、安神助眠、调理气色',
     usage: '每日 1-2 包，沸水冲泡 5 分钟后饮用',
     hot: true
@@ -76,7 +76,7 @@ export let PRODUCTS: Product[] = [
     id: 'p004',
     name: '玫瑰花冠茶',
     category: '养生茶饮',
-    cover: 'https://picsum.photos/id/312/300/300',
+    cover: '',
     price: 68,
     unit: '盒',
     sales: 2865,
@@ -86,7 +86,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp1', name: '30朵装', price: 68, stock: 150 },
       { id: 'sp2', name: '60朵装', price: 128, stock: 100 }
     ],
-    detailImages: ['https://picsum.photos/id/312/750/500'],
+    detailImages: [],
     efficacy: '疏肝解郁、理气活血、美容养颜',
     usage: '每日 3-5 朵，沸水冲泡饮用',
     hot: false
@@ -95,7 +95,7 @@ export let PRODUCTS: Product[] = [
     id: 'p005',
     name: '道地黄芪片',
     category: '道地药材',
-    cover: 'https://picsum.photos/id/431/300/300',
+    cover: '',
     price: 59,
     originalPrice: 88,
     unit: '罐',
@@ -106,7 +106,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp1', name: '250g罐装', price: 59, stock: 100 },
       { id: 'sp2', name: '500g罐装', price: 108, stock: 80 }
     ],
-    detailImages: ['https://picsum.photos/id/431/750/500'],
+    detailImages: [],
     efficacy: '补气升阳、固表止汗、利水消肿',
     usage: '每日 6-15g，泡水或煲汤',
     hot: false
@@ -115,7 +115,7 @@ export let PRODUCTS: Product[] = [
     id: 'p006',
     name: '养生艾灸盒',
     category: '理疗器具',
-    cover: 'https://picsum.photos/id/570/300/300',
+    cover: '',
     price: 128,
     originalPrice: 168,
     unit: '个',
@@ -127,7 +127,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp2', name: '三孔', price: 168, stock: 60 },
       { id: 'sp3', name: '六孔', price: 248, stock: 40 }
     ],
-    detailImages: ['https://picsum.photos/id/570/750/500'],
+    detailImages: [],
     efficacy: '配合艾条使用，温通经络、调理气血',
     usage: '点燃艾条置入盒中，放于穴位施灸',
     hot: false
@@ -136,14 +136,14 @@ export let PRODUCTS: Product[] = [
     id: 'p007',
     name: '山楂陈皮茶',
     category: '养生茶饮',
-    cover: 'https://picsum.photos/id/401/300/300',
+    cover: '',
     price: 39,
     unit: '盒',
     sales: 3142,
     tags: ['健脾消食', '理气化痰', '饭后再喝'],
     description: '选用山东沂蒙山楂、广东新会陈皮，健脾消食、理气化痰，适合久坐少动、消化不佳人群。',
     specs: [{ id: 'sp1', name: '20包/盒', price: 39, stock: 200 }],
-    detailImages: ['https://picsum.photos/id/401/750/500'],
+    detailImages: [],
     efficacy: '健脾消食、理气化痰、行气散瘀',
     usage: '饭后饮用，每日 1-2 包',
     hot: false
@@ -152,7 +152,7 @@ export let PRODUCTS: Product[] = [
     id: 'p008',
     name: '阿胶糕',
     category: '滋补膏方',
-    cover: 'https://picsum.photos/id/580/300/300',
+    cover: '',
     price: 198,
     originalPrice: 268,
     unit: '盒',
@@ -163,7 +163,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp1', name: '250g装', price: 198, stock: 120 },
       { id: 'sp2', name: '500g装', price: 368, stock: 80 }
     ],
-    detailImages: ['https://picsum.photos/id/580/750/500'],
+    detailImages: [],
     efficacy: '补血养颜、滋阴润燥、安神助眠',
     usage: '每日 1-2 片，空腹或睡前食用',
     hot: true
@@ -172,7 +172,7 @@ export let PRODUCTS: Product[] = [
     id: 'p009',
     name: '牛角刮痧板',
     category: '理疗器具',
-    cover: 'https://picsum.photos/id/835/300/300',
+    cover: '',
     price: 48,
     unit: '个',
     sales: 1923,
@@ -182,7 +182,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp1', name: '鱼形', price: 48, stock: 150 },
       { id: 'sp2', name: '水滴形', price: 52, stock: 100 }
     ],
-    detailImages: ['https://picsum.photos/id/835/750/500'],
+    detailImages: [],
     efficacy: '配合刮痧油使用，疏通经络、活血化瘀',
     usage: '搭配刮痧油沿经络刮拭',
     hot: false
@@ -191,7 +191,7 @@ export let PRODUCTS: Product[] = [
     id: 'p010',
     name: '酸枣仁百合膏',
     category: '滋补膏方',
-    cover: 'https://picsum.photos/id/1080/300/300',
+    cover: '',
     price: 158,
     originalPrice: 198,
     unit: '瓶',
@@ -202,7 +202,7 @@ export let PRODUCTS: Product[] = [
       { id: 'sp1', name: '300g瓶装', price: 158, stock: 100 },
       { id: 'sp2', name: '600g瓶装', price: 288, stock: 60 }
     ],
-    detailImages: ['https://picsum.photos/id/1080/750/500'],
+    detailImages: [],
     efficacy: '养心安神、滋阴润燥、改善睡眠',
     usage: '每日 1-2 勺，温水冲服',
     hot: false

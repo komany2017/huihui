@@ -4,6 +4,7 @@ import Taro, { useRouter } from '@tarojs/taro';
 import { getDiseaseById } from '@/data/diseases';
 import Tag from '@/components/Tag';
 import Empty from '@/components/Empty';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const DiseaseDetailPage: React.FC = () => {
@@ -27,7 +28,7 @@ const DiseaseDetailPage: React.FC = () => {
       <ScrollView scrollY className={styles.scroll}>
         {/* 头部 */}
         <View className={styles.coverWrap}>
-          <Image className={styles.cover} src={disease.cover} mode="aspectFill" />
+          <Image className={styles.cover} src={resolveImageUrl(disease.cover)} mode="aspectFill" />
           <View className={styles.coverMask} />
           <View className={styles.coverInfo}>
             <View className={styles.titleRow}>

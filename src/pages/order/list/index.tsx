@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { useStore } from '@/store/useStore';
 import Empty from '@/components/Empty';
 import type { OrderStatus } from '@/types/service';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const STATUS_TABS: { key: 'all' | OrderStatus; name: string }[] = [
@@ -81,7 +82,7 @@ const OrderListPage: React.FC = () => {
                 </Text>
               </View>
               <View className={styles.orderBody}>
-                <Image className={styles.serviceCover} src={order.serviceCover} mode="aspectFill" />
+                <Image className={styles.serviceCover} src={resolveImageUrl(order.serviceCover)} mode="aspectFill" />
                 <View className={styles.serviceInfo}>
                   <Text className={styles.serviceName}>{order.serviceName}</Text>
                   <Text className={styles.storeName}>{order.storeName}</Text>

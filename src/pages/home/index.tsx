@@ -8,13 +8,14 @@ import { useStore } from '@/store/useStore';
 import ServiceCard from '@/components/ServiceCard';
 import ProductCard from '@/components/ProductCard';
 import SectionTitle from '@/components/SectionTitle';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const HomePage: React.FC = () => {
   const [bannerList] = useState([
-    { id: 1, image: 'https://picsum.photos/id/1015/750/400', title: '九种体质 免费测评' },
-    { id: 2, image: 'https://picsum.photos/id/1036/750/400', title: '刮痧理疗 焕活气血' },
-    { id: 3, image: 'https://picsum.photos/id/1018/750/400', title: '养生好物 甄选道地' }
+    { id: 1, image: '', title: '九种体质 免费测评' },
+    { id: 2, image: '', title: '刮痧理疗 焕活气血' },
+    { id: 3, image: '', title: '养生好物 甄选道地' }
   ]);
   const [current, setCurrent] = useState(0);
 
@@ -91,7 +92,7 @@ const HomePage: React.FC = () => {
         >
           {bannerList.map((b, idx) => (
             <View key={b.id} className={styles.bannerItem} onClick={handleStartConstitution}>
-              <Image className={styles.bannerImage} src={b.image} mode="aspectFill" />
+              {b.image && <Image className={styles.bannerImage} src={resolveImageUrl(b.image)} mode="aspectFill" />}
               <View className={styles.bannerMask} />
               <View className={styles.bannerContent}>
                 <Text className={styles.bannerTitle}>{b.title}</Text>
@@ -176,7 +177,7 @@ const HomePage: React.FC = () => {
             <Text className={styles.bookingIcon}>📅</Text>
             <View>
               <Text className={styles.bookingTitle}>预约订单管理</Text>
-              <Text className={styles.bookingDesc">查看历史预约 · 取消订单</Text>
+              <Text className={styles.bookingDesc}>查看历史预约 · 取消订单</Text>
             </View>
           </View>
           <Text className={styles.bookingArrow}>›</Text>

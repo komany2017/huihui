@@ -25,15 +25,21 @@ powershell -ExecutionPolicy Bypass -File server/package.ps1 -WithMysql -PushData
 
 产物：`server/dist/ruanquan-win-deploy.zip`
 
+> **MySQL 存储前置条件**：部署包只含 mysql2 **客户端驱动**，**不含 MySQL 数据库软件**——服务器需已安装并运行 MySQL Server（本地或同内网另一台均可）。若 MySQL 连不上，服务会自动回退 JSON 文件存储并在安装输出中告警（数据写入 `app\data\db.json`），不会中断安装；处理方式：装好/修好 MySQL 后重跑 `install.bat` 更新配置即可。（可用 `-OutName` 自定义文件名，便于同时产出 JSON/MySQL 两个变体）
+
 **第 2 步：服务器安装**
 
 1. 把 zip 拷贝到服务器（远程桌面直接复制 / 共享文件夹 / 上传均可）
 2. 解压到任意目录，如 `C:\ruanquan`
 3. 双击 **install.bat**（自动请求管理员权限），按提示输入配置：
    - 管理后台密码（回车默认 `admin123`）
-   - MySQL 主机（**直接回车 = JSON 文件存储**；输入 `127.0.0.1` 启用 MySQL）
+   - MySQL 主机（**直接回车 = JSON 文件存储**；输入 `127.0.0.1` 启用 MySQL），随后依次提示输入**端口（默认 3306）、用户名（默认 root）、密码（密文不回显）、数据库名（默认 ruanquan）**
+   - 选 MySQL 时安装脚本会**先做连接预检**：成功才继续；失败会打印真实错误（如 `Access denied ... using password: NO/YES`），可当场 **[R] 重输参数 / [J] 改用 JSON 继续 / [Q] 退出**，避免装完才发现回退
 
 **第 3 步：完成** — 安装脚本自动：检测/下载 Node.js → 生成启动配置 → 防火墙放行端口 → 注册开机自启（任务计划程序，SYSTEM 账户）→ 启动并健康检查 → 打印访问地址。
+
+> **默认监听 3000 端口**：安装完成后访问 `http://<服务器公网IP>:3000/`，管理后台 `http://<服务器公网IP>:3000/admin/`。
+> 外网访问还需在**云控制台安全组**放行入站 TCP 3000；如需 80 端口（URL 不带 `:3000`），安装时加 `-Port 80`（需先停用占用 80 的 IIS）。
 
 ## 安装脚本做了什么
 
@@ -58,7 +64,7 @@ manage.bat uninstall   停止服务、删除自启任务与防火墙规则（保
 
 | 参数 | 默认值 | 说明 |
 |---|---|---|
-| `-Port` | `3000` | 服务监听端口 |
+| `-Port` | `3000` | 服务监听端口（改 80 可让 URL 不带端口后缀，需处理 IIS 占用） |
 | `-AdminUser` / `-AdminPass` | `admin` / 交互输入 | 管理后台账号密码 |
 | `-MysqlHost` 等 | 空 = JSON 存储 | MySQL 连接参数（`-MysqlPort/-MysqlUser/-MysqlPass/-MysqlDb`） |
 | `-NodeVersion` | `v16.20.2` | 自动下载的 Node 版本（2012 R2 最高支持 16.x） |
@@ -83,10 +89,12 @@ manage.bat uninstall   停止服务、删除自启任务与防火墙规则（保
 | 现象 | 处理 |
 |---|---|
 | 双击 install.bat 闪退 | 右键"以管理员身份运行"；或用命令行 `powershell -ExecutionPolicy Bypass -File install.ps1` 查看报错 |
-| 端口被占用 | 安装脚本启动前会自动停掉旧的 node 实例；仍失败则换 `-Port` |
-| 手机/外网访问不了 | 防火墙规则已自动添加，还需检查云安全组入站放行 TCP 端口 |
+| 端口被占用 | 安装脚本会预检并报出占用进程；默认 3000 极少冲突（旧 node 实例会自动停掉）。如改用 80 且被 IIS 占用：`net stop w3svc` / 停用 Default Web Site，或换 `-Port` |
+| 手机/外网访问不了 | 防火墙规则已自动添加，还需检查云安全组入站放行 TCP 3000；外网地址为 `http://服务器公网IP:3000/` |
 | 中文乱码 | 安装脚本带 UTF-8 BOM，请勿用会去 BOM 的编辑器保存；`logs\app.log` 用记事本/VS Code 打开 |
 | 数据在哪 | JSON 模式：`app\data\db.json`；MySQL 模式：`ruanquan` 库 3 张表（备份用 `mysqldump`） |
+| `Access denied ... using password: NO` | 安装时没输入 MySQL 密码（旧版脚本不提示密码导致）。新版安装会逐项提示端口/用户/密码/库并做连接预检；已装的服务直接重跑 `install.bat` 按提示输入正确密码即可切换 |
+| `Access denied ... using password: YES` | 密码错误。重跑 `install.bat`，预检失败时按 `R` 重新输入；忘记 root 密码需在 MySQL 侧重置 |
 
 ---
 

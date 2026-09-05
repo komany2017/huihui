@@ -293,7 +293,7 @@ async function route(req, res) {
     return res.end('Not Found')
   }
 
-  if (p === '/api/health') return json(res, 200, { code: 0, data: { ok: true, time: nowISO() } })
+  if (p === '/api/health') return json(res, 200, { code: 0, data: { ok: true, time: nowISO(), storage: store.storage } })
 
   return json(res, 404, { code: 1, msg: '接口不存在' })
 }

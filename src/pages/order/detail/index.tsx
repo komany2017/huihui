@@ -4,6 +4,7 @@ import Taro, { useRouter, useDidShow } from '@tarojs/taro';
 import { useStore } from '@/store/useStore';
 import Empty from '@/components/Empty';
 import type { OrderStatus } from '@/types/service';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const STATUS_TEXT: Record<OrderStatus, string> = {
@@ -78,7 +79,7 @@ const OrderDetailPage: React.FC = () => {
         <View className={styles.section}>
           <Text className={styles.sectionTitle}>服务信息</Text>
           <View className={styles.serviceRow}>
-            <Image className={styles.serviceCover} src={order.serviceCover} mode="aspectFill" />
+            <Image className={styles.serviceCover} src={resolveImageUrl(order.serviceCover)} mode="aspectFill" />
             <View className={styles.serviceInfo}>
               <Text className={styles.serviceName}>{order.serviceName}</Text>
               <Text className={styles.servicePrice}>¥{order.price}</Text>

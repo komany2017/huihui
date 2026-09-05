@@ -111,6 +111,12 @@
   display: block;
 }
 
+.acupointImage {
+  width: 100%;
+  border-radius: $radius-md;
+  display: block;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

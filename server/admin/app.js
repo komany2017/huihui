@@ -77,7 +77,7 @@ function enterMain() {
 // ---------- 标签页 ----------
 const TAB_TITLES = {
   overview: '数据概览', services: '服务管理', products: '商品管理', booking: '预约订单',
-  porder: '商品订单', users: '用户与档案', diseases: '疾病管理', acupoints: '穴位管理', settings: '基础配置'
+  porder: '商品订单', users: '用户与档案', diseases: '疾病管理', acupoints: '穴位管理', stores: '门店管理', settings: '基础配置'
 }
 
 function switchTab(tab) {
@@ -87,6 +87,7 @@ function switchTab(tab) {
   const renderers = {
     overview: renderOverview, services: () => renderEntity('services', '服务'), products: () => renderEntity('products', '商品'),
     diseases: () => renderEntity('diseases', '疾病'), acupoints: () => renderEntity('acupoints', '穴位'),
+    stores: renderStores,
     booking: () => renderOrders('booking'), porder: () => renderOrders('product'), users: renderUsers, settings: renderSettings
   }
   ;(renderers[tab] || renderOverview)()
@@ -99,7 +100,7 @@ async function renderOverview() {
   const cards = [
     ['用户数', d.userCount], ['预约订单', d.bookingOrders], ['商品订单', d.productOrders],
     ['健康档案', d.healthRecords], ['体质报告', d.constitutionResults], ['理疗服务', d.serviceCount],
-    ['在售商品', d.productCount], ['疾病条目', d.diseaseCount], ['穴位条目', d.acupointCount]
+    ['在售商品', d.productCount], ['疾病条目', d.diseaseCount], ['穴位条目', d.acupointCount], ['门店数量', d.storeCount || 0]
   ]
   $('#pageBody').innerHTML =
     '<div class="stats">' +
@@ -119,7 +120,7 @@ const FIELD_LABELS = {
 }
 
 // 根据实体类型前缀 + 现有列表最大序号，生成唯一 id（如 s004、p002）
-const ID_PREFIX = { services: 's', products: 'p', diseases: 'd', acupoints: 'a' }
+const ID_PREFIX = { services: 's', products: 'p', diseases: 'd', acupoints: 'a', stores: 'st' }
 function genId(type, list) {
   const prefix = ID_PREFIX[type] || ''
   const nums = list
@@ -346,11 +347,291 @@ function openForm(title, record, onSave) {
 
 function closeModal() { $('#modalMask').classList.add('hidden') }
 
+// 通用弹窗：自定义 HTML body，保存时按 [data-k] 收集表单数据
+function openModal(title, body, onSave, showSave) {
+  $('#modalTitle').textContent = title
+  $('#modalBody').innerHTML = body
+  $('#modalSave').textContent = '保存'
+  $('#modalSave').style.display = showSave === false ? 'none' : ''
+  $('#modalMask').classList.remove('hidden')
+  $('#modalSave').onclick = async () => {
+    const obj = {}
+    $('#modalBody').querySelectorAll('[data-k]').forEach((el) => {
+      const k = el.dataset.k
+      const valEl = el.querySelector('[data-k-val]')
+      if (valEl) {
+        if (valEl.dataset.json === 'true') { try { obj[k] = JSON.parse(valEl.value) } catch { obj[k] = [] } }
+        else { obj[k] = valEl.value }
+        return
+      }
+      if (el.tagName === 'TEXTAREA') {
+        try { obj[k] = JSON.parse(el.value) } catch { obj[k] = el.value }
+      } else if (el.tagName === 'SELECT') {
+        obj[k] = el.value
+      } else {
+        obj[k] = el.value
+      }
+    })
+    try {
+      await onSave(obj)
+      closeModal()
+    } catch (e) {
+      toast(e.message)
+    }
+  }
+}
+
 const ENTITY_COLS = {
   services: ['id', 'name', 'category', 'price', 'duration', 'popular'],
   products: ['id', 'name', 'category', 'price', 'unit', 'sales', 'hot'],
   diseases: ['id', 'name', 'alias', 'category'],
   acupoints: ['id', 'name', 'part', 'meridian']
+}
+
+// ---------- 门店管理（独立 stores 表，含扩展信息/服务关联/变更日志） ----------
+async function renderStores() {
+  $('#pageBody').innerHTML = '<div class="muted">加载中…</div>'
+  const list = await api('/api/admin/stores')
+  const rows = list.map((s) => `<tr>
+    <td>${esc(s.id)}</td>
+    <td>${esc(s.name)}</td>
+    <td>${esc(s.address)}</td>
+    <td>${esc(s.phone)}</td>
+    <td>${esc(s.businessHours)}</td>
+    <td>${s.status === 'active' ? '<span class="tag confirmed">营业中</span>' : '<span class="tag refunded">已停用</span>'}</td>
+    <td>
+      <button class="btn small ghost" data-edit="${esc(s.id)}">编辑</button>
+      <button class="btn small ghost" data-ext="${esc(s.id)}">扩展</button>
+      <button class="btn small ghost" data-svc="${esc(s.id)}">服务</button>
+      <button class="btn small ghost" data-log="${esc(s.id)}">日志</button>
+      <button class="btn small danger" data-del="${esc(s.id)}">删除</button>
+    </td>
+  </tr>`).join('')
+  $('#pageBody').innerHTML = `
+    <div class="toolbar">
+      <button class="btn primary" id="addStoreBtn">+ 新增门店</button>
+      <button class="btn ghost" id="checkConsistencyBtn">一致性校验</button>
+      <span id="consistencyResult" class="muted" style="margin-left:12px;"></span>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>ID</th><th>名称</th><th>地址</th><th>电话</th><th>营业时间</th><th>状态</th><th>操作</th></tr></thead>
+      <tbody>${rows || '<tr><td colspan="7" class="muted" style="text-align:center;padding:24px;">暂无门店</td></tr>'}</tbody>
+    </table>`
+  $('#addStoreBtn').onclick = () => openStoreModal(null, list)
+  $('#checkConsistencyBtn').onclick = async () => {
+    try {
+      const r = await api('/api/admin/stores/consistency')
+      $('#consistencyResult').textContent = `共 ${r.total} 家门店，${r.issues.length} 个问题`
+      if (r.issues.length) {
+        const msgs = r.issues.slice(0, 5).map((i) => `${i.storeId}: ${i.msg}`).join('；')
+        toast(`发现问题：${msgs}${r.issues.length > 5 ? '...' : ''}`)
+      } else {
+        toast('数据一致性校验通过')
+      }
+    } catch (e) { toast(e.message) }
+  }
+  $('#pageBody').querySelectorAll('[data-edit]').forEach((b) => {
+    b.onclick = async () => {
+      const id = b.dataset.edit
+      const s = await api('/api/admin/stores/' + encodeURIComponent(id))
+      openStoreModal(s, list)
+    }
+  })
+  $('#pageBody').querySelectorAll('[data-ext]').forEach((b) => {
+    b.onclick = () => openStoreExtModal(b.dataset.ext)
+  })
+  $('#pageBody').querySelectorAll('[data-svc]').forEach((b) => {
+    b.onclick = () => openStoreServiceModal(b.dataset.svc)
+  })
+  $('#pageBody').querySelectorAll('[data-log]').forEach((b) => {
+    b.onclick = () => openStoreLogModal(b.dataset.log)
+  })
+  $('#pageBody').querySelectorAll('[data-del]').forEach((b) => {
+    b.onclick = async () => {
+      if (!confirm('确定删除该门店？相关扩展信息和服务关联将一并清除。')) return
+      try {
+        await api('/api/admin/stores/' + encodeURIComponent(b.dataset.del), 'DELETE')
+        toast('已删除')
+        renderStores()
+      } catch (e) { toast(e.message) }
+    }
+  })
+}
+
+function openStoreModal(store, list) {
+  const isEdit = !!store
+  const blank = { id: isEdit ? store.id : genId('stores', list), name: '', address: '', phone: '', businessHours: '', cover: '', status: 'active', sortOrder: 0 }
+  const s = { ...blank, ...(store || {}) }
+  const body = `
+    <div class="form-item"><label>门店 ID</label><input data-k="id" value="${esc(s.id)}" readonly/></div>
+    <div class="form-item"><label>门店名称 *</label><input data-k="name" value="${esc(s.name)}"/></div>
+    <div class="form-item"><label>地址</label><input data-k="address" value="${esc(s.address)}"/></div>
+    <div class="form-item"><label>联系电话</label><input data-k="phone" value="${esc(s.phone)}"/></div>
+    <div class="form-item"><label>营业时间</label><input data-k="businessHours" value="${esc(s.businessHours)}" placeholder="如 09:00 - 21:00"/></div>
+    <div class="form-item"><label>排序</label><input data-k="sortOrder" type="number" value="${s.sortOrder || 0}"/></div>
+    <div class="form-item"><label>状态</label>
+      <select data-k="status">
+        <option value="active" ${s.status === 'active' ? 'selected' : ''}>营业中</option>
+        <option value="inactive" ${s.status === 'inactive' ? 'selected' : ''}>已停用</option>
+      </select>
+    </div>
+    <div class="form-item" data-k="cover"><label>封面图</label>
+      <input type="hidden" data-k-val value="${esc(s.cover || '')}"/>
+      ${s.cover ? `<img src="${esc(s.cover)}" style="max-width:100%;max-height:200px;border-radius:6px;margin-bottom:8px;"/>` : ''}
+      <div class="media-upload-area"><input type="file" accept="image/*" data-media-upload style="font-size:13px;"/><span class="media-status muted" style="font-size:12px;"></span></div>
+    </div>`
+  openModal(isEdit ? '编辑门店' : '新增门店', body, async (obj) => {
+    if (!obj.name) throw new Error('门店名称不能为空')
+    obj.sortOrder = Number(obj.sortOrder) || 0
+    const method = isEdit ? 'PUT' : 'POST'
+    const url = isEdit ? '/api/admin/stores/' + encodeURIComponent(obj.id) : '/api/admin/stores'
+    await api(url, method, obj)
+    toast(isEdit ? '已更新' : '已创建')
+    renderStores()
+  })
+  // 绑定封面图上传
+  bindSingleMediaUpload($('#modalBody').querySelector('[data-k="cover"]'), s.id, 'stores')
+}
+
+function openStoreExtModal(storeId) {
+  api('/api/admin/stores/' + encodeURIComponent(storeId) + '/extension').then((ext) => {
+    const e = ext || {}
+    const fac = Array.isArray(e.facilities) ? e.facilities.join('、') : ''
+    const body = `
+      <div class="form-item"><label>门店介绍</label><textarea data-k="description" rows="4">${esc(e.description || '')}</textarea></div>
+      <div class="form-item"><label>纬度</label><input data-k="latitude" type="number" step="0.0000001" value="${e.latitude ?? ''}"/></div>
+      <div class="form-item"><label>经度</label><input data-k="longitude" type="number" step="0.0000001" value="${e.longitude ?? ''}"/></div>
+      <div class="form-item"><label>店长姓名</label><input data-k="managerName" value="${esc(e.managerName || '')}"/></div>
+      <div class="form-item"><label>店长电话</label><input data-k="managerPhone" value="${esc(e.managerPhone || '')}"/></div>
+      <div class="form-item"><label>经营面积(㎡)</label><input data-k="area" type="number" step="0.01" value="${e.area ?? ''}"/></div>
+      <div class="form-item"><label>设施（逗号分隔）</label><input data-k="facilities" value="${esc(fac)}"/></div>
+      <div class="form-item" data-k="images"><label>门店图片</label>
+        <input type="hidden" data-k-val data-json="true" value="${esc(JSON.stringify(e.images || []))}"/>
+        <div class="thumb-grid">${(e.images || []).map((url, idx) => `<div class="thumb-item" data-idx="${idx}" style="position:relative;display:inline-block;margin:4px;"><img src="${esc(url)}" style="width:80px;height:80px;object-fit:cover;border-radius:4px;"/><button type="button" class="btn small danger" data-thumb-del style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;padding:0;line-height:1;border-radius:50%;font-size:12px;">×</button></div>`).join('')}</div>
+        <div class="media-upload-area"><input type="file" accept="image/*" data-media-upload-multi style="font-size:13px;"/><span class="media-status muted" style="font-size:12px;"></span></div>
+      </div>`
+    openModal('门店扩展信息', body, async (obj) => {
+      if (obj.facilities) obj.facilities = String(obj.facilities).split(/[,，]/).map((x) => x.trim()).filter(Boolean)
+      if (obj.latitude !== undefined && obj.latitude !== '') obj.latitude = Number(obj.latitude)
+      if (obj.longitude !== undefined && obj.longitude !== '') obj.longitude = Number(obj.longitude)
+      if (obj.area !== undefined && obj.area !== '') obj.area = Number(obj.area)
+      await api('/api/admin/stores/' + encodeURIComponent(storeId) + '/extension', 'PUT', obj)
+      toast('扩展信息已保存')
+    })
+    bindMultiMediaUpload($('#modalBody').querySelector('[data-k="images"]'), storeId, 'stores')
+  }).catch((e) => toast(e.message))
+}
+
+async function openStoreServiceModal(storeId) {
+  const [list, services] = await Promise.all([
+    api('/api/admin/stores/' + encodeURIComponent(storeId) + '/services'),
+    api('/api/admin/catalog/services')
+  ])
+  const svcMap = {}
+  services.forEach((s) => (svcMap[s.id] = s))
+  const rows = list.map((r) => `<tr>
+    <td>${esc(r.serviceId)}</td><td>${esc(svcMap[r.serviceId]?.name || '-')}</td>
+    <td>${r.price != null ? Number(r.price).toFixed(2) : '-'}</td>
+    <td>${r.available ? '<span class="tag confirmed">启用</span>' : '<span class="tag refunded">停用</span>'}</td>
+    <td><button class="btn small danger" data-unbind="${esc(r.serviceId)}">解除</button></td>
+  </tr>`).join('')
+  const opts = services.map((s) => `<option value="${esc(s.id)}">${esc(s.id)} - ${esc(s.name)}</option>`).join('')
+  const body = `
+    <table class="data-table"><thead><tr><th>服务ID</th><th>服务名</th><th>价格</th><th>状态</th><th>操作</th></tr></thead>
+    <tbody>${rows || '<tr><td colspan="5" class="muted" style="text-align:center;padding:16px;">暂无关联服务</td></tr>'}</tbody></table>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid #eee;">
+      <div class="form-item" style="display:inline-block;margin-right:12px;"><label>选择服务</label><select id="bindSvcId">${opts}</select></div>
+      <div class="form-item" style="display:inline-block;margin-right:12px;"><label>价格(留空用原价)</label><input id="bindSvcPrice" type="number" step="0.01"/></div>
+      <button class="btn primary" id="bindSvcBtn" style="margin-top:22px;">关联服务</button>
+    </div>`
+  openModal('门店服务关联', body, async () => {}, false) // 非保存型弹窗
+  $('#modalSave').style.display = 'none'
+  $('#bindSvcBtn').onclick = async () => {
+    const sid = $('#bindSvcId').value
+    const price = $('#bindSvcPrice').value
+    try {
+      await api('/api/admin/stores/' + encodeURIComponent(storeId) + '/services', 'POST', { serviceId: sid, price: price ? Number(price) : null })
+      toast('已关联')
+      openStoreServiceModal(storeId)
+    } catch (e) { toast(e.message) }
+  }
+  $('#modalBody').querySelectorAll('[data-unbind]').forEach((b) => {
+    b.onclick = async () => {
+      try {
+        await api('/api/admin/stores/' + encodeURIComponent(storeId) + '/services/' + encodeURIComponent(b.dataset.unbind), 'DELETE')
+        toast('已解除')
+        openStoreServiceModal(storeId)
+      } catch (e) { toast(e.message) }
+    }
+  })
+}
+
+async function openStoreLogModal(storeId) {
+  const logs = await api('/api/admin/stores/' + encodeURIComponent(storeId) + '/logs')
+  const ACTION_TEXT = { create: '创建', update: '更新', delete: '删除', update_extension: '更新扩展', bind_service: '关联服务', unbind_service: '解除服务' }
+  const rows = logs.map((l) => `<tr>
+    <td>${esc(l.createdAt)}</td>
+    <td><span class="tag confirmed">${esc(ACTION_TEXT[l.action] || l.action)}</span></td>
+    <td>${esc(l.operator)}</td>
+    <td>${esc(JSON.stringify(l.detail || {}))}</td>
+  </tr>`).join('')
+  const body = `<table class="data-table"><thead><tr><th>时间</th><th>操作</th><th>操作人</th><th>详情</th></tr></thead>
+    <tbody>${rows || '<tr><td colspan="4" class="muted" style="text-align:center;padding:16px;">暂无日志</td></tr>'}</tbody></table>`
+  openModal('门店变更日志', body, async () => {}, false)
+  $('#modalSave').style.display = 'none'
+}
+
+// 单图上传绑定
+function bindSingleMediaUpload(row, entityId, entityType) {
+  if (!row) return
+  const hidden = row.querySelector('[data-k-val]')
+  const fileInput = row.querySelector('[data-media-upload]')
+  const status = row.querySelector('.media-status')
+  if (fileInput) {
+    fileInput.onchange = async () => {
+      const f = fileInput.files[0]
+      if (!f) return
+      status.textContent = '上传中…'
+      try {
+        const r = await uploadMedia(f, entityType, entityId)
+        hidden.value = r.url
+        const preview = row.querySelector('img')
+        if (preview) preview.src = r.url
+        status.textContent = `已上传：${r.filename}`
+      } catch (e) { status.textContent = '上传失败：' + e.message }
+      fileInput.value = ''
+    }
+  }
+}
+
+// 多图上传绑定
+function bindMultiMediaUpload(row, entityId, entityType) {
+  if (!row) return
+  const hidden = row.querySelector('[data-k-val]')
+  const fileInput = row.querySelector('[data-media-upload-multi]')
+  const status = row.querySelector('.media-status')
+  const grid = row.querySelector('.thumb-grid')
+  function getArr() { try { return JSON.parse(hidden.value || '[]') } catch { return [] } }
+  function setArr(arr) { hidden.value = JSON.stringify(arr); renderThumbs(arr) }
+  function renderThumbs(arr) {
+    grid.innerHTML = arr.map((url, idx) => `<div class="thumb-item" data-idx="${idx}" style="position:relative;display:inline-block;margin:4px;"><img src="${esc(url)}" style="width:80px;height:80px;object-fit:cover;border-radius:4px;"/><button type="button" class="btn small danger" data-thumb-del style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;padding:0;line-height:1;border-radius:50%;font-size:12px;">×</button></div>`).join('')
+    grid.querySelectorAll('[data-thumb-del]').forEach((btn) => {
+      btn.onclick = () => { const a = getArr(); a.splice(Number(btn.parentElement.dataset.idx), 1); setArr(a) }
+    })
+  }
+  if (fileInput) {
+    fileInput.onchange = async () => {
+      const f = fileInput.files[0]
+      if (!f) return
+      status.textContent = '上传中…'
+      try {
+        const r = await uploadMedia(f, entityType, entityId)
+        const a = getArr(); a.push(r.url); setArr(a)
+        status.textContent = `已上传（共 ${a.length} 张）`
+      } catch (e) { status.textContent = '上传失败：' + e.message }
+      fileInput.value = ''
+    }
+  }
 }
 
 async function renderEntity(type, label) {

@@ -1,4 +1,4 @@
-﻿﻿﻿# ============================================
+﻿# ============================================
 # 润泉养元后台服务 · 一键部署脚本
 # 用法示例：
 #   powershell -ExecutionPolicy Bypass -File server/deploy.ps1 -ServerHost 1.2.3.4 -User root

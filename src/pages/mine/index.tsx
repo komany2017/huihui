@@ -33,6 +33,19 @@ const MinePage: React.FC = () => {
   const openEdit = () => {
     setDraft(userProfile);
     setEditing(true);
+    // 若用户名仍为默认值，尝试拉取微信昵称自动填充
+    if (userProfile.name === '润泉用户') {
+      Taro.getUserProfile({ desc: '用于完善会员资料' })
+        .then((res) => {
+          const nick = res.userInfo?.nickName
+          if (nick) {
+            setDraft((d) => ({ ...d, name: nick }))
+          }
+        })
+        .catch(() => {
+          /* 用户拒绝授权则保持默认，用户可手动输入或用 type=nickname 选择 */
+        })
+    }
   };
 
   const handleSave = () => {
@@ -262,7 +275,8 @@ const MinePage: React.FC = () => {
                 <Text className={styles.formLabel}>姓名</Text>
                 <Input
                   className={styles.formInput}
-                  placeholder="请输入姓名"
+                  type="nickname"
+                  placeholder="点击获取微信昵称"
                   value={draft.name}
                   onInput={(e) => setDraft({ ...draft, name: e.detail.value })}
                 />

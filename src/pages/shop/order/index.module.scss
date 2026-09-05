@@ -166,3 +166,31 @@
   color: $color-price;
   font-weight: $font-weight-bold;
 }
+
+.actionBar {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+  padding-top: $spacing-sm;
+  border-top: 2rpx solid $color-divider;
+}
+
+.btnPrimary {
+  padding: 12rpx 32rpx;
+  border-radius: 32rpx;
+  background: $color-primary;
+  color: #fff;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.btnSecondary {
+  padding: 12rpx 32rpx;
+  border-radius: 32rpx;
+  background: #fff;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  border: 2rpx solid $color-divider;
+}

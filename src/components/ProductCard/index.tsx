@@ -3,6 +3,7 @@ import { View, Text, Image } from '@tarojs/components'
 import classnames from 'classnames'
 import type { Product } from '@/types/product'
 import Tag from '@/components/Tag'
+import { resolveImageUrl } from '@/utils/image'
 import styles from './index.module.scss'
 
 interface ProductCardProps {
@@ -14,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, onClick }) => {
   return (
     <View className={styles.container} onClick={onClick}>
       <View className={styles.imageWrap}>
-        <Image className={styles.image} src={data.cover} mode="aspectFill" />
+        <Image className={styles.image} src={resolveImageUrl(data.cover)} mode="aspectFill" />
         {data.hot && (
           <View className={styles.hot}>
             <Text className={styles.hotText}>热销</Text>

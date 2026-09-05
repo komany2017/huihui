@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro';
 import classnames from 'classnames';
 import { DISEASE_CATEGORIES, HOT_DISEASES, searchDiseases } from '@/data/diseases';
 import Empty from '@/components/Empty';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const DiseaseIndexPage: React.FC = () => {
@@ -94,7 +95,7 @@ const DiseaseIndexPage: React.FC = () => {
         {list.length > 0 ? (
           list.map((d) => (
             <View key={d.id} className={styles.diseaseCard} onClick={() => goDetail(d.id)}>
-              <Image className={styles.cover} src={d.cover} mode="aspectFill" />
+              <Image className={styles.cover} src={resolveImageUrl(d.cover)} mode="aspectFill" />
               <View className={styles.content}>
                 <View className={styles.titleRow}>
                   <Text className={styles.name}>{d.name}</Text>

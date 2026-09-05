@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView } from '@tarojs/components';
+import Taro from '@tarojs/taro';
 import classnames from 'classnames';
 import { useStore } from '@/store/useStore';
 import Empty from '@/components/Empty';
 import type { ProductOrderStatus } from '@/types/product';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const STATUS_TABS: { key: 'all' | ProductOrderStatus; name: string }[] = [
@@ -22,12 +24,38 @@ const STATUS_TEXT: Record<ProductOrderStatus, string> = {
 };
 
 const ShopOrderPage: React.FC = () => {
-  const { productOrders } = useStore();
+  const { productOrders, updateProductOrderStatus } = useStore();
   const [activeTab, setActiveTab] = useState<'all' | ProductOrderStatus>('all');
 
   const filteredOrders = productOrders.filter(
     (o) => activeTab === 'all' || o.status === activeTab
   );
+
+  const handleConfirmReceive = (id: string) => {
+    Taro.showModal({
+      title: '确认收货',
+      content: '确认已收到商品？',
+      success: (r) => {
+        if (r.confirm) {
+          updateProductOrderStatus(id, 'completed');
+          Taro.showToast({ title: '已确认收货', icon: 'success' });
+        }
+      }
+    });
+  };
+
+  const handleCancel = (id: string) => {
+    Taro.showModal({
+      title: '取消订单',
+      content: '确定取消该订单？',
+      success: (r) => {
+        if (r.confirm) {
+          updateProductOrderStatus(id, 'cancelled');
+          Taro.showToast({ title: '已取消', icon: 'none' });
+        }
+      }
+    });
+  };
 
   return (
     <View className={styles.container}>
@@ -61,7 +89,7 @@ const ShopOrderPage: React.FC = () => {
               </View>
               {order.items.map((item, idx) => (
                 <View key={idx} className={styles.orderItem}>
-                  <Image className={styles.itemImage} src={item.productCover} mode="aspectFill" />
+                  <Image className={styles.itemImage} src={resolveImageUrl(item.productCover)} mode="aspectFill" />
                   <View className={styles.itemInfo}>
                     <Text className={styles.itemName}>{item.productName}</Text>
                     <Text className={styles.itemSpec}>{item.specName}</Text>
@@ -81,6 +109,19 @@ const ShopOrderPage: React.FC = () => {
                   <Text className={styles.totalSymbol}>¥</Text>
                   <Text className={styles.totalValue}>{order.totalAmount}</Text>
                 </View>
+              </View>
+              {/* 操作按钮 */}
+              <View className={styles.actionBar}>
+                {order.status === 'shipped' && (
+                  <View className={styles.btnPrimary} onClick={() => handleConfirmReceive(order.id)}>
+                    确认收货
+                  </View>
+                )}
+                {(order.status === 'unpaid' || order.status === 'paid') && (
+                  <View className={styles.btnSecondary} onClick={() => handleCancel(order.id)}>
+                    取消订单
+                  </View>
+                )}
               </View>
             </View>
           ))

@@ -34,7 +34,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '食指或中指指腹按压 1-3 分钟，力度适中，可顺时针揉按',
     indication: ['头痛', '眩晕', '失眠', '健忘', '脱肛'],
     caution: '孕妇及囟门未闭小儿禁用',
-    cover: 'https://picsum.photos/id/64/750/500'
+    cover: ''
   },
   {
     id: 'a002',
@@ -46,7 +46,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '双手拇指向上方按揉 2-3 分钟，力度由轻到重',
     indication: ['感冒', '头痛', '颈项强痛', '眩晕', '目赤肿痛'],
     caution: '不宜重按，避免按压过深',
-    cover: 'https://picsum.photos/id/91/750/500'
+    cover: ''
   },
   {
     id: 'a003',
@@ -58,7 +58,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '双手中指或食指指腹按压 1-2 分钟，可顺时针揉按',
     indication: ['偏头痛', '目赤肿痛', '面瘫', '眩晕'],
     caution: '力度宜轻，避免重压',
-    cover: 'https://picsum.photos/id/177/750/500'
+    cover: ''
   },
   {
     id: 'a004',
@@ -70,7 +70,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '食指或中指指腹按压 1-2 分钟，可向鼻部按揉',
     indication: ['失眠', '头痛', '眩晕', '鼻渊', '小儿惊风'],
     caution: '力度适中，避免过重',
-    cover: 'https://picsum.photos/id/338/750/500'
+    cover: ''
   },
   {
     id: 'a005',
@@ -82,7 +82,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '拇指或中指指腹按压 2-3 分钟，可点按或揉按',
     indication: ['感冒', '发热', '颈项强直', '咳嗽', '哮喘'],
     caution: '孕妇慎用，避免重按',
-    cover: 'https://picsum.photos/id/1027/750/500'
+    cover: ''
   },
   {
     id: 'a006',
@@ -94,7 +94,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '拇指或对侧四指拿揉 2-3 分钟，力度适中',
     indication: ['颈肩疼痛', '上肢不遂', '乳腺炎', '难产'],
     caution: '孕妇禁用',
-    cover: 'https://picsum.photos/id/64/750/500'
+    cover: ''
   },
   {
     id: 'a007',
@@ -106,7 +106,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '掌心搓热后搓擦命门至发热，或拇指按揉 3 分钟',
     indication: ['腰痛', '阳痿', '遗精', '泄泻', '带下'],
     caution: '阴虚火旺者慎用重刺激',
-    cover: 'https://picsum.photos/id/91/750/500'
+    cover: ''
   },
   {
     id: 'a008',
@@ -118,7 +118,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '双手叉腰，拇指按揉两侧肾俞 3-5 分钟',
     indication: ['腰痛', '遗精', '阳痿', '月经不调', '耳鸣'],
     caution: '孕妇慎用',
-    cover: 'https://picsum.photos/id/177/750/500'
+    cover: ''
   },
   {
     id: 'a009',
@@ -130,7 +130,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '他人协助按揉或轻拍 3-5 分钟，可艾灸',
     indication: ['咳嗽', '气喘', '感冒', '骨蒸潮热', '盗汗'],
     caution: '孕妇慎用',
-    cover: 'https://picsum.photos/id/338/750/500'
+    cover: ''
   },
   {
     id: 'a010',
@@ -142,7 +142,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '中指指腹或掌根按揉 2-3 分钟，可上下推擦',
     indication: ['胸闷', '气短', '咳嗽', '乳少', '胸痹'],
     caution: '力度宜轻柔，避免过重',
-    cover: 'https://picsum.photos/id/1027/750/500'
+    cover: ''
   },
   {
     id: 'a011',
@@ -154,7 +154,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '掌根顺时针揉按 3-5 分钟，饭后不宜立即按',
     indication: ['胃痛', '腹胀', '呕吐', '泄泻', '消化不良'],
     caution: '饭后 1 小时内不宜按揉',
-    cover: 'https://picsum.photos/id/64/750/500'
+    cover: ''
   },
   {
     id: 'a012',
@@ -167,7 +167,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '掌心搓热后捂肚脐 3-5 分钟，或艾灸 15 分钟',
     indication: ['腹痛', '泄泻', '脱肛', '虚脱', '痛经'],
     caution: '禁止针刺，孕妇禁用',
-    cover: 'https://picsum.photos/id/91/750/500'
+    cover: ''
   },
   {
     id: 'a013',
@@ -179,7 +179,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '食指或中指指腹按揉 3-5 分钟，可艾灸 20 分钟',
     indication: ['月经不调', '痛经', '阳痿', '遗尿', '泄泻'],
     caution: '孕妇禁用',
-    cover: 'https://picsum.photos/id/177/750/500'
+    cover: ''
   },
   {
     id: 'a014',
@@ -191,7 +191,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '拇指按揉 5 分钟，每日可多次，可艾灸 15 分钟',
     indication: ['胃痛', '呕吐', '腹胀', '泄泻', '虚劳', '保健'],
     caution: '孕妇慎用，过饥不宜',
-    cover: 'https://picsum.photos/id/338/750/500'
+    cover: ''
   },
   {
     id: 'a015',
@@ -203,7 +203,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '拇指按揉 3-5 分钟，可配合艾灸',
     indication: ['月经不调', '痛经', '带下', '遗精', '失眠', '脾胃虚弱'],
     caution: '孕妇禁用',
-    cover: 'https://picsum.photos/id/1027/750/500'
+    cover: ''
   },
   {
     id: 'a016',
@@ -215,7 +215,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '每晚睡前搓擦涌泉 100 次，至足心发热',
     indication: ['失眠', '头晕', '便秘', '高血压', '足心热'],
     caution: '力度适中，避免过重',
-    cover: 'https://picsum.photos/id/64/750/500'
+    cover: ''
   },
   {
     id: 'a017',
@@ -227,7 +227,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '拇指按揉 3 分钟，力度可稍重',
     indication: ['头痛', '眩晕', '月经不调', '痛经', '情志不畅'],
     caution: '孕妇慎用',
-    cover: 'https://picsum.photos/id/91/750/500'
+    cover: ''
   },
   {
     id: 'a018',
@@ -240,7 +240,7 @@ export let ACUPOINTS: Acupoint[] = [
     massage: '拇指对捏按揉 3-5 分钟，左右交替',
     indication: ['头痛', '牙痛', '咽喉肿痛', '感冒', '面瘫'],
     caution: '孕妇禁用',
-    cover: 'https://picsum.photos/id/177/750/500'
+    cover: ''
   }
 ]
 

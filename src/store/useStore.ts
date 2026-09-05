@@ -6,6 +6,7 @@ import type { ConstitutionResult } from '@/types/constitution'
 import type { HealthRecord, UserProfile } from '@/types/record'
 import { getStorageSync, setStorageSync, generateId } from '@/utils/storage'
 import { api } from '@/utils/api'
+import { enqueueSync } from '@/utils/syncQueue'
 
 interface AppState {
   // 购物车
@@ -18,6 +19,7 @@ interface AppState {
   // 商品订单
   productOrders: ProductOrder[]
   createProductOrder: (order: Omit<ProductOrder, 'id' | 'createdAt'>) => string
+  updateProductOrderStatus: (id: string, status: ProductOrder['status']) => void
 
   // 预约订单
   bookingOrders: BookingOrder[]
@@ -99,12 +101,19 @@ export const useStore = create<AppState>((set, get) => ({
     const orders = [newOrder, ...get().productOrders]
     set({ productOrders: orders })
     setStorageSync('productOrders', orders)
-    // 上行同步到服务器（失败静默，本地兜底）
-    api.postProductOrder(newOrder).catch(() => {})
+    // 上行同步到服务器，失败入队等待重试
+    api.postProductOrder(newOrder).catch(() => enqueueSync({ type: 'postProductOrder', data: newOrder }))
     // 清空购物车
     set({ cart: [] })
     setStorageSync('cart', [])
     return id
+  },
+  updateProductOrderStatus: (id, status) => {
+    const orders = get().productOrders.map((o) => (o.id === id ? { ...o, status } : o))
+    set({ productOrders: orders })
+    setStorageSync('productOrders', orders)
+    // 推送状态到服务器，失败入队重试
+    api.patchProductOrder(id, { status }).catch(() => enqueueSync({ type: 'patchProductOrder', id, patch: { status } }))
   },
 
   bookingOrders: [],
@@ -118,15 +127,15 @@ export const useStore = create<AppState>((set, get) => ({
     const orders = [newOrder, ...get().bookingOrders]
     set({ bookingOrders: orders })
     setStorageSync('bookingOrders', orders)
-    // 上行同步到服务器（失败静默，本地兜底）
-    api.postBookingOrder(newOrder).catch(() => {})
+    // 上行同步到服务器，失败入队重试
+    api.postBookingOrder(newOrder).catch(() => enqueueSync({ type: 'postBookingOrder', data: newOrder }))
     return id
   },
   updateBookingStatus: (id, status) => {
     const orders = get().bookingOrders.map((o) => (o.id === id ? { ...o, status } : o))
     set({ bookingOrders: orders })
     setStorageSync('bookingOrders', orders)
-    api.patchBookingOrder(id, { status }).catch(() => {})
+    api.patchBookingOrder(id, { status }).catch(() => enqueueSync({ type: 'patchBookingOrder', id, patch: { status } }))
   },
 
   constitutionResults: [],
@@ -134,7 +143,7 @@ export const useStore = create<AppState>((set, get) => ({
     const results = [result, ...get().constitutionResults]
     set({ constitutionResults: results })
     setStorageSync('constitutionResults', results)
-    api.postConstitutionResult(result).catch(() => {})
+    api.postConstitutionResult(result).catch(() => enqueueSync({ type: 'postConstitutionResult', data: result }))
   },
 
   healthRecords: [],
@@ -143,13 +152,13 @@ export const useStore = create<AppState>((set, get) => ({
     const records = [newRecord, ...get().healthRecords]
     set({ healthRecords: records })
     setStorageSync('healthRecords', records)
-    api.postHealthRecord(newRecord).catch(() => {})
+    api.postHealthRecord(newRecord).catch(() => enqueueSync({ type: 'postHealthRecord', data: newRecord }))
   },
   deleteHealthRecord: (id) => {
     const records = get().healthRecords.filter((r) => r.id !== id)
     set({ healthRecords: records })
     setStorageSync('healthRecords', records)
-    api.deleteHealthRecord(id).catch(() => {})
+    api.deleteHealthRecord(id).catch(() => enqueueSync({ type: 'deleteHealthRecord', id }))
   },
 
   userProfile: DEFAULT_PROFILE,
@@ -157,7 +166,7 @@ export const useStore = create<AppState>((set, get) => ({
     const newProfile = { ...get().userProfile, ...profile, updatedAt: new Date().toISOString() }
     set({ userProfile: newProfile })
     setStorageSync('userProfile', newProfile)
-    api.putProfile(newProfile).catch(() => {})
+    api.putProfile(newProfile).catch(() => enqueueSync({ type: 'putProfile', data: newProfile }))
   },
 
   initFromStorage: () => {

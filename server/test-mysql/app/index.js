@@ -10,7 +10,7 @@ const path = require('path')
 const os = require('os')
 const crypto = require('crypto')
 const store = require('./store')
-const { ENTITY_TYPES } = require('./store')
+const { ENTITY_TYPES, MEDIA_DIR } = require('./store')
 
 const PORT = Number(process.env.PORT || 3000)
 const ADMIN_USER = process.env.ADMIN_USER || 'admin'
@@ -44,6 +44,57 @@ function readBody(req) {
   })
 }
 
+// 读取原始请求体（Buffer），用于 multipart 文件上传
+function readRawBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = []
+    req.on('data', (c) => chunks.push(c))
+    req.on('end', () => resolve(Buffer.concat(chunks)))
+    req.on('error', reject)
+  })
+}
+
+// 解析 multipart/form-data，返回 { fields:{}, files:[{name,filename,mime,data}] }
+function parseMultipart(buffer, boundary) {
+  const result = { fields: {}, files: [] }
+  const sep = Buffer.from('--' + boundary)
+  const crlf = Buffer.from('\r\n')
+  let idx = 0
+  while (idx < buffer.length) {
+    const s = buffer.indexOf(sep, idx)
+    if (s < 0) break
+    const e = buffer.indexOf(sep, s + sep.length)
+    if (e < 0) break
+    const part = buffer.slice(s + sep.length, e)
+    // 跳过开头 CRLF
+    const content = part.slice(part.indexOf(crlf) + 2)
+    const headEnd = content.indexOf('\r\n\r\n')
+    if (headEnd < 0) { idx = e; continue }
+    const head = content.slice(0, headEnd).toString('utf8')
+    const bodyData = content.slice(headEnd + 4)
+    // 去掉结尾 CRLF（part 末尾总有一个 \r\n 在 boundary 前）
+    const body = bodyData.length >= 2 && bodyData[bodyData.length - 2] === 0x0d && bodyData[bodyData.length - 1] === 0x0a
+      ? bodyData.slice(0, bodyData.length - 2)
+      : bodyData
+    const nameMatch = head.match(/name="([^"]+)"/)
+    const filenameMatch = head.match(/filename="([^"]*)"/)
+    if (nameMatch) {
+      const name = nameMatch[1]
+      if (filenameMatch) {
+        const filename = filenameMatch[1]
+        if (filename) {
+          const mimeMatch = head.match(/Content-Type:\s*([^\r\n]+)/i)
+          result.files.push({ name, filename, mime: mimeMatch ? mimeMatch[1].trim() : 'application/octet-stream', data: body })
+        }
+      } else {
+        result.fields[name] = body.toString('utf8')
+      }
+    }
+    idx = e
+  }
+  return result
+}
+
 function authOk(req) {
   const h = req.headers['authorization'] || ''
   const token = h.startsWith('Bearer ') ? h.slice(7) : ''
@@ -59,7 +110,10 @@ async function route(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`)
   const p = url.pathname
   const method = req.method
-  const body = ['POST', 'PUT', 'PATCH'].includes(method) ? await readBody(req) : {}
+  const contentType = req.headers['content-type'] || ''
+  const isMultipart = contentType.startsWith('multipart/form-data')
+  const body = (['POST', 'PUT', 'PATCH'].includes(method) && !isMultipart) ? await readBody(req) : {}
+  let m
 
   // CORS 预检
   if (method === 'OPTIONS') return json(res, 204, {})
@@ -69,7 +123,25 @@ async function route(req, res) {
     return json(res, 200, { code: 0, data: await store.getCatalog() })
   }
 
-  let m = p.match(/^\/api\/user\/([^/]+)$/) // /api/user/:deviceId
+  // 媒体资源播放（视频/图片，从服务器磁盘读取，公开访问）
+  m = p.match(/^\/api\/media\/([^/]+)$/)
+  if (m && method === 'GET') {
+    const media = await store.getMedia(decodeURIComponent(m[1]))
+    if (!media || !media.filePath) return json(res, 404, { code: 1, msg: '媒体不存在' })
+    if (!fs.existsSync(media.filePath)) return json(res, 404, { code: 1, msg: '媒体文件已丢失' })
+    const stat = fs.statSync(media.filePath)
+    res.writeHead(200, {
+      'Content-Type': media.mime || 'application/octet-stream',
+      'Content-Length': stat.size,
+      'Accept-Ranges': 'bytes',
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'public, max-age=86400'
+    })
+    fs.createReadStream(media.filePath).pipe(res)
+    return
+  }
+
+  m = p.match(/^\/api\/user\/([^/]+)$/) // /api/user/:deviceId
   if (m && method === 'GET') {
     const deviceId = decodeURIComponent(m[1])
     return json(res, 200, { code: 0, data: await store.getUserDoc(deviceId) })
@@ -167,6 +239,42 @@ async function route(req, res) {
 
   if (p.startsWith('/api/admin/')) {
     if (!authOk(req)) return json(res, 401, { code: 1, msg: '未登录或登录已过期' })
+
+    // ---------- 媒体上传（穴位视频等）----------
+    if (p === '/api/admin/media' && method === 'POST') {
+      if (!isMultipart) return json(res, 400, { code: 1, msg: '需 multipart/form-data 上传' })
+      const boundary = contentType.match(/boundary=([^;]+)/)
+      if (!boundary) return json(res, 400, { code: 1, msg: '缺少 boundary' })
+      const raw = await readRawBody(req)
+      const mp = parseMultipart(raw, boundary[1])
+      const file = mp.files[0]
+      if (!file) return json(res, 400, { code: 1, msg: '未收到文件' })
+      // 仅允许图片和视频
+      if (!file.mime.startsWith('image/') && !file.mime.startsWith('video/')) {
+        return json(res, 400, { code: 1, msg: '仅支持上传图片或视频' })
+      }
+      // 限制单文件 50MB
+      if (file.data.length > 50 * 1024 * 1024) return json(res, 413, { code: 1, msg: '文件过大（上限 50MB）' })
+      const entityType = mp.fields.entityType || 'acupoints'
+      const entityId = mp.fields.entityId || ''
+      const id = crypto.randomBytes(12).toString('hex')
+      // 落盘到服务器磁盘目录 uploads/media/
+      if (!fs.existsSync(MEDIA_DIR)) fs.mkdirSync(MEDIA_DIR, { recursive: true })
+      const ext = path.extname(file.filename) || ''
+      const filePath = path.join(MEDIA_DIR, id + ext)
+      fs.writeFileSync(filePath, file.data)
+      // MySQL 仅存路径与关联关系
+      await store.saveMedia(id, entityType, entityId, file.filename, file.mime, file.data.length, filePath)
+      const url = `/api/media/${id}`
+      return json(res, 200, { code: 0, data: { id, url, filename: file.filename, mime: file.mime, size: file.data.length } })
+    }
+
+    // ---------- 媒体删除 ----------
+    m = p.match(/^\/api\/admin\/media\/([^/]+)$/)
+    if (m && method === 'DELETE') {
+      await store.deleteMedia(decodeURIComponent(m[1]))
+      return json(res, 200, { code: 0 })
+    }
 
     if (p === '/api/admin/overview' && method === 'GET') {
       const [catalog, userDocs] = await Promise.all([store.getCatalog(), store.listUserDocs()])
@@ -293,7 +401,7 @@ async function route(req, res) {
     return res.end('Not Found')
   }
 
-  if (p === '/api/health') return json(res, 200, { code: 0, data: { ok: true, time: nowISO() } })
+  if (p === '/api/health') return json(res, 200, { code: 0, data: { ok: true, time: nowISO(), storage: store.storage } })
 
   return json(res, 404, { code: 1, msg: '接口不存在' })
 }

@@ -4,6 +4,7 @@ import Taro, { useRouter } from '@tarojs/taro';
 import { getAcupointById, BODY_PARTS } from '@/data/acupoints';
 import Tag from '@/components/Tag';
 import Empty from '@/components/Empty';
+import { resolveImageUrl } from '@/utils/image';
 import styles from './index.module.scss';
 
 const AcupointDetailPage: React.FC = () => {
@@ -29,7 +30,7 @@ const AcupointDetailPage: React.FC = () => {
       <ScrollView scrollY className={styles.scroll}>
         {/* 定位图 */}
         <View className={styles.coverWrap}>
-          <Image className={styles.cover} src={acupoint.cover} mode="aspectFill" />
+          <Image className={styles.cover} src={resolveImageUrl(acupoint.cover)} mode="aspectFill" />
           <View className={styles.coverMask} />
           <View className={styles.coverInfo}>
             <View className={styles.titleRow}>
@@ -49,6 +50,18 @@ const AcupointDetailPage: React.FC = () => {
           <Text className={styles.meridianText}>{acupoint.meridian}</Text>
           <Text className={styles.partText}>归属部位：{partName}</Text>
         </View>
+
+        {/* 穴位图片 */}
+        {acupoint.image && (
+          <View className={styles.section}>
+            <Text className={styles.sectionTitle}>穴位图片</Text>
+            <Image
+              className={styles.acupointImage}
+              src={resolveImageUrl(acupoint.image)}
+              mode="widthFix"
+            />
+          </View>
+        )}
 
         {/* 定位描述 */}
         <View className={styles.section}>
