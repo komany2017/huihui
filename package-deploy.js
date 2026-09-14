@@ -19,7 +19,17 @@ const outZip = path.join(distDir, OUT_NAME)
 
 function copyFile(src, dest) {
   fs.mkdirSync(path.dirname(dest), { recursive: true })
-  fs.copyFileSync(src, dest)
+  let buf = fs.readFileSync(src)
+  // .ps1 防御：清理 UTF-8 BOM 堆叠（保留单个 BOM），避免 PowerShell 解析 param 块失败
+  if (dest.toLowerCase().endsWith('.ps1')) {
+    let n = 0
+    while (n + 2 < buf.length && buf[n] === 0xef && buf[n + 1] === 0xbb && buf[n + 2] === 0xbf) n += 3
+    if (n !== 3) {
+      buf = Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), buf.subarray(n)])
+      console.log('  [bom-fix]', path.relative(path.dirname(stage), dest), `(清理 ${n / 3} 个 BOM)`)
+    }
+  }
+  fs.writeFileSync(dest, buf)
   console.log('  +', path.relative(path.dirname(stage), dest))
 }
 function copyDir(src, dest) {
@@ -45,7 +55,7 @@ copyDir(path.join(serverDir, 'admin'), path.join(appDir, 'admin'))
 for (const f of ['services.ts', 'products.ts', 'diseases.ts', 'acupoints.ts']) {
   copyFile(path.join(projectRoot, 'src', 'data', f), path.join(appDir, 'src-data', f))
 }
-for (const f of ['install.bat', 'install.ps1', 'manage.bat', 'manage.ps1']) copyFile(path.join(serverDir, f), path.join(stage, f))
+for (const f of ['install.bat', 'install.ps1', 'manage.bat', 'manage.ps1', 'check.bat', 'check-env.ps1', 'fixbom.ps1']) copyFile(path.join(serverDir, f), path.join(stage, f))
 
 // 可选：连同本地数据 db.json 一起打包（服务器将自动迁移入库）
 if (PUSH_DATA) {
@@ -73,9 +83,9 @@ if (WITH_MYSQL) {
 // ---------- 3. ZIP 打包（POSIX 正斜杠条目，deflate）----------
 console.log('==> 生成压缩包')
 fs.mkdirSync(distDir, { recursive: true })
-// 清理 dist 下的历史残留（只保留 zip 产物）
+// 清理 dist 下的历史残留（保留 zip 产物与 deploy-test 部署演练实例）
 for (const name of fs.readdirSync(distDir)) {
-  if (name !== OUT_NAME) {
+  if (name !== OUT_NAME && name !== 'deploy-test') {
     fs.rmSync(path.join(distDir, name), { recursive: true, force: true })
     console.log('  清理残留:', name)
   }

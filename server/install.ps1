@@ -1,4 +1,4 @@
-﻿# ============================================
+﻿﻿# ============================================
 # 润泉养元后台服务 · Windows Server 安装脚本
 # 由 install.bat 调用（管理员权限），也可直接运行：
 #   powershell -ExecutionPolicy Bypass -File install.ps1 -Port 3000 -AdminPass xxx
@@ -79,7 +79,12 @@ function Start-App {
   if ($NoService) {
     Start-Process -FilePath 'cmd.exe' -ArgumentList "/c", "`"$runBat`"" -WindowStyle Hidden
   } else {
-    schtasks /Run /TN $script:TaskName | Out-Null
+    Run-Quiet { schtasks /Run /TN $script:TaskName 2>&1 | Out-Null }
+    if ($LASTEXITCODE -ne 0) {
+      # 自启任务未注册（如非管理员安装或任务被删）时回退为直接启动
+      Warn '自启任务不可用，回退为直接启动'
+      Start-Process -FilePath 'cmd.exe' -ArgumentList "/c", "`"$runBat`"" -WindowStyle Hidden
+    }
   }
   $ok = $false
   for ($i = 0; $i -lt 20; $i++) {

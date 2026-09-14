@@ -9,6 +9,20 @@ let role = localStorage.getItem('yyt_admin_role') || 'admin'
 let currentTab = 'overview'
 let catalogCache = null
 
+// ---------- 界面风格切换（朱砂/青黛/竹韵/暗夜，偏好存 localStorage） ----------
+const THEMES = ['zhusha', 'qingdai', 'zhulv', 'dark']
+function applyTheme(t) {
+  if (!THEMES.includes(t)) t = 'zhusha'
+  document.body.dataset.theme = t
+  localStorage.setItem('yyt_admin_theme', t)
+  const sel = document.querySelector('#themeSelect')
+  if (sel) sel.value = t
+}
+applyTheme(localStorage.getItem('yyt_admin_theme') || 'zhusha')
+document.addEventListener('change', (e) => {
+  if (e.target && e.target.id === 'themeSelect') applyTheme(e.target.value)
+})
+
 // ---------- 基础 ----------
 async function api(path, method = 'GET', body) {
   const res = await fetch(API + path, {
@@ -173,19 +187,19 @@ function fieldRow(k, v) {
     return `<div class="form-item" data-k="${k}"><label>${label}</label>
       <select data-k="${k}"><option value="true" ${v ? 'selected' : ''}>是 (true)</option><option value="false" ${!v ? 'selected' : ''}>否 (false)</option></select></div>`
   }
-  // 单图 URL 字段（封面图 cover / 穴位图片 image）
+  // 单图 URL 字段（封面图 cover / 穴位图片 image）：可手填 URL，也可上传自动填入
   if (k === 'cover' || k === 'image') {
     const val = String(v || '')
-    const preview = val ? `<img src="${esc(val)}" style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;"/>` : ''
+    const preview = `<img src="${esc(val)}" data-k-preview alt="" style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;${val ? '' : 'display:none;'}"/>`
     return `<div class="form-item" data-k="${k}"><label>${label}</label>
-      <input type="hidden" data-k-val value="${esc(val)}"/>
+      <input data-k-val value="${esc(val)}" placeholder="可填图片 URL，或直接上传本地图片"/>
       ${preview}
-      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px;">
         <input type="file" accept="image/*" data-media-upload style="font-size:13px;"/>
         ${val ? `<button type="button" class="btn small ghost" data-media-clear>清除图片</button>` : ''}
         <span class="media-status muted" style="font-size:12px;"></span>
       </div>
-      <div class="form-hint">支持 jpg/png/webp，上传后存服务器磁盘，URL 自动填入</div>
+      <div class="form-hint">上传图片后 URL 自动填入；也可直接粘贴图片 URL，预览实时更新</div>
     </div>`
   }
   // 多图 URL 数组字段（详情图 detailImages）
@@ -206,19 +220,19 @@ function fieldRow(k, v) {
       <div class="form-hint">支持多张 jpg/png/webp，逐张上传，可点 × 删除</div>
     </div>`
   }
-  // 视频字段
+  // 视频字段：可手填 URL，也可上传自动填入
   if (k === 'video') {
     const val = String(v || '')
-    const preview = val ? `<video src="${esc(val)}" controls style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;"></video>` : ''
+    const preview = `<video src="${esc(val)}" controls data-k-preview style="max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;${val ? '' : 'display:none;'}"></video>`
     return `<div class="form-item" data-k="${k}"><label>${label}</label>
-      <input type="hidden" data-k-val value="${esc(val)}"/>
+      <input data-k-val value="${esc(val)}" placeholder="可填视频 URL，或直接上传本地视频"/>
       ${preview}
-      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px;">
         <input type="file" accept="video/*" data-media-upload style="font-size:13px;"/>
         ${val ? `<button type="button" class="btn small ghost" data-media-clear>清除视频</button>` : ''}
         <span class="media-status muted" style="font-size:12px;"></span>
       </div>
-      <div class="form-hint">支持 mp4/webm 等小视频，文件存服务器磁盘，小程序端可播放</div>
+      <div class="form-hint">上传后 URL 自动填入；也可直接粘贴视频 URL，预览实时更新</div>
     </div>`
   }
   // 价格字段：number 输入 + 两位小数
@@ -245,14 +259,21 @@ function openForm(title, record, onSave) {
   $('#modalBody').innerHTML = rows
   $('#modalMask').classList.remove('hidden')
 
-  // 绑定单图/视频上传控件（cover / image / video）
+  // 绑定单图/视频上传控件（cover / image / video）：URL 手填实时预览 + 上传自动填入
   $('#modalBody').querySelectorAll('[data-k="video"], [data-k="image"], [data-k="cover"]').forEach((row) => {
     const hidden = row.querySelector('[data-k-val]')
     const fileInput = row.querySelector('[data-media-upload]')
     const clearBtn = row.querySelector('[data-media-clear]')
     const status = row.querySelector('.media-status')
+    const preview = row.querySelector('[data-k-preview]')
     const entityId = record.id || ''
-    const isVideo = row.dataset.k === 'video'
+    function syncPreview() {
+      const v = hidden.value.trim()
+      if (preview) { preview.src = v; preview.style.display = v ? '' : 'none' }
+      if (clearBtn) clearBtn.style.display = v ? '' : 'none'
+    }
+    // 手填/编辑 URL 时实时预览
+    hidden.addEventListener('input', syncPreview)
     if (fileInput) {
       fileInput.onchange = async () => {
         const f = fileInput.files[0]
@@ -261,14 +282,7 @@ function openForm(title, record, onSave) {
         try {
           const r = await uploadMedia(f, currentEntityType, entityId)
           hidden.value = r.url
-          let preview = row.querySelector(isVideo ? 'video' : 'img')
-          if (!preview) {
-            preview = document.createElement(isVideo ? 'video' : 'img')
-            if (isVideo) preview.controls = true
-            preview.style.cssText = 'max-width:100%;max-height:240px;border-radius:6px;margin-bottom:8px;'
-            row.insertBefore(preview, row.querySelector('.media-upload-area'))
-          }
-          preview.src = r.url
+          syncPreview()
           status.textContent = `已上传：${r.filename}（${(r.size/1024).toFixed(1)} KB）`
         } catch (e) {
           status.textContent = '上传失败：' + e.message
@@ -278,8 +292,7 @@ function openForm(title, record, onSave) {
     if (clearBtn) {
       clearBtn.onclick = () => {
         hidden.value = ''
-        const preview = row.querySelector(isVideo ? 'video' : 'img')
-        if (preview) preview.remove()
+        syncPreview()
         status.textContent = '已清除'
       }
     }
@@ -495,9 +508,10 @@ function openStoreModal(store, list) {
       </select>
     </div>
     <div class="form-item" data-k="cover"><label>封面图</label>
-      <input type="hidden" data-k-val value="${esc(s.cover || '')}"/>
-      ${s.cover ? `<img src="${esc(s.cover)}" style="max-width:100%;max-height:200px;border-radius:6px;margin-bottom:8px;"/>` : ''}
-      <div class="media-upload-area"><input type="file" accept="image/*" data-media-upload style="font-size:13px;"/><span class="media-status muted" style="font-size:12px;"></span></div>
+      <input data-k-val value="${esc(s.cover || '')}" placeholder="可填图片 URL，或直接上传本地图片"/>
+      <img data-k-preview src="${esc(s.cover || '')}" alt="" style="max-width:100%;max-height:200px;border-radius:6px;margin:8px 0;${s.cover ? '' : 'display:none;'}"/>
+      <div class="media-upload-area" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;"><input type="file" accept="image/*" data-media-upload style="font-size:13px;"/><button type="button" class="btn small ghost" data-media-clear ${s.cover ? '' : 'style="display:none"'}>清除图片</button><span class="media-status muted" style="font-size:12px;"></span></div>
+      <div class="form-hint">上传图片后 URL 自动填入；也可直接粘贴图片 URL，预览实时更新</div>
     </div>`
   openModal(isEdit ? '编辑门店' : '新增门店', body, async (obj) => {
     if (!obj.name) throw new Error('门店名称不能为空')
@@ -600,12 +614,21 @@ async function openStoreLogModal(storeId) {
   $('#modalSave').style.display = 'none'
 }
 
-// 单图上传绑定
+// 单图上传绑定（URL 输入 + 上传自动填入 + 实时预览）
 function bindSingleMediaUpload(row, entityId, entityType) {
   if (!row) return
   const hidden = row.querySelector('[data-k-val]')
   const fileInput = row.querySelector('[data-media-upload]')
   const status = row.querySelector('.media-status')
+  const preview = row.querySelector('[data-k-preview]')
+  const clearBtn = row.querySelector('[data-media-clear]')
+  function syncPreview() {
+    const v = hidden.value.trim()
+    if (preview) { preview.src = v; preview.style.display = v ? '' : 'none' }
+    if (clearBtn) clearBtn.style.display = v ? '' : 'none'
+  }
+  // 手填/编辑 URL 时实时预览
+  hidden.addEventListener('input', syncPreview)
   if (fileInput) {
     fileInput.onchange = async () => {
       const f = fileInput.files[0]
@@ -614,12 +637,14 @@ function bindSingleMediaUpload(row, entityId, entityType) {
       try {
         const r = await uploadMedia(f, entityType, entityId)
         hidden.value = r.url
-        const preview = row.querySelector('img')
-        if (preview) preview.src = r.url
+        syncPreview()
         status.textContent = `已上传：${r.filename}`
       } catch (e) { status.textContent = '上传失败：' + e.message }
       fileInput.value = ''
     }
+  }
+  if (clearBtn) {
+    clearBtn.onclick = () => { hidden.value = ''; syncPreview(); status.textContent = '' }
   }
 }
 

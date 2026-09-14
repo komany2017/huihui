@@ -42,7 +42,18 @@
       </div>
     </aside>
     <main class="content">
-      <div class="topbar"><h2 id="pageTitle">数据概览</h2><span id="apiBase" class="api-base"></span></div>
+      <div class="topbar">
+        <h2 id="pageTitle">数据概览</h2>
+        <div class="topbar-right">
+          <select id="themeSelect" class="theme-select" title="切换界面风格">
+            <option value="zhusha">朱砂 · 新中式</option>
+            <option value="qingdai">青黛 · 水墨</option>
+            <option value="zhulv">竹韵 · 青绿</option>
+            <option value="dark">暗夜 · 墨色</option>
+          </select>
+          <span id="apiBase" class="api-base"></span>
+        </div>
+      </div>
       <div id="pageBody" class="page-body"></div>
     </main>
   </div>

@@ -21,6 +21,94 @@ const GUEST_PASS = process.env.GUEST_PASS || 'guest123'
 // 会话 token（内存态，重启失效），值为 { role: 'admin'|'guest', ts }
 const tokens = new Map()
 
+// ---------- 外部图片磁盘缓存 ----------
+const IMAGE_CACHE_DIR = path.join(__dirname, 'cache', 'images')
+const inflight = new Map() // 相同 URL 并发请求合并
+
+function cachePathFor(url, mime) {
+  const ext = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp', 'image/gif': '.gif' }[mime] || '.jpg'
+  return path.join(IMAGE_CACHE_DIR, crypto.createHash('md5').update(url).digest('hex') + ext)
+}
+
+function mimeToType(mime) {
+  return /^image\/(png|webp|gif)/.test(mime) ? mime : 'image/jpeg'
+}
+
+// 取外部图片：命中缓存直接返回；否则外网下载（8s 超时）后落盘
+function getImageCached(url) {
+  const existed = inflight.get(url)
+  if (existed) return existed
+  const job = (async () => {
+    fs.mkdirSync(IMAGE_CACHE_DIR, { recursive: true })
+    // 1. 缓存命中
+    const hit = fs.readdirSync(IMAGE_CACHE_DIR).find(f => f.startsWith(crypto.createHash('md5').update(url).digest('hex')))
+    if (hit) {
+      const fp = path.join(IMAGE_CACHE_DIR, hit)
+      const stat = fs.statSync(fp)
+      if (stat.size > 0) {
+        const mime = { '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif' }[path.extname(hit)] || 'image/jpeg'
+        return { file: fp, mime }
+      }
+    }
+    // 2. 外网下载（跟随重定向，8s 超时）
+    const result = await new Promise((resolve, reject) => {
+      const fetchOnce = (fetchUrl, redirects) => {
+        if (redirects > 5) return reject(new Error('重定向次数过多'))
+        const u = new URL(fetchUrl)
+        const client = u.protocol === 'https:' ? https : http
+        const req = client.get(fetchUrl, { timeout: 8000 }, (proxyRes) => {
+          if ([301, 302, 303, 307, 308].includes(proxyRes.statusCode) && proxyRes.headers.location) {
+            proxyRes.resume()
+            return fetchOnce(new URL(proxyRes.headers.location, fetchUrl).href, redirects + 1)
+          }
+          if (proxyRes.statusCode !== 200) { proxyRes.resume(); return reject(new Error('HTTP ' + proxyRes.statusCode)) }
+          const mime = mimeToType(proxyRes.headers['content-type'] || 'image/jpeg')
+          const chunks = []
+          proxyRes.on('data', c => chunks.push(c))
+          proxyRes.on('end', () => {
+            const buf = Buffer.concat(chunks)
+            if (buf.length === 0) return reject(new Error('空图片'))
+            const fp = cachePathFor(url, mime)
+            fs.writeFileSync(fp, buf)
+            resolve({ file: fp, mime })
+          })
+        })
+        req.on('timeout', () => req.destroy(new Error('下载超时(8s)')))
+        req.on('error', reject)
+      }
+      fetchOnce(url, 0)
+    })
+    return result
+  })().finally(() => inflight.delete(url))
+  inflight.set(url, job)
+  return job
+}
+
+// 启动预热：遍历 catalog 收集外部图片 URL，后台逐个预取进缓存
+async function warmImageCache() {
+  try {
+    const catalog = await store.getCatalog()
+    const urls = new Set()
+    const collect = (node) => {
+      if (!node) return
+      if (typeof node === 'string') {
+        if (/^https?:\/\//i.test(node) && (/\.(jpe?g|png|webp|gif)(\?|$)/i.test(node) || /picsum\.photos|unsplash|imgur/i.test(node))) urls.add(node)
+        return
+      }
+      if (Array.isArray(node)) return node.forEach(collect)
+      if (typeof node === 'object') Object.values(node).forEach(collect)
+    }
+    Object.values(catalog).forEach(list => Array.isArray(list) && list.forEach(collect))
+    let ok = 0, fail = 0
+    for (const url of urls) {
+      try { await getImageCached(url); ok++ } catch (e) { fail++; console.log(`[image-warm] 失败: ${url} -> ${e.message}`) }
+    }
+    console.log(`[image-warm] 外部图片预热完成: 成功 ${ok} / 失败 ${fail}（缓存目录 ${IMAGE_CACHE_DIR}）`)
+  } catch (e) {
+    console.log('[image-warm] 预热失败(不影响服务):', e.message)
+  }
+}
+
 // ---------- 基础工具 ----------
 function json(res, code, data) {
   const body = JSON.stringify(data)
@@ -134,30 +222,21 @@ async function route(req, res) {
     return json(res, 200, { code: 0, data: await store.getCatalog() })
   }
 
-  // 图片代理：将外部图片（如 picsum.photos）通过服务器中转，避免小程序域名白名单问题
+  // 图片代理：外部图片经服务器中转（避免小程序域名白名单问题）
+  // 带磁盘缓存：首次取回后永久走本地磁盘，不再依赖外网（解决服务器访问国外图源慢/超时问题）
   if (p === '/api/image-proxy' && method === 'GET') {
     const target = new URL(req.url, `http://${req.headers.host}`).searchParams.get('url')
     if (!target) return json(res, 400, { code: 1, msg: '缺少 url 参数' })
     try {
       const targetUrl = new URL(target)
-      const client = targetUrl.protocol === 'https:' ? https : http
-      const proxyFetch = (fetchUrl, redirects = 0) => {
-        if (redirects > 5) { json(res, 502, { code: 1, msg: '重定向次数过多' }); return }
-        client.get(fetchUrl, (proxyRes) => {
-          if ([301, 302, 303, 307, 308].includes(proxyRes.statusCode) && proxyRes.headers.location) {
-            const next = new URL(proxyRes.headers.location, fetchUrl).href
-            proxyFetch(next, redirects + 1)
-            return
-          }
-          res.writeHead(proxyRes.statusCode || 200, {
-            'Content-Type': proxyRes.headers['content-type'] || 'image/jpeg',
-            'Cache-Control': 'public, max-age=86400',
-            'Access-Control-Allow-Origin': '*'
-          })
-          proxyRes.pipe(res)
-        }).on('error', () => json(res, 502, { code: 1, msg: '图片代理失败' }))
+      if (!/^https?:$/.test(targetUrl.protocol)) return json(res, 400, { code: 1, msg: 'url 不合法' })
+      try {
+        const cached = await getImageCached(targetUrl.href)
+        res.writeHead(200, { 'Content-Type': cached.mime, 'Cache-Control': 'public, max-age=86400', 'Access-Control-Allow-Origin': '*' })
+        fs.createReadStream(cached.file).pipe(res)
+      } catch (e) {
+        json(res, 502, { code: 1, msg: '图片代理失败: ' + (e.message || e) })
       }
-      proxyFetch(targetUrl.href)
       return
     } catch (e) {
       return json(res, 400, { code: 1, msg: 'url 不合法' })
@@ -581,6 +660,8 @@ async function main() {
     console.log(`  小程序 API: http://localhost:${PORT}/api/`)
     console.log(`  默认账号:   ${ADMIN_USER} / ${ADMIN_PASS}`)
     console.log('==========================================')
+    // 后台预热外部图片缓存（不阻塞启动）
+    warmImageCache()
   })
 }
 
