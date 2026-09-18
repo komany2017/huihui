@@ -55,7 +55,7 @@ copyDir(path.join(serverDir, 'admin'), path.join(appDir, 'admin'))
 for (const f of ['services.ts', 'products.ts', 'diseases.ts', 'acupoints.ts']) {
   copyFile(path.join(projectRoot, 'src', 'data', f), path.join(appDir, 'src-data', f))
 }
-for (const f of ['install.bat', 'install.ps1', 'manage.bat', 'manage.ps1', 'check.bat', 'check-env.ps1', 'fixbom.ps1']) copyFile(path.join(serverDir, f), path.join(stage, f))
+for (const f of ['install.bat', 'install.ps1', 'manage.bat', 'manage.ps1', 'check.bat', 'check-env.ps1', 'fixbom.ps1', 'setup-nginx.ps1']) copyFile(path.join(serverDir, f), path.join(stage, f))
 
 // 可选：连同本地数据 db.json 一起打包（服务器将自动迁移入库）
 if (PUSH_DATA) {

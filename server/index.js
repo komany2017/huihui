@@ -18,8 +18,53 @@ const ADMIN_USER = process.env.ADMIN_USER || 'admin'
 const ADMIN_PASS = process.env.ADMIN_PASS || 'admin123'
 const GUEST_USER = process.env.GUEST_USER || 'guest'
 const GUEST_PASS = process.env.GUEST_PASS || 'guest123'
+// 微信支付配置（环境变量）
+const WX_APPID = process.env.WX_APPID || ''       // 小程序 AppID
+const WX_APP_SECRET = process.env.WX_APP_SECRET || '' // 小程序 AppSecret（仅服务器使用）
+const WX_MCH_ID = process.env.WX_MCH_ID || ''     // 商户号
+const WX_API_KEY = process.env.WX_API_KEY || ''   // 商户 API 密钥
+const WX_NOTIFY_URL = process.env.WX_NOTIFY_URL || '' // 支付回调地址（HTTPS）
 // 会话 token（内存态，重启失效），值为 { role: 'admin'|'guest', ts }
 const tokens = new Map()
+
+// ---------- 微信支付工具函数 ----------
+function wxNonceStr() {
+  return crypto.randomBytes(16).toString('hex')
+}
+function wxTimeStamp() {
+  return Math.floor(Date.now() / 1000).toString()
+}
+// 生成微信支付签名（MD5，按 key 字典序排序拼接）
+function wxSign(params, apiKey) {
+  const sorted = Object.keys(params).filter(k => params[k] !== undefined && params[k] !== '').sort()
+  const str = sorted.map(k => `${k}=${params[k]}`).join('&') + `&key=${apiKey}`
+  return crypto.createHash('md5').update(str, 'utf8').digest('hex').toUpperCase()
+}
+// 对象转 XML
+function objToXml(obj) {
+  return '<xml>' + Object.keys(obj).map(k => `<${k}><![CDATA[${obj[k]}]]></${k}>`).join('') + '</xml>'
+}
+// XML 转对象（简易解析）
+function xmlToObj(xml) {
+  const obj = {}
+  const re = /<(\w+)>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/\1>/g
+  let m
+  while ((m = re.exec(xml)) !== null) obj[m[1]] = m[2]
+  return obj
+}
+// 用小程序 code 换取 openid（AppSecret 仅服务器持有）
+function wxCode2Session(code) {
+  return new Promise((resolve) => {
+    const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${WX_APPID}&secret=${WX_APP_SECRET}&js_code=${encodeURIComponent(code)}&grant_type=authorization_code`
+    https.get(url, { timeout: 8000 }, (r) => {
+      let d = ''
+      r.on('data', (c) => (d += c))
+      r.on('end', () => {
+        try { resolve(JSON.parse(d)) } catch { resolve(null) }
+      })
+    }).on('error', () => resolve(null))
+  })
+}
 
 // ---------- 外部图片磁盘缓存 ----------
 const IMAGE_CACHE_DIR = path.join(__dirname, 'cache', 'images')
@@ -204,11 +249,80 @@ function nowISO() {
   return new Date().toISOString()
 }
 
+// ---------- 微信支付回调 ----------
+// 微信以 POST XML 通知支付结果；需验签 → 更新订单为 paid → 返回 XML success
+async function handlePayNotify(req, res) {
+  // 1. 读取原始 XML body
+  const raw = await new Promise((resolve) => {
+    let buf = ''
+    req.on('data', (c) => (buf += c))
+    req.on('end', () => resolve(buf))
+    req.on('error', () => resolve(''))
+  })
+  const reply = (ok) => {
+    const code = ok ? 'SUCCESS' : 'FAIL'
+    res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' })
+    res.end(`<xml><return_code><![CDATA[${code}]]></return_code></xml>`)
+  }
+  if (!raw) return reply(false)
+  const data = xmlToObj(raw)
+  // 2. 验签：剔除 sign 字段后用 wxSign 重新签名对比
+  if (!WX_API_KEY) {
+    console.error('[wxpay-notify] 未配置 WX_API_KEY，无法验签')
+    return reply(false)
+  }
+  const signFromWx = data.sign
+  delete data.sign
+  const expectedSign = wxSign(data, WX_API_KEY)
+  if (signFromWx !== expectedSign) {
+    console.error('[wxpay-notify] 签名校验失败', { signFromWx, expectedSign })
+    return reply(false)
+  }
+  // 3. 校验业务结果
+  if (data.return_code !== 'SUCCESS' || data.result_code !== 'SUCCESS') {
+    console.error('[wxpay-notify] 支付未成功', data)
+    return reply(true) // 已收到通知，告诉微信不再重试
+  }
+  const outTradeNo = data.out_trade_no
+  const transactionId = data.transaction_id
+  if (!outTradeNo) {
+    console.error('[wxpay-notify] 缺少 out_trade_no')
+    return reply(false)
+  }
+  // 4. 通过订单号在所有用户中找到对应订单
+  const allOrders = await store.listAllOrders('product')
+  const target = allOrders.find((o) => o.id === outTradeNo)
+  if (!target) {
+    console.error('[wxpay-notify] 未找到订单:', outTradeNo)
+    return reply(false) // 让微信重试
+  }
+  // 5. 更新订单状态为 paid（幂等：重复通知不重复处理）
+  if (target.status === 'paid' || target.status === 'shipped' || target.status === 'completed') {
+    console.log('[wxpay-notify] 订单已为支付后状态，跳过更新:', outTradeNo)
+    return reply(true)
+  }
+  const merged = {
+    ...target,
+    status: 'paid',
+    payAt: new Date().toISOString(),
+    transactionId: transactionId || target.transactionId
+  }
+  await store.saveProductOrder(target.deviceId, merged)
+  console.log(`[wxpay-notify] 订单 ${outTradeNo} 支付成功，交易号 ${transactionId}`)
+  return reply(true)
+}
+
 // ---------- 路由分发 ----------
 async function route(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`)
   const p = url.pathname
   const method = req.method
+
+  // 微信支付回调：XML body，必须在 JSON readBody 之前消费 req 流
+  if (p === '/api/pay/notify' && method === 'POST') {
+    return handlePayNotify(req, res)
+  }
+
   const contentType = req.headers['content-type'] || ''
   const isMultipart = contentType.startsWith('multipart/form-data')
   const body = (['POST', 'PUT', 'PATCH'].includes(method) && !isMultipart) ? await readBody(req) : {}
@@ -312,6 +426,100 @@ async function route(req, res) {
     const merged = { ...o, ...body, id: o.id }
     await store.saveProductOrder(deviceId, merged)
     return json(res, 200, { code: 0, data: merged })
+  }
+
+  // 微信支付：统一下单（小程序端调用，获取支付参数）
+  m = p.match(/^\/api\/user\/([^/]+)\/product-orders\/([^/]+)\/pay$/)
+  if (m && method === 'POST') {
+    const deviceId = decodeURIComponent(m[1])
+    if (!WX_APPID || !WX_MCH_ID || !WX_API_KEY || !WX_APP_SECRET) {
+      return json(res, 500, { code: 1, msg: '服务器未配置微信支付（WX_APPID/WX_APP_SECRET/WX_MCH_ID/WX_API_KEY）' })
+    }
+    const orders = await store.getProductOrders(deviceId)
+    const o = orders.find((x) => x.id === m[2])
+    if (!o) return json(res, 404, { code: 1, msg: '订单不存在' })
+    if (o.status === 'paid' || o.status === 'shipped' || o.status === 'completed') {
+      return json(res, 400, { code: 1, msg: '订单已支付' })
+    }
+    // 金额转分
+    const totalFee = Math.round(Number(o.totalAmount) * 100)
+    if (!totalFee || totalFee < 1) return json(res, 400, { code: 1, msg: '订单金额异常' })
+
+    // 用 code 换取 openid（AppSecret 仅服务器持有）
+    const code = body.code || ''
+    if (!code) return json(res, 400, { code: 1, msg: '缺少 code，无法换取 openid' })
+    const sess = await wxCode2Session(code)
+    if (!sess || !sess.openid) {
+      console.error('[wxpay] code2session 失败:', sess)
+      return json(res, 500, { code: 1, msg: '换取 openid 失败', detail: sess })
+    }
+    const openid = sess.openid
+
+    const nonceStr = wxNonceStr()
+    const outTradeNo = o.id // 用订单号作为商户订单号
+    const body_str = o.items && o.items[0] ? o.items[0].productName : '润泉养元商品'
+    const unifiedParams = {
+      appid: WX_APPID,
+      mch_id: WX_MCH_ID,
+      nonce_str: nonceStr,
+      body: body_str,
+      out_trade_no: outTradeNo,
+      total_fee: totalFee,
+      spbill_create_ip: req.socket.remoteAddress || '127.0.0.1',
+      notify_url: WX_NOTIFY_URL || `https://${req.headers.host}/api/pay/notify`,
+      trade_type: 'JSAPI',
+      openid
+    }
+    unifiedParams.sign = wxSign(unifiedParams, WX_API_KEY)
+
+    // 调用微信统一下单 API
+    const xmlData = objToXml(unifiedParams)
+    const payRes = await new Promise((resolve) => {
+      const payReq = https.request('https://api.mch.weixin.qq.com/pay/unifiedorder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/xml', 'Content-Length': Buffer.byteLength(xmlData) }
+      }, (payRes2) => {
+        let d = ''
+        payRes2.on('data', c => d += c)
+        payRes2.on('end', () => resolve(xmlToObj(d)))
+      })
+      payReq.on('error', () => resolve(null))
+      payReq.write(xmlData)
+      payReq.end()
+    })
+
+    if (!payRes || payRes.return_code !== 'SUCCESS') {
+      console.error('[wxpay] 统一下单失败:', payRes)
+      return json(res, 500, { code: 1, msg: '微信支付下单失败', detail: payRes })
+    }
+    if (payRes.result_code !== 'SUCCESS') {
+      console.error('[wxpay] 业务失败:', payRes)
+      return json(res, 500, { code: 1, msg: '微信支付下单失败: ' + (payRes.err_code_des || payRes.err_code || '') })
+    }
+
+    // 生成小程序支付参数
+    const timeStamp = wxTimeStamp()
+    const payNonceStr = wxNonceStr()
+    const packageStr = 'prepay_id=' + payRes.prepay_id
+    const paySign = wxSign({
+      appId: WX_APPID,
+      timeStamp,
+      nonceStr: payNonceStr,
+      package: packageStr,
+      signType: 'MD5'
+    }, WX_API_KEY)
+
+    // 记录 prepay_id 到订单
+    const merged = { ...o, prepayId: payRes.prepay_id, payAt: new Date().toISOString() }
+    await store.saveProductOrder(deviceId, merged)
+
+    return json(res, 200, { code: 0, data: {
+      timeStamp,
+      nonceStr: payNonceStr,
+      package: packageStr,
+      signType: 'MD5',
+      paySign
+    }})
   }
 
   m = p.match(/^\/api\/user\/([^/]+)\/constitution-results$/) // POST 体质报告（同 id 覆盖旧记录）
@@ -635,34 +843,76 @@ async function main() {
   await store.init()
   const dbInfo = require('./store').DB_INFO
 
-  const server = http.createServer((req, res) => {
+  const handler = (req, res) => {
     route(req, res).catch((e) => {
       console.error('[server] 处理异常:', e)
       try {
         json(res, 500, { code: 1, msg: '服务器内部错误' })
       } catch {}
     })
-  })
+  }
 
-  server.listen(PORT, () => {
-    const nets = os.networkInterfaces()
-    let lan = ''
-    for (const list of Object.values(nets)) {
-      for (const n of list || []) {
-        if (n.family === 'IPv4' && !n.internal) lan = n.address
+  // HTTPS 支持：配置 SSL_CERT 和 SSL_KEY 环境变量时自动启用
+  const SSL_CERT = process.env.SSL_CERT
+  const SSL_KEY = process.env.SSL_KEY
+  let httpsServer = null
+  let httpServer = null
+
+  if (SSL_CERT && SSL_KEY && fs.existsSync(SSL_CERT) && fs.existsSync(SSL_KEY)) {
+    // HTTPS 模式：443(或 HTTPS_PORT) 走 HTTPS，80(或 PORT) 跳转
+    const httpsPort = Number(process.env.HTTPS_PORT || 443)
+    httpsServer = https.createServer({
+      cert: fs.readFileSync(SSL_CERT),
+      key: fs.readFileSync(SSL_KEY)
+    }, handler)
+    // HTTP 端口跳转到 HTTPS
+    httpServer = http.createServer((req, res) => {
+      const host = req.headers.host || `localhost:${httpsPort}`
+      res.writeHead(301, { Location: `https://${host.replace(/:\d+$/, '')}${httpsPort === 443 ? '' : ':' + httpsPort}${req.url}` })
+      res.end()
+    })
+    httpServer.listen(PORT, () => {})
+    httpsServer.listen(httpsPort, () => {
+      const nets = os.networkInterfaces()
+      let lan = ''
+      for (const list of Object.values(nets)) {
+        for (const n of list || []) {
+          if (n.family === 'IPv4' && !n.internal) lan = n.address
+        }
       }
-    }
-    console.log('==========================================')
-    console.log('  润泉养元后台服务已启动')
-    console.log(`  存储驱动:   ${store.driver === 'mysql' ? `MySQL @ ${dbInfo.MYSQL_HOST}:${dbInfo.MYSQL_PORT}/${dbInfo.MYSQL_DB}` : `JSON 文件（${dbInfo.DB_FILE}）`}`)
-    console.log(`  管理后台:   http://localhost:${PORT}/admin/`)
-    if (lan) console.log(`  局域网访问: http://${lan}:${PORT}/admin/`)
-    console.log(`  小程序 API: http://localhost:${PORT}/api/`)
-    console.log(`  默认账号:   ${ADMIN_USER} / ${ADMIN_PASS}`)
-    console.log('==========================================')
-    // 后台预热外部图片缓存（不阻塞启动）
-    warmImageCache()
-  })
+      console.log('==========================================')
+      console.log('  润泉养元后台服务已启动 (HTTPS)')
+      console.log(`  存储驱动:   ${store.driver === 'mysql' ? `MySQL @ ${dbInfo.MYSQL_HOST}:${dbInfo.MYSQL_PORT}/${dbInfo.MYSQL_DB}` : `JSON 文件（${dbInfo.DB_FILE}）`}`)
+      console.log(`  HTTPS:      https://localhost:${httpsPort}/admin/`)
+      if (lan) console.log(`  局域网:     https://${lan}:${httpsPort}/admin/`)
+      console.log(`  HTTP跳转:   http://localhost:${PORT} -> https`)
+      console.log(`  小程序 API: https://localhost:${httpsPort}/api/`)
+      console.log(`  默认账号:   ${ADMIN_USER} / ${ADMIN_PASS}`)
+      console.log('==========================================')
+      warmImageCache()
+    })
+  } else {
+    // HTTP 模式
+    httpServer = http.createServer(handler)
+    httpServer.listen(PORT, () => {
+      const nets = os.networkInterfaces()
+      let lan = ''
+      for (const list of Object.values(nets)) {
+        for (const n of list || []) {
+          if (n.family === 'IPv4' && !n.internal) lan = n.address
+        }
+      }
+      console.log('==========================================')
+      console.log('  润泉养元后台服务已启动')
+      console.log(`  存储驱动:   ${store.driver === 'mysql' ? `MySQL @ ${dbInfo.MYSQL_HOST}:${dbInfo.MYSQL_PORT}/${dbInfo.MYSQL_DB}` : `JSON 文件（${dbInfo.DB_FILE}）`}`)
+      console.log(`  管理后台:   http://localhost:${PORT}/admin/`)
+      if (lan) console.log(`  局域网访问: http://${lan}:${PORT}/admin/`)
+      console.log(`  小程序 API: http://localhost:${PORT}/api/`)
+      console.log(`  默认账号:   ${ADMIN_USER} / ${ADMIN_PASS}`)
+      console.log('==========================================')
+      warmImageCache()
+    })
+  }
 }
 
 main().catch((e) => {

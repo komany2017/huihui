@@ -69,6 +69,13 @@ export const api = {
   /** 商品订单 */
   postProductOrder: (order: unknown) => request(`/api/user/${getDeviceId()}/product-orders`, 'POST', order),
   patchProductOrder: (id: string, patch: unknown) => request(`/api/user/${getDeviceId()}/product-orders/${id}`, 'PATCH', patch),
+  /** 发起微信支付：传入 Taro.login 得到的 code，服务器换取 openid 后统一下单，返回小程序支付参数 */
+  payProductOrder: (id: string, code: string) =>
+    request<{ timeStamp: string; nonceStr: string; package: string; signType: 'MD5'; paySign: string }>(
+      `/api/user/${getDeviceId()}/product-orders/${id}/pay`,
+      'POST',
+      { code }
+    ),
 
   /** 体质报告 */
   postConstitutionResult: (result: unknown) => request(`/api/user/${getDeviceId()}/constitution-results`, 'POST', result),

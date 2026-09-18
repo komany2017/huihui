@@ -24,8 +24,9 @@ const STATUS_TEXT: Record<ProductOrderStatus, string> = {
 };
 
 const ShopOrderPage: React.FC = () => {
-  const { productOrders, updateProductOrderStatus } = useStore();
+  const { productOrders, updateProductOrderStatus, payForOrder } = useStore();
   const [activeTab, setActiveTab] = useState<'all' | ProductOrderStatus>('all');
+  const [payingId, setPayingId] = useState<string | null>(null);
 
   const filteredOrders = productOrders.filter(
     (o) => activeTab === 'all' || o.status === activeTab
@@ -55,6 +56,16 @@ const ShopOrderPage: React.FC = () => {
         }
       }
     });
+  };
+
+  const handlePay = async (id: string) => {
+    if (payingId) return;
+    setPayingId(id);
+    try {
+      await payForOrder(id);
+    } finally {
+      setPayingId(null);
+    }
   };
 
   return (
@@ -112,13 +123,24 @@ const ShopOrderPage: React.FC = () => {
               </View>
               {/* 操作按钮 */}
               <View className={styles.actionBar}>
+                {order.status === 'unpaid' && (
+                  <View
+                    className={classnames(styles.btnPrimary, payingId === order.id && styles.btnDisabled)}
+                    onClick={() => handlePay(order.id)}
+                  >
+                    {payingId === order.id ? '支付中...' : '去付款'}
+                  </View>
+                )}
                 {order.status === 'shipped' && (
                   <View className={styles.btnPrimary} onClick={() => handleConfirmReceive(order.id)}>
                     确认收货
                   </View>
                 )}
                 {(order.status === 'unpaid' || order.status === 'paid') && (
-                  <View className={styles.btnSecondary} onClick={() => handleCancel(order.id)}>
+                  <View
+                    className={classnames(styles.btnSecondary, payingId === order.id && styles.btnDisabled)}
+                    onClick={() => payingId !== order.id && handleCancel(order.id)}
+                  >
                     取消订单
                   </View>
                 )}

@@ -51,7 +51,7 @@ function esc(s) {
 
 const STATUS_MAP = {
   pending: ['待确认', 'pending'], confirmed: ['已确认', 'confirmed'], completed: ['已完成', 'completed'], cancelled: ['已取消', 'cancelled'],
-  unpaid: ['待付款', 'refunded'], paid: ['已付款', 'paid'], shipped: ['已发货', 'shipped'], refunded: ['已退款', 'refunded']
+  unpaid: ['待付款', 'pending'], paid: ['已付款', 'paid'], shipped: ['已发货', 'shipped'], refunded: ['已退款', 'refunded']
 }
 function statusTag(s) {
   const m = STATUS_MAP[s] || [s || '-', 'refunded']
@@ -765,7 +765,7 @@ async function renderOrders(type) {
   $('#pageBody').innerHTML = '<div class="muted">加载中…</div>'
   const list = await api('/api/admin/orders?type=' + type)
   const cols = ORDER_COLS[type]
-  const statuses = type === 'booking' ? ['pending', 'confirmed', 'completed', 'cancelled'] : ['paid', 'shipped', 'completed', 'refunded']
+  const statuses = type === 'booking' ? ['pending', 'confirmed', 'completed', 'cancelled'] : ['unpaid', 'paid', 'shipped', 'completed', 'cancelled', 'refunded']
   const rows = list.map((o) => '<tr>' + cols.map(([c]) => `<td>${c === 'status' ? statusTag(o.status) : esc(o[c])}</td>`).join('') +
     `<td><select data-oid="${esc(o.id)}" data-did="${esc(o.deviceId)}" ${role === 'guest' ? 'disabled title="访客账号不能修改"' : ''}>${statuses.map((s) => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${STATUS_MAP[s][0]}</option>`).join('')}</select></td></tr>`).join('')
   $('#pageBody').innerHTML = `

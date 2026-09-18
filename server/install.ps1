@@ -1,4 +1,4 @@
-﻿﻿# ============================================
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# ============================================
 # 润泉养元后台服务 · Windows Server 安装脚本
 # 由 install.bat 调用（管理员权限），也可直接运行：
 #   powershell -ExecutionPolicy Bypass -File install.ps1 -Port 3000 -AdminPass xxx
@@ -17,6 +17,14 @@ param(
   [string]$MysqlDb = 'ruanquan',
   [string]$NodeExe = '',
   [string]$NodeVersion = 'v16.20.2',
+  [string]$SslCert = '',
+  [string]$SslKey = '',
+  [int]$HttpsPort = 443,
+  [string]$WxAppId = '',
+  [string]$WxAppSecret = '',
+  [string]$WxMchId = '',
+  [string]$WxApiKey = '',
+  [string]$WxNotifyUrl = '',
   [switch]$NoService
 )
 $ErrorActionPreference = 'Stop'
@@ -142,6 +150,35 @@ if (-not $MysqlHost) {
     $MysqlPass = [Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
     [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
     $v = Read-Host "  数据库名（回车默认 $MysqlDb）"; if ($v) { $MysqlDb = $v }
+  }
+}
+
+# ---------- 1.5 SSL/HTTPS 配置 ----------
+if (-not $SslCert) {
+  $v = Read-Host "SSL 证书路径（回车=不启用 HTTPS；有证书请填 .crt/.pem 路径）"
+  if ($v) {
+    $SslCert = $v
+    $v = Read-Host "SSL 私钥路径（.key 文件）"; if ($v) { $SslKey = $v }
+    else { Warn '未提供私钥，HTTPS 不启用' ; $SslCert = '' }
+    $v = Read-Host "HTTPS 端口（回车默认 $HttpsPort）"; if ($v) { $HttpsPort = [int]$v }
+  }
+}
+
+# ---------- 1.6 微信支付配置 ----------
+if (-not $WxAppId) {
+  $v = Read-Host "微信支付 AppID（回车=不启用微信支付；小程序 AppID）"
+  if ($v) {
+    $WxAppId = $v
+    $sec = Read-Host -AsSecureString "  AppSecret（小程序密钥，不回显）"
+    $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec)
+    $WxAppSecret = [Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+    $v = Read-Host "  商户号 MchId"; if ($v) { $WxMchId = $v }
+    $sec = Read-Host -AsSecureString "  API 密钥（32 位，不回显）"
+    $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec)
+    $WxApiKey = [Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+    $v = Read-Host "  支付回调 URL（必须 HTTPS 公网；回车跳过）"; if ($v) { $WxNotifyUrl = $v }
   }
 }
 
@@ -284,6 +321,18 @@ if ($MysqlHost) {
   $envLines.Add("set MYSQL_PASS=$MysqlPass")
   $envLines.Add("set MYSQL_DB=$MysqlDb")
 }
+if ($SslCert -and $SslKey) {
+  $envLines.Add("set SSL_CERT=$SslCert")
+  $envLines.Add("set SSL_KEY=$SslKey")
+  $envLines.Add("set HTTPS_PORT=$HttpsPort")
+}
+if ($WxAppId) {
+  $envLines.Add("set WX_APPID=$WxAppId")
+  $envLines.Add("set WX_APP_SECRET=$WxAppSecret")
+  $envLines.Add("set WX_MCH_ID=$WxMchId")
+  $envLines.Add("set WX_API_KEY=$WxApiKey")
+  if ($WxNotifyUrl) { $envLines.Add("set WX_NOTIFY_URL=$WxNotifyUrl") }
+}
 $envText = ($envLines -join "`r`n")
 $runContent = "@echo off`r`ncd /d `"$appDir`"`r`n$envText`r`n`"$NodeExe`" `"$appDir\index.js`" >> `"$logsDir\app.log`" 2>&1`r`n"
 [System.IO.File]::WriteAllText($runBat, $runContent, [System.Text.Encoding]::ASCII)
@@ -301,6 +350,11 @@ if (-not $NoService) {
     Run-Quiet { netsh advfirewall firewall delete rule name="$script:FwRuleName" 2>$null | Out-Null }
     $fw = Run-Quiet { netsh advfirewall firewall add rule name="$script:FwRuleName" dir=in action=allow protocol=TCP localport=$Port profile=any 2>&1 }
     if ($LASTEXITCODE -eq 0) { Ok "防火墙已放行 TCP $Port（全部配置文件）" } else { Warn "防火墙配置失败: $fw" }
+    if ($SslCert -and $SslKey) {
+      Run-Quiet { netsh advfirewall firewall delete rule name="Ruanquan HTTPS" 2>$null | Out-Null }
+      netsh advfirewall firewall add rule name="Ruanquan HTTPS" dir=in action=allow protocol=TCP localport=$HttpsPort profile=any 2>&1 | Out-Null
+      Ok "防火墙已放行 TCP $HttpsPort (HTTPS)"
+    }
   } else {
     Warn '非管理员，跳过防火墙配置（请手动放行或重以管理员身份运行）'
   }
@@ -353,12 +407,25 @@ $ip = (Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue |
 Write-Host ''
 Write-Host '============================================' -ForegroundColor Yellow
 Write-Host '  润泉养元后台服务安装完成' -ForegroundColor Yellow
-Write-Host "  管理后台:   http://localhost${portSuffix}/admin/"
-Write-Host "  本机访问:   http://localhost${portSuffix}/admin/"
+Write-Host '  管理后台:   http://localhost${portSuffix}/admin/'
 if ($ip) { Write-Host "  局域网访问: http://${ip}${portSuffix}/admin/" }
+if ($SslCert -and $SslKey) {
+  $hpSuffix = if ($HttpsPort -eq 443) { '' } else { ":$HttpsPort" }
+  Write-Host "  HTTPS:      https://localhost${hpSuffix}/admin/"
+  if ($ip) { Write-Host "  HTTPS局域网: https://${ip}${hpSuffix}/admin/" }
+  Write-Host "  小程序API:  https://<您的域名>${hpSuffix}  (需备案域名 + CA证书)"
+} else {
+  Write-Host "  小程序API:  http://<公网IP>${portSuffix}  (体验版可用，正式版需HTTPS)"
+}
 Write-Host "  管理账号:   $AdminUser / $AdminPass"
 Write-Host "  存储模式:   $storage"
+if ($WxAppId) {
+  Write-Host "  微信支付:   已配置（AppID: $WxAppId, 商户号: $WxMchId）"
+  if ($WxNotifyUrl) { Write-Host "  支付回调:   $WxNotifyUrl" }
+  else { Write-Host "  支付回调:   未配置（WX_NOTIFY_URL 留空，建议尽快补充）" -ForegroundColor Yellow }
+} else {
+  Write-Host "  微信支付:   未配置（小程序内支付不可用，其他功能正常）" -ForegroundColor Gray
+}
 Write-Host '  日常管理:   manage.bat start|stop|restart|status|logs|uninstall'
-Write-Host "  小程序端请把 src/config/api.ts 的 API_BASE_URL 改为 http://${ip}${portSuffix} 重新编译上传"
-Write-Host "  外网访问:   请确认云服务器安全组已放行 TCP $Port（入站），即可用 http://<公网IP>${portSuffix}/ 访问"
+Write-Host "  外网访问:   请确认云服务器安全组已放行 TCP $Port（入站）$(if ($SslCert) { " 和 TCP $HttpsPort" })"
 Write-Host '============================================' -ForegroundColor Yellow

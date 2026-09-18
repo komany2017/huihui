@@ -194,3 +194,8 @@
   font-weight: $font-weight-semibold;
   border: 2rpx solid $color-divider;
 }
+
+.btnDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

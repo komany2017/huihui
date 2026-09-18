@@ -3,7 +3,7 @@
   "cloudfunctionRoot": "cloudfunctions/",
   "projectname": "taro_template",
   "description": "taro_template",
-  "appid": "wxee00090582dd5ad6",
+  "appid": "wx9b0fb182ee8e9b45",
   "setting": {
     "urlCheck": false,
     "es6": false,
@@ -43,5 +43,6 @@
     "ignore": [],
     "include": []
   },
-  "editorSetting": {}
+  "editorSetting": {},
+  "isGameTourist": false
 }

@@ -20,6 +20,8 @@ interface AppState {
   productOrders: ProductOrder[]
   createProductOrder: (order: Omit<ProductOrder, 'id' | 'createdAt'>) => string
   updateProductOrderStatus: (id: string, status: ProductOrder['status']) => void
+  /** 调起微信支付：Taro.login 取 code → 服务器换 openid + 统一下单 → requestPayment → 标记订单为 paid */
+  payForOrder: (id: string) => Promise<boolean>
 
   // 预约订单
   bookingOrders: BookingOrder[]
@@ -114,6 +116,40 @@ export const useStore = create<AppState>((set, get) => ({
     setStorageSync('productOrders', orders)
     // 推送状态到服务器，失败入队重试
     api.patchProductOrder(id, { status }).catch(() => enqueueSync({ type: 'patchProductOrder', id, patch: { status } }))
+  },
+  payForOrder: async (id) => {
+    try {
+      // 1. 微信登录拿 code（5 分钟内有效）
+      const loginRes = await Taro.login()
+      if (!loginRes.code) {
+        Taro.showToast({ title: '微信登录失败', icon: 'none' })
+        return false
+      }
+      // 2. 服务器用 code 换 openid + 调用统一下单，返回支付参数
+      const payParams = await api.payProductOrder(id, loginRes.code)
+      // 3. 调起微信支付收银台
+      await Taro.requestPayment({
+        timeStamp: payParams.timeStamp,
+        nonceStr: payParams.nonceStr,
+        package: payParams.package,
+        signType: payParams.signType,
+        paySign: payParams.paySign
+      })
+      // 4. 支付成功：本地更新状态（服务器端由微信回调异步更新，这里乐观更新）
+      get().updateProductOrderStatus(id, 'paid')
+      Taro.showToast({ title: '支付成功', icon: 'success' })
+      return true
+    } catch (e) {
+      // 用户取消支付或支付失败
+      const err = e as { errMsg?: string }
+      if (err?.errMsg?.includes('cancel')) {
+        Taro.showToast({ title: '已取消支付', icon: 'none' })
+      } else {
+        Taro.showToast({ title: '支付失败', icon: 'none' })
+        console.error('[payForOrder] 支付失败:', e)
+      }
+      return false
+    }
   },
 
   bookingOrders: [],
