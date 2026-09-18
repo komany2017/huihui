@@ -9,13 +9,30 @@ param(
   [int]$HttpsPort = 443,
   [switch]$SelfSigned,
   [switch]$AutoSsl,
-  [string]$Email = ''
+  [string]$Email = '',
+  [string]$WacsExe = ''
 )
 $ErrorActionPreference = 'Stop'
 function Step($m) { Write-Host "`n==> $m" -ForegroundColor Cyan }
 function Ok($m) { Write-Host "    [OK] $m" -ForegroundColor Green }
 function Warn($m) { Write-Host "    [!] $m" -ForegroundColor Yellow }
 function Fail($m) { Write-Host "    [X] $m" -ForegroundColor Red; exit 1 }
+
+# 检测当前进程是否在管理员上下文
+function Test-IsAdmin {
+  $id = [Security.Principal.WindowsIdentity]::GetCurrent()
+  $p = New-Object Security.Principal.WindowsPrincipal($id)
+  return $p.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+# 静默执行原生命令：吞掉 stderr，避免 $ErrorActionPreference='Stop' 时抛 NativeCommandError
+function Run-Quiet([scriptblock]$sb) {
+  $prev = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  try { & $sb 2>&1 | Out-Null } finally { $ErrorActionPreference = $prev }
+}
+
+if (-not (Test-IsAdmin)) { Fail '请以管理员身份运行（admin shell）' }
 
 $root = $PSScriptRoot
 $certDir = Join-Path $root 'ssl'
@@ -34,11 +51,11 @@ if ($Domain -or -not $SelfSigned) {
     Ok "已有证书: $certFile"
   } elseif ($AutoSsl -and $Domain) {
     # 自动调用 setup-ssl.ps1 申请 Let's Encrypt 证书
-    if (-not $Email) { Fail '请用 -Email 提供邮箱（用于 Let'\''s Encrypt 过期提醒）' }
+    if (-not $Email) { Fail '请用 -Email 提供邮箱（用于 Let''s Encrypt 过期提醒）' }
     $sslScript = Join-Path $root 'setup-ssl.ps1'
     if (-not (Test-Path $sslScript)) { Fail "未找到 setup-ssl.ps1: $sslScript" }
     Warn "未找到证书，自动调用 setup-ssl.ps1 申请 Let's Encrypt 证书..."
-    & $sslScript -Domain $Domain -Email $Email
+    & $sslScript -Domain $Domain -Email $Email -WacsExe $WacsExe
     if ($LASTEXITCODE -ne 0) { Fail 'setup-ssl.ps1 申请证书失败' }
     # setup-ssl.ps1 已把证书复制为 server.crt + server.key
     if ((Test-Path $certFile) -and (Test-Path $keyFile)) {
@@ -51,7 +68,7 @@ if ($Domain -or -not $SelfSigned) {
     Warn "  证书: $certFile"
     Warn "  私钥: $keyFile"
     Warn "（从云服务商下载免费 DV 证书，通常为 .crt/.pem 和 .key 格式）"
-    Warn "（或加 -AutoSsl -Email <邮箱> 自动申请 Let'\''s Encrypt 证书）"
+    Warn "（或加 -AutoSsl -Email <邮箱> 自动申请 Let's Encrypt 证书）"
     if (-not $SelfSigned) {
       $a = Read-Host "  暂无正式证书，先生成自签名证书用于测试？(Y/n)"
       if ($a -ne 'n') { $SelfSigned = $true } else { Fail '请放置证书后重新运行' }
@@ -61,17 +78,39 @@ if ($Domain -or -not $SelfSigned) {
 
 if ($SelfSigned -and -not ((Test-Path $certFile) -and (Test-Path $keyFile))) {
   $cn = if ($Domain) { $Domain } else { 'localhost' }
-  $subj = "/CN=$cn"
   $altNames = "subjectAltName=DNS:$cn"
   if (-not $Domain) { $altNames = "subjectAltName=DNS:localhost,IP:127.0.0.1" }
-  $openssl = 'openssl'
-  $osExe = Get-Command openssl.exe -ErrorAction SilentlyContinue
-  if (-not $osExe) {
-    $gitOpenssl = Get-ChildItem 'C:\Program Files\Git\usr\bin\openssl.exe','C:\Program Files\Git\mingw64\bin\openssl.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
-    if ($gitOpensl) { $openssl = $gitOpenssl.FullName }
+
+  # 定位 openssl.exe：PATH → Git for Windows 多路径 → winget 安装位置 → tools\openssl
+  $openssl = $null
+  $pathExe = Get-Command openssl.exe -ErrorAction SilentlyContinue
+  if ($pathExe) { $openssl = $pathExe.Source }
+  if (-not $openssl) {
+    $searchPaths = @(
+      'C:\Program Files\Git\usr\bin\openssl.exe',
+      'C:\Program Files\Git\mingw64\bin\openssl.exe',
+      'C:\Program Files (x86)\Git\usr\bin\openssl.exe',
+      'C:\Program Files (x86)\Git\mingw64\bin\openssl.exe',
+      'C:\Windows\System32\OpenSSH\openssl.exe',
+      'C:\openssl\bin\openssl.exe',
+      (Join-Path $root 'tools\openssl\openssl.exe')
+    )
+    foreach ($p in $searchPaths) {
+      if (Test-Path $p) { $openssl = $p; break }
+    }
   }
-  $tmpConf = Join-Path $certDir 'openssl.cnf'
-  @"
+  if (-not $openssl) {
+    $wingetBase = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'
+    if (Test-Path $wingetBase) {
+      $found = Get-ChildItem -Path $wingetBase -Filter 'openssl.exe' -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+      if ($found) { $openssl = $found.FullName }
+    }
+  }
+
+  if ($openssl) {
+    Ok "使用 openssl: $openssl"
+    $tmpConf = Join-Path $certDir 'openssl.cnf'
+    @"
 [req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -81,9 +120,20 @@ CN = $cn
 [v3_req]
 $altNames
 "@ | Set-Content $tmpConf -Encoding ASCII
-  & $openssl req -x509 -newkey rsa:2048 -keyout $keyFile -out $certFile -days 365 -nodes -config $tmpConf -extensions v3_req 2>&1 | Out-Null
-  Remove-Item $tmpConf -Force -ErrorAction SilentlyContinue
-  Ok "自签名证书已生成（CN=$cn, 365天）"
+    # 注意: openssl 把密钥生成进度输出到 stderr，$ErrorActionPreference='Stop' 时会抛 NativeCommandError。
+    # 临时切换 EAP 到 Continue，调完恢复。
+    $prevEAP = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    & $openssl req -x509 -newkey rsa:2048 -keyout $keyFile -out $certFile -days 365 -nodes -config $tmpConf -extensions v3_req 2>&1 | Out-Null
+    $ErrorActionPreference = $prevEAP
+    if (-not (Test-Path $certFile) -or -not (Test-Path $keyFile)) {
+      Fail "openssl 生成证书失败，请手动跑: $openssl req -x509 -newkey rsa:2048 -keyout $keyFile -out $certFile -days 365 -nodes -config $tmpConf -extensions v3_req"
+    }
+    Remove-Item $tmpConf -Force -ErrorAction SilentlyContinue
+    Ok "自签名证书已生成（CN=$cn, 365天）"
+  } else {
+    Fail '未找到 openssl.exe。推荐方案（按优先级）：1) 用 -AutoSsl -Email <邮箱> 申请 Let''s Encrypt 真实证书（无需 openssl，需要 80 端口 + 域名解析到本机）；2) 安装 Git for Windows（自带 openssl.exe）：winget install Git.Git；3) 把已有证书放到 ssl\server.crt 和 ssl\server.key 后跳过自签名'
+  }
   if (-not $Domain) { Warn "自签名证书仅用于测试，微信正式版需要 CA 签发的证书 + 备案域名" }
 }
 

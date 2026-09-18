@@ -13,7 +13,7 @@ param(
   [string]$MysqlHost = '',
   [int]$MysqlPort = 3306,
   [string]$MysqlUser = 'root',
-  [string]$MysqlPass = '',
+  [string]$MysqlPass = '1qazxsw2A@',
   [string]$MysqlDb = 'ruanquan',
   [string]$NodeExe = '',
   [string]$NodeVersion = 'v16.20.2',
