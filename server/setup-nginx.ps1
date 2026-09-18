@@ -1,4 +1,4 @@
-# ============================================
+﻿# ============================================
 # 润泉养元 · Nginx HTTPS 配置生成与安装脚本
 # 在服务器上运行：powershell -ExecutionPolicy Bypass -File setup-nginx.ps1
 # 需要管理员权限
@@ -7,7 +7,9 @@ param(
   [string]$Domain = '',
   [int]$AppPort = 3000,
   [int]$HttpsPort = 443,
-  [switch]$SelfSigned
+  [switch]$SelfSigned,
+  [switch]$AutoSsl,
+  [string]$Email = ''
 )
 $ErrorActionPreference = 'Stop'
 function Step($m) { Write-Host "`n==> $m" -ForegroundColor Cyan }
@@ -30,11 +32,26 @@ if ($Domain -or -not $SelfSigned) {
   # 有域名：提示用户放置正式证书
   if ((Test-Path $certFile) -and (Test-Path $keyFile)) {
     Ok "已有证书: $certFile"
+  } elseif ($AutoSsl -and $Domain) {
+    # 自动调用 setup-ssl.ps1 申请 Let's Encrypt 证书
+    if (-not $Email) { Fail '请用 -Email 提供邮箱（用于 Let'\''s Encrypt 过期提醒）' }
+    $sslScript = Join-Path $root 'setup-ssl.ps1'
+    if (-not (Test-Path $sslScript)) { Fail "未找到 setup-ssl.ps1: $sslScript" }
+    Warn "未找到证书，自动调用 setup-ssl.ps1 申请 Let's Encrypt 证书..."
+    & $sslScript -Domain $Domain -Email $Email
+    if ($LASTEXITCODE -ne 0) { Fail 'setup-ssl.ps1 申请证书失败' }
+    # setup-ssl.ps1 已把证书复制为 server.crt + server.key
+    if ((Test-Path $certFile) -and (Test-Path $keyFile)) {
+      Ok "Let's Encrypt 证书已就绪: $certFile"
+    } else {
+      Fail 'setup-ssl.ps1 执行完毕但未找到证书，请检查 ssl\ 目录'
+    }
   } else {
     Warn "请将 SSL 证书文件放到:"
     Warn "  证书: $certFile"
     Warn "  私钥: $keyFile"
     Warn "（从云服务商下载免费 DV 证书，通常为 .crt/.pem 和 .key 格式）"
+    Warn "（或加 -AutoSsl -Email <邮箱> 自动申请 Let'\''s Encrypt 证书）"
     if (-not $SelfSigned) {
       $a = Read-Host "  暂无正式证书，先生成自签名证书用于测试？(Y/n)"
       if ($a -ne 'n') { $SelfSigned = $true } else { Fail '请放置证书后重新运行' }
@@ -77,13 +94,25 @@ $httpRedirect = if ($HttpsPort -eq 443) { "
 server {
     listen 80;
     server_name $serverName;
-    # HTTP -> HTTPS 跳转
-    return 301 https://`$server_name`$request_uri;
+    # Let's Encrypt HTTP-01 验证：Nginx 直读文件，不跳转不代理
+    location ^~ /.well-known/acme-challenge/ {
+        root `"$root`";
+        default_type application/octet-stream;
+    }
+    # 其余 HTTP -> HTTPS 跳转
+    location / {
+        return 301 https://`$server_name`$request_uri;
+    }
 }
 " } else { "
 server {
     listen 80;
     server_name $serverName;
+    # Let's Encrypt HTTP-01 验证：Nginx 直读文件
+    location ^~ /.well-known/acme-challenge/ {
+        root `"$root`";
+        default_type application/octet-stream;
+    }
     # 如不跳转，直接代理
     location / {
         proxy_pass http://127.0.0.1:$AppPort;

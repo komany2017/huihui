@@ -318,6 +318,20 @@ async function route(req, res) {
   const p = url.pathname
   const method = req.method
 
+  // ACME HTTP-01 验证文件服务（Let's Encrypt 证书申请/续期；不消耗 body）
+  // wacs 把验证文件写到 <appdir>/.well-known/acme-challenge/<token>，本路由对外提供 HTTP 访问
+  if (p.startsWith('/.well-known/acme-challenge/') && method === 'GET') {
+    const token = decodeURIComponent(p.slice('/.well-known/acme-challenge/'.length))
+    const acmeRoot = path.join(__dirname, '.well-known', 'acme-challenge')
+    const file = path.resolve(acmeRoot, token)
+    if (!file.startsWith(acmeRoot) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
+      return res.end('Not Found')
+    }
+    res.writeHead(200, { 'Content-Type': 'application/octet-stream' })
+    return fs.createReadStream(file).pipe(res)
+  }
+
   // 微信支付回调：XML body，必须在 JSON readBody 之前消费 req 流
   if (p === '/api/pay/notify' && method === 'POST') {
     return handlePayNotify(req, res)
@@ -865,8 +879,12 @@ async function main() {
       cert: fs.readFileSync(SSL_CERT),
       key: fs.readFileSync(SSL_KEY)
     }, handler)
-    // HTTP 端口跳转到 HTTPS
+    // HTTP 端口跳转到 HTTPS（豁免 ACME 验证：Let's Encrypt 只走 HTTP，不跳转）
     httpServer = http.createServer((req, res) => {
+      const u = new URL(req.url, `http://${req.headers.host}`)
+      if (u.pathname.startsWith('/.well-known/acme-challenge/')) {
+        return handler(req, res)
+      }
       const host = req.headers.host || `localhost:${httpsPort}`
       res.writeHead(301, { Location: `https://${host.replace(/:\d+$/, '')}${httpsPort === 443 ? '' : ':' + httpsPort}${req.url}` })
       res.end()
