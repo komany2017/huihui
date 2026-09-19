@@ -245,8 +245,8 @@ const jsonDriver = {
     }
     return { ok: true, issues, total: Object.keys(sd.list).length }
   },
-  async saveMedia(id, entityType, entityId, filename, mime, size, filePath) {
-    // 文件已由调用方落盘到 MEDIA_DIR，此处仅记录元数据
+  async saveMedia(id, entityType, entityId, filename, mime, size, filePath, _content) {
+    // JSON 驱动：文件由调用方落盘到 MEDIA_DIR，此处仅记录元数据（content 参数忽略）
     const d = db.get()
     if (!d._media) d._media = {}
     d._media[id] = { entityType, entityId, filename, mime, size, filePath }
@@ -297,6 +297,7 @@ CREATE TABLE IF NOT EXISTS media (
   mime VARCHAR(128) NOT NULL,
   size BIGINT NOT NULL,
   file_path VARCHAR(512) NOT NULL,
+  content LONGBLOB NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_entity (entity_type, entity_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -381,11 +382,21 @@ const mysqlDriver = {
       waitForConnections: true,
       connectionLimit: 5,
       connectTimeout: 8000,
+      // 公网访问 TDSQL-C 时，空闲连接可能被网关静默断开；开启 TCP keep-alive 防止取到死连接（getUserDoc 偶发报错的根因）
+      enableKeepAlive: true,
+      keepAliveInitialDelay: 10000,
       charset: 'utf8mb4'
     })
     await pool.query('SELECT 1')
     for (const stmt of SCHEMA.split(';').map((s) => s.trim()).filter(Boolean)) {
       await pool.query(stmt)
+    }
+    // 旧表升级：补充 content 列（图片字节入库，重新部署不丢失）；已存在则忽略 1060
+    try {
+      await pool.query('ALTER TABLE media ADD COLUMN content LONGBLOB NULL')
+      console.log('[store] media 表已升级：新增 content 列')
+    } catch (e) {
+      if (e.errno !== 1060) throw e
     }
     await this._seedOrMigrate()
     // 门店数据迁移：将 catalog_entities 中旧的 stores 搬到独立 stores 表
@@ -754,18 +765,18 @@ const mysqlDriver = {
     )
     return { ok: true, issues, total }
   },
-  async saveMedia(id, entityType, entityId, filename, mime, size, filePath) {
-    // 文件已由调用方落盘到 MEDIA_DIR，MySQL 仅存路径与关联关系
-    await pool.query(
-      'INSERT INTO media (id, entity_type, entity_id, filename, mime, size, file_path) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE filename=VALUES(filename), mime=VALUES(mime), size=VALUES(size), file_path=VALUES(file_path)',
-      [id, entityType, entityId, filename, mime, size, filePath]
-    )
+  async saveMedia(id, entityType, entityId, filename, mime, size, filePath, content) {
+    // content（Buffer）非空时字节入库，媒体不再依赖容器磁盘，重新部署不丢失
+    const sql =
+      'INSERT INTO media (id, entity_type, entity_id, filename, mime, size, file_path, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ' +
+      'ON DUPLICATE KEY UPDATE filename=VALUES(filename), mime=VALUES(mime), size=VALUES(size), file_path=VALUES(file_path), content=VALUES(content)'
+    await pool.query(sql, [id, entityType, entityId, filename, mime, size, filePath, content || null])
     return { ok: true, id }
   },
   async getMedia(id) {
-    const [rows] = await pool.query('SELECT mime, file_path, filename FROM media WHERE id = ?', [id])
+    const [rows] = await pool.query('SELECT mime, file_path, filename, content FROM media WHERE id = ?', [id])
     if (!rows.length) return null
-    return { mime: rows[0].mime, filePath: rows[0].file_path, filename: rows[0].filename }
+    return { mime: rows[0].mime, filePath: rows[0].file_path, filename: rows[0].filename, content: rows[0].content || null }
   },
   async deleteMedia(id) {
     // 先查路径删磁盘文件，再删库记录
@@ -900,10 +911,10 @@ const store = {
   async verifyStoreConsistency() {
     return driver === 'mysql' ? mysqlDriver.verifyStoreConsistency() : jsonDriver.verifyStoreConsistency()
   },
-  async saveMedia(id, entityType, entityId, filename, mime, size, filePath) {
+  async saveMedia(id, entityType, entityId, filename, mime, size, filePath, content) {
     return driver === 'mysql'
-      ? mysqlDriver.saveMedia(id, entityType, entityId, filename, mime, size, filePath)
-      : jsonDriver.saveMedia(id, entityType, entityId, filename, mime, size, filePath)
+      ? mysqlDriver.saveMedia(id, entityType, entityId, filename, mime, size, filePath, content)
+      : jsonDriver.saveMedia(id, entityType, entityId, filename, mime, size, filePath, content)
   },
   async getMedia(id) {
     return driver === 'mysql' ? mysqlDriver.getMedia(id) : jsonDriver.getMedia(id)

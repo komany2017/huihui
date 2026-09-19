@@ -375,16 +375,24 @@ async function route(req, res) {
   m = p.match(/^\/api\/media\/([^/]+)$/)
   if (m && method === 'GET') {
     const media = await store.getMedia(decodeURIComponent(m[1]))
-    if (!media || !media.filePath) return json(res, 404, { code: 1, msg: '媒体不存在' })
-    if (!fs.existsSync(media.filePath)) return json(res, 404, { code: 1, msg: '媒体文件已丢失' })
-    const stat = fs.statSync(media.filePath)
-    res.writeHead(200, {
+    if (!media) return json(res, 404, { code: 1, msg: '媒体不存在' })
+    const headers = {
       'Content-Type': media.mime || 'application/octet-stream',
-      'Content-Length': stat.size,
       'Accept-Ranges': 'bytes',
       'Access-Control-Allow-Origin': '*',
       'Cache-Control': 'public, max-age=86400'
-    })
+    }
+    // 优先数据库字节（MySQL 驱动入库的媒体），磁盘文件仅作历史数据回退
+    if (media.content && media.content.length) {
+      headers['Content-Length'] = media.content.length
+      res.writeHead(200, headers)
+      res.end(media.content)
+      return
+    }
+    if (!media.filePath || !fs.existsSync(media.filePath)) return json(res, 404, { code: 1, msg: '媒体文件已丢失' })
+    const stat = fs.statSync(media.filePath)
+    headers['Content-Length'] = stat.size
+    res.writeHead(200, headers)
     fs.createReadStream(media.filePath).pipe(res)
     return
   }
@@ -604,13 +612,13 @@ async function route(req, res) {
       const entityType = mp.fields.entityType || 'acupoints'
       const entityId = mp.fields.entityId || ''
       const id = crypto.randomBytes(12).toString('hex')
-      // 落盘到服务器磁盘目录 uploads/media/
+      // 落盘到服务器磁盘目录 uploads/media/（JSON 驱动依赖磁盘；MySQL 驱动以 content 字节为准）
       if (!fs.existsSync(MEDIA_DIR)) fs.mkdirSync(MEDIA_DIR, { recursive: true })
       const ext = path.extname(file.filename) || ''
       const filePath = path.join(MEDIA_DIR, id + ext)
       fs.writeFileSync(filePath, file.data)
-      // MySQL 仅存路径与关联关系
-      await store.saveMedia(id, entityType, entityId, file.filename, file.mime, file.data.length, filePath)
+      // MySQL 驱动：字节同时入库，重新部署/换容器不丢失
+      await store.saveMedia(id, entityType, entityId, file.filename, file.mime, file.data.length, filePath, file.data)
       const url = `/api/media/${id}`
       return json(res, 200, { code: 0, data: { id, url, filename: file.filename, mime: file.mime, size: file.data.length } })
     }
